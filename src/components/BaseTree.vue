@@ -1,45 +1,55 @@
 <script setup lang="ts">
-const nodes = [
+import { Draggable } from '@he-tree/vue'
+import '@he-tree/vue/style/default.css'
+
+const treeData = [
 	{
-		label: 'Satisfied customers (with avatar)',
-		avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
+		text: 'Projects',
 		children: [
 			{
-				label: 'Good food (with icon)',
-				icon: 'mdi-silverware',
-				children: [
-					{ label: 'Quality ingredients' },
-					{ label: 'Good recipe' }
-				]
-			},
-			{
-				label: 'Good service (disabled node with icon)',
-				icon: 'mdi-silverware',
-				disabled: true,
-				children: [
-					{ label: 'Prompt attention' },
-					{ label: 'Professional waiter' }
-				]
-			},
-			{
-				label: 'Pleasant surroundings (with icon)',
-				icon: 'mdi-silverware',
+				text: 'Frontend',
 				children: [
 					{
-						label: 'Happy atmosphere (with image)',
-						img: 'https://cdn.quasar.dev/img/logo_calendar_128px.png'
+						text: 'Vue',
+						children: [
+							{
+								text: 'Nuxt',
+							},
+						],
 					},
-					{ label: 'Good table presentation' },
-					{ label: 'Pleasing decor' }
-				]
-			}
-		]
-	}
+					{
+						text: 'React',
+						children: [
+							{
+								text: 'Next',
+							},
+						],
+					},
+					{
+						text: 'Angular',
+					},
+				],
+			},
+			{
+				text: 'Backend',
+			},
+		],
+	},
+	{ text: 'Photos' },
+	{ text: 'Videos' },
 ]
 </script>
 
 <template lang="pug">
-q-tree(:nodes="nodes" node-key="label" default-expand-all)
+Draggable(v-model="treeData" trigger-class="node")
+	template(#default="{ node, stat }")
+		.node
+			span(v-if="stat.children.length" @click="stat.open = !stat.open") {{ stat.open ? "-" : "+" }}
+			span {{ node.text }}
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.node {
+	background: var(--bg-panel);
+}
+</style>
