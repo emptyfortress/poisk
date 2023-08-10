@@ -1,0 +1,136 @@
+Circuit breaker pole (phase)
+
+	Ввод
+		Insulation
+			Insulation resistance
+			High voltage insulation test
+			Dielectric loss tangent
+
+	Arc extinguishing medium
+		Transformer oil
+			Breakdown voltage
+			Acid number
+			Flash point
+			Moisture content
+			Content of mechanical impurities
+			Dielectric loss tangent
+			Content of water-soluble acids and alkalis
+			Content of the antioxidant additive AGIDOL-1
+			Soluble slime content
+
+	Resistors
+		PIR
+			Active DC resistance
+		Current limiting
+			Active DC resistance
+
+	Built-in current transformers
+			Resistance measurements of capacitor discharge resistor
+			Overpotential test
+			Magnetization rating
+			Transformer ratio measurement
+			Active DC resistance measurement
+			Thermal imaging control
+
+	Tractions
+			Travel before switching
+			Travel switching difference
+			Closing time difference
+
+	Main contact
+			Active DC resistance
+			Main contact temperature
+			Switching time
+			Closing time difference
+			Bounce
+			Total travel time
+			The duration of the closed state in CO cycle
+			Duration of the open state in reclosing cycle
+			Section passing time
+			Travel before switching
+			Switching difference in travel
+			Penetration
+			Bounce in travel
+			Full travel
+			Switching speed
+			Max speed
+			Section speed
+
+	Pole (phase) heating
+			Turn-on spring winding time
+			Active DC resistance
+			Insulation resistance
+
+	Arc extinguishing device
+		Arc-extinguishing contact
+			Current value of the current during the shutdown
+			Rated voltage
+			The total arc burning time gorenje
+			Number of short circuit cut-off currents
+
+Circuit breaker drive
+	Spring
+		Closing
+			Switching time
+			Total travel time
+			Section passing time
+			Travel before switching
+			Switching speed
+			Max speed
+			Section speed
+		Opening
+			Switching on time
+			Total travel time
+			Section passing time
+			Travel before switching
+			Switching speed
+			Max speed
+			Section speed
+
+	Solenoid
+		Closing solenoid
+			Maximum current
+			Current flow time
+			Current graph
+			RMS voltage
+			Undervoltage
+			Active DC resistance
+			Insulation resistance
+		Closing
+			Maximum current
+			Current flow time
+			Current graph
+			RMS voltage
+			Undervoltage
+			Active DC resistance
+			Insulation resistance
+		Opening
+			Maximum current
+			Current flow time
+			Current graph
+			RMS voltage
+			Undervoltage
+			Active DC resistance
+			Insulation resistance
+
+	Buffer
+		Closing
+			Overtravel
+			Rebound
+			Negative speed
+		Opening
+			Overtravel
+			Rebound
+			Negative speed
+
+	Drive heating
+			Active DC resistance
+
+	Charging mechanism activation
+			Maximum current
+			Current graph
+			Operating voltage
+			Low voltage
+			Turn-on spring winding time
+			Insulation resistance
+			Active DC resistance

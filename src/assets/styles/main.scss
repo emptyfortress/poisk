@@ -1,0 +1,109 @@
+@import '@/assets/styles/animation.scss';
+@import '@/assets/styles/theme.scss';
+
+body {
+	font-size: var(--font-size);
+	color: var(--text-color);
+	background-color: var(--bg-main);
+}
+
+.container {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	// max-width: 1200px;
+	margin: 0 auto;
+	@media screen and (max-width: 1850px) {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	.zag {
+		font-size: 1.2rem;
+	}
+}
+.rel {
+	position: relative;
+}
+
+.q-drawer {
+	background: var(--bg-main);
+	// .noti {
+	// 	background: #f8f8f6;
+	// }
+	// .rd {
+	// 	padding: 1rem;
+	// 	box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
+	// 	&.speech {
+	// 		background: $blue-grey-9;
+	// 	}
+	// }
+}
+
+.q-item--active {
+	background: var(--bg-selection);
+}
+
+.q-card {
+	border-radius: var(--radius-md);
+	box-shadow: var(--card-shadow);
+	cursor: pointer;
+}
+.q-card--flat {
+	border: 1px solid var(--bg-head);
+}
+.notifications {
+	transition: all 0.3s ease;
+}
+.q-chip {
+	// background: $accent2;
+	background: var(--bg-head);
+	.inf {
+		display: none;
+	}
+}
+.q-chip--selected {
+	background: $primary;
+	color: white;
+	.q-chip__icon {
+		color: inherit;
+	}
+	.inf {
+		display: block;
+	}
+}
+
+.table {
+	box-shadow: var(--card-shadow);
+	border-radius: var(--radius-md);
+	tr.selected td::after {
+		background: transparent;
+	}
+	tr.selected {
+		background: var(--bg-selection);
+	}
+	td {
+		white-space: normal;
+	}
+}
+
+.pink {
+	background: pink;
+	color: darkred;
+}
+.fab {
+	position: fixed;
+	bottom: 2rem;
+	right: 2rem;
+	transition: transform .3s ease;
+
+	&.close {
+		transform: rotate(-45deg);
+	}
+}
+.full {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2010;
+}
