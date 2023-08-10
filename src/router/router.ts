@@ -19,51 +19,15 @@ export const router = createRouter({
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 		{
-			path: '/switches',
-			name: 'switches',
-			component: () => import('@/pages/Switches.vue')
-		},
-		{
-			path: '/reverse',
-			name: 'reverse',
-			component: () => import('@/pages/Item1.vue'),
-			meta: {
-				title: 'Тест',
-				transition: 'page'
-			},
-		},
-		{
-			path: '/reverse1',
-			name: 'reverse1',
-			component: () => import('@/pages/Item2.vue'),
-			meta: {
-				title: 'Тест',
-				transition: 'page'
-			},
-		},
-		{
-			path: '/chart',
-			name: 'chart',
-			component: () => import('@/pages/Chart.vue'),
-			meta: {
-				title: 'Chart',
-				transition: 'page'
-			},
-		},
-		{
-			path: '/item/:id',
-			name: 'item',
-			component: () => import('@/pages/Item.vue'),
-			props: true,
-			meta: {
-				title: 'Выключатель',
-				transition: 'page'
-			},
+			path: '/search',
+			name: 'search',
+			component: () => import('@/pages/Search.vue'),
+			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 	],
 })
 
-const DEFAULT_TITLE = 'Цифровой двойник'
+const DEFAULT_TITLE = 'Поиски и представления'
 router.beforeEach((to) => {
 	document.title = to.meta.title || DEFAULT_TITLE
 })

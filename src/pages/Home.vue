@@ -3,14 +3,14 @@
 <template lang="pug">
 q-page(padding)
 	.container
-		h4 Цифровой двойник
-		.text-h6 Система on-line предиктивного анализа работоспособности энергетических объектов с использованием технологии искусственного интеллекта и «цифрового двойника».
-		q-img(src="@/assets/img/bliz.jpg" width="500px")
-		p Сюда бы хорошо графики поместить. Сделать красивый дашборд.
+		h5 Сервис поисков и представлений
+		p Настройка поисковых запросов и внешнего вида представлений
+		q-card
+			q-card-section Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quo voluptas officiis voluptates ratione, voluptatibus modi cum sunt doloribus, similique fugit nesciunt tempora ipsam. Aliquid inventore ea accusamus ad veniam.
 </template>
 
 <style scoped lang="scss">
-h4 {
+h5 {
 	margin: 0;
 }
 

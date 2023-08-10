@@ -4,49 +4,32 @@ import { useStore } from '@/stores/store'
 
 const mystore = useStore()
 
-const props = defineProps({
-	modelValue: {
-		type: Boolean,
-		default: true,
-	},
-})
+// const props = defineProps({
+// 	modelValue: {
+// 		type: Boolean,
+// 		default: true,
+// 	},
+// })
+const modelValue = defineModel()
 
 const pages = [
 	{
 		id: 0,
-		title: 'Главная',
+		title: 'Старт',
 		icon: 'mdi-home-roof',
 		url: '/',
 	},
 	{
 		id: 1,
-		title: 'Выключатели',
-		icon: 'mdi-electric-switch',
-		url: '/switches',
-	},
-	{
-		id: 2,
-		title: 'Тест',
-		icon: 'mdi-flask-empty-outline',
-		url: '/reverse',
-	},
-	{
-		id: 4,
-		title: 'Тест 1',
-		icon: 'mdi-flask-empty-outline',
-		url: '/reverse1',
-	},
-	{
-		id: 3,
-		title: 'Графики',
-		icon: 'mdi-chart-line',
-		url: '/chart',
+		title: 'Сервис поиска',
+		icon: 'mdi-briefcase-search-outline',
+		url: '/search',
 	},
 ]
 </script>
 
 <template lang="pug">
-q-drawer.rel(:model-value="props.modelValue" side="left" :mini="mystore.mini" :width="200")
+q-drawer.rel(v-model="modelValue" bordered side="left" :mini="mystore.mini" :width="256")
 	q-list.q-mt-lg
 		q-item(clickable v-ripple v-for="page in pages" :to="page.url")
 			q-item-section(avatar)
@@ -72,5 +55,9 @@ q-drawer.rel(:model-value="props.modelValue" side="left" :mini="mystore.mini" :w
 .q-item.q-router-link--active {
 	background: $accent1;
 	color: $blue-9;
+}
+
+:deep(.q-drawer) {
+	background: var(--bg-panel);
 }
 </style>
