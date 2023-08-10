@@ -35,9 +35,22 @@ q-layout(view='hHh LpR fFf')
 
 <style scoped lang="scss">
 .head {
-	color: var(--text-bright);
+	color: var(--text-color);
 	background: rgba(0, 0, 0, 0.07);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
+	height: 64px;
+	line-height: 64px;
+}
+
+.mybadge {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	left: -3px;
+	bottom: -2px;
+	background: green;
+	border: 1px solid #fff;
 }
 </style>

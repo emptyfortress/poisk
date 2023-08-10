@@ -1,16 +1,8 @@
 <script setup lang="ts">
-// import { ref } from 'vue'
 import { useStore } from '@/stores/store'
 
-const mystore = useStore()
-
-// const props = defineProps({
-// 	modelValue: {
-// 		type: Boolean,
-// 		default: true,
-// 	},
-// })
 const modelValue = defineModel()
+const mystore = useStore()
 
 const pages = [
 	{
@@ -21,7 +13,7 @@ const pages = [
 	},
 	{
 		id: 1,
-		title: 'Сервис поиска',
+		title: 'Настройка',
 		icon: 'mdi-briefcase-search-outline',
 		url: '/search',
 	},
