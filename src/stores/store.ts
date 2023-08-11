@@ -4,6 +4,7 @@ export const useStore = defineStore({
 	id: 'store',
 	state: () => ({
 		mini: false,
+		currentNode: null
 	}),
 	getters: {
 	},
@@ -11,5 +12,8 @@ export const useStore = defineStore({
 		toggleMini() {
 			this.mini = !this.mini
 		},
+		setCurrentNode(e: Stat) {
+			this.currentNode = e
+		}
 	},
 })

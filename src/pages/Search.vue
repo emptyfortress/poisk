@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
 
-const splitterModel = ref(50)
+const splitterModel = ref(30)
 const insideModel = ref(50)
 
 const hei = computed(() => {
