@@ -4,6 +4,7 @@ import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { treenodes } from '@/stores/tree'
 import { useStore } from '@/stores/store'
+import WordHighlighter from "vue-word-highlighter"
 
 const store = useStore()
 const query = ref('')
@@ -26,7 +27,6 @@ watch(query, (newValue) => {
 			}
 		})
 	} else clearFilter()
-
 })
 
 const tree = ref()
@@ -35,6 +35,10 @@ const select = ((n: Stat) => {
 	n.data.selected = true
 	store.setCurrentNode(n)
 })
+
+const toggle = (stat: any) => {
+	stat.open = !stat.open
+}
 
 </script>
 
@@ -53,12 +57,17 @@ q-form.quick
 Draggable(
 	v-model="treeData"
 	ref="tree"
+	:indent="30"
 	:watermark="false")
 	template(#default="{ node, stat }")
 		.node(@click="select(stat)" :class="{ 'selected': stat.data.selected }")
-			span(v-if="stat.children.length" @click="stat.open = !stat.open") {{ stat.open ? "-" : "+" }}
-			span {{ node.text }}
-			span {{ node.fuck }}
+			div
+				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
+				q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
+				label
+					WordHighlighter(:query="query") {{ node.text }}
+					// q-popup-edit(v-model="node.text" auto-save v-slot="scope")
+					// 	q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
 </template>
 
 <style scoped lang="scss">
@@ -76,5 +85,21 @@ Draggable(
 .quick .q-field--dense .q-field__control,
 .q-field--dense .q-field__marginal {
 	height: 28px !important;
+}
+
+.fold {
+	font-size: 1.3rem;
+	margin-right: 0.5rem;
+	transform: translateY(-1px);
+}
+
+.trig {
+	font-size: 1.3rem;
+	margin-right: 0.5rem;
+	transition: 0.2s ease all;
+
+	&.closed {
+		transform: rotate(-90deg);
+	}
 }
 </style>
