@@ -40,6 +40,9 @@ const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 
+const add = (() => {
+	tree.value.add({ text: 'Новый поиск', hidden: false }, store.currentNode)
+})
 </script>
 
 <template lang="pug">
@@ -64,10 +67,17 @@ Draggable(
 			div
 				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
 				q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
-				label
-					WordHighlighter(:query="query") {{ node.text }}
-					// q-popup-edit(v-model="node.text" auto-save v-slot="scope")
-					// 	q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
+				WordHighlighter(:query="query") {{ node.text }}
+
+			.btn(v-if="store.editMode")
+				q-btn(flat round icon="mdi-pencil" size="7px")
+					q-popup-edit(v-model="node.text" auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
+				q-btn(flat round icon="mdi-close" size="7px")
+
+
+q-btn(round icon="mdi-plus" color="primary"  @click="add").add
+q-btn(flat round icon="mdi-pencil" @click="store.toggleEdit" size="sm").edit
 </template>
 
 <style scoped lang="scss">
@@ -75,10 +85,22 @@ Draggable(
 	background: var(--bg-panel);
 	padding: 4px 8px;
 	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	// align-items: center;
 
 	&.selected {
 		background: #b1ddfc;
 		color: #1565c0;
+
+		&:hover {
+			background: #b1ddfc;
+		}
+	}
+
+	&:hover {
+		background: hsla(0, 0%, 91%);
+
 	}
 }
 
@@ -90,7 +112,6 @@ Draggable(
 .fold {
 	font-size: 1.3rem;
 	margin-right: 0.5rem;
-	transform: translateY(-1px);
 }
 
 .trig {
@@ -101,5 +122,17 @@ Draggable(
 	&.closed {
 		transform: rotate(-90deg);
 	}
+}
+
+.add {
+	position: absolute;
+	bottom: .5rem;
+	right: .5rem;
+}
+
+.edit {
+	position: absolute;
+	left: .5rem;
+	bottom: .5rem;
 }
 </style>
