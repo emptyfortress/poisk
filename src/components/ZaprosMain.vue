@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useStore } from '@/stores/store'
+import QueryItem from '@/components/QueryItem.vue'
 
 const props = defineProps({
 	splitter: Number,
@@ -31,6 +32,7 @@ const double = (() => {
 	div(v-else) Выберите поиск
 	.btngroup
 		q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
+QueryItem(v-if="store.currentNode")
 .row.justify-between(v-if="store.currentNode")
 	q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
 		q-menu(anchor="bottom right" self="top right")
