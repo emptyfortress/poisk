@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
+import ZaprosMain from '@/components/ZaprosMain.vue'
 import { useStore } from '@/stores/store'
 
 const store = useStore()
@@ -8,7 +9,7 @@ const splitterModel = ref(30)
 const insideModel = ref(50)
 
 const hei = computed(() => {
-	return 'height: ' + (window.innerHeight - 170) + 'px;'
+	return 'height: ' + (window.innerHeight - 160) + 'px;'
 })
 </script>
 
@@ -25,7 +26,7 @@ q-page(padding)
 				q-splitter(v-model="insideModel" horizontal)
 					template(v-slot:before)
 						.main
-							p laksldjal alsj 
+							ZaprosMain(:splitter="splitterModel" @maximize="splitterModel = 0" @reset="splitterModel = 30")
 					template(v-slot:after)
 						.q-ml-sm.main
 							p laksldjal alsj 
@@ -35,8 +36,8 @@ q-page(padding)
 .blo {
 	border: 1px solid var(--my-border-color);
 	background: var(--bg-panel);
-	padding: 0.5rem;
 	margin-right: 0.5rem;
+	height: calc(100vh - 160px);
 
 	&.edit {
 		border-color: red;
@@ -44,14 +45,13 @@ q-page(padding)
 }
 
 .list {
-	height: calc(100vh - 190px);
+	height: 100%;
 }
 
 .main {
 	border: 1px solid var(--my-border-color);
 	margin-left: 0.5rem;
 	background: var(--bg-card);
-	padding: 1rem;
-	padding-top: 0.25rem;
+	padding: .5rem;
 }
 </style>

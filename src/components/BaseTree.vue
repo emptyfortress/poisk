@@ -43,51 +43,74 @@ const toggle = (stat: any) => {
 const add = (() => {
 	tree.value.add({ text: 'Новый поиск', hidden: false }, store.currentNode)
 })
+const remove = ((e: Stat) => {
+	tree.value.remove(e)
+	if (e === store.currentNode) {
+		store.setCurrentNode(null)
+	}
+})
+const drag = ref(true)
+const toggleEdit = (() => {
+	store.toggleEdit()
+	drag.value = !drag.value
+})
 </script>
 
 <template lang="pug">
-q-form.quick
-	q-card-section.q-pt-xs
-		q-input(dense
-			v-model="query"
-			autofocus
-			clearable
-			@clear="clearFilter"
-			placeholder="фильтр"
-			).query
-			template(v-slot:prepend)
-				q-icon(name="mdi-magnify")
-Draggable(
-	v-model="treeData"
-	ref="tree"
-	:indent="30"
-	:watermark="false")
-	template(#default="{ node, stat }")
-		.node(@click="select(stat)" :class="{ 'selected': stat.data.selected }")
-			div
-				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
-				q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
-				WordHighlighter(:query="query") {{ node.text }}
+.con
+	q-form.quick
+		q-card-section.q-pt-xs
+			q-input(dense
+				v-model="query"
+				autofocus
+				clearable
+				@clear="clearFilter"
+				placeholder="фильтр"
+				).query
+				template(v-slot:prepend)
+					q-icon(name="mdi-magnify")
+	Draggable(
+		v-model="treeData"
+		ref="tree"
+		:indent="30"
+		:disable-drag="drag"
+		:watermark="false")
+		template(#default="{ node, stat }")
+			.node(@click="select(stat)" :class="{ 'selected': stat.data.selected }")
+				div
+					q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
+					q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
+					WordHighlighter(:query="query") {{ node.text }}
 
-			.btn(v-if="store.editMode")
-				q-btn(flat round icon="mdi-pencil" size="7px")
-					q-popup-edit(v-model="node.text" auto-save v-slot="scope")
-						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
-				q-btn(flat round icon="mdi-close" size="7px")
+				.btn(v-if="store.editMode")
+					q-btn(flat round icon="mdi-pencil" size="7px" @click.stop="")
+						q-popup-edit(v-model="node.text" auto-save v-slot="scope")
+							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
+					q-btn(flat round icon="mdi-close" size="7px" @click.stop="")
+						q-menu
+							q-list
+								q-item.pink(clickable @click="remove(stat)" v-close-popup)
+									q-item-section Удалить
 
-
-q-btn(round icon="mdi-plus" color="primary"  @click="add").add
-q-btn(flat round icon="mdi-pencil" @click="store.toggleEdit" size="sm").edit
+	.edit(v-if="store.editMode")
+		q-btn(round icon="mdi-plus" color="primary"  @click="add" size="sm" )
+		div
+			q-btn(unelevated  label="Отмена" @click="toggleEdit") 
+			q-btn(unelevated label="OK" @click="toggleEdit") 
+	q-btn(v-else flat round icon="mdi-pencil" @click="toggleEdit" size="sm").add
 </template>
 
 <style scoped lang="scss">
+// .con {
+// 	position: relative;
+// 	height: calc(100vh - 190px);
+// }
 .node {
 	background: var(--bg-panel);
 	padding: 4px 8px;
 	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
-	// align-items: center;
 
 	&.selected {
 		background: #b1ddfc;
@@ -125,14 +148,20 @@ q-btn(flat round icon="mdi-pencil" @click="store.toggleEdit" size="sm").edit
 }
 
 .add {
-	position: absolute;
+	position: fixed;
 	bottom: .5rem;
 	right: .5rem;
 }
 
 .edit {
-	position: absolute;
-	left: .5rem;
-	bottom: .5rem;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	background: var(--bg-panel);
+	padding: 0 .5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
 }
 </style>

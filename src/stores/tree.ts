@@ -6,31 +6,17 @@ const treenodes = [
 			{
 				text: 'По умолчанию',
 				hidden: false,
-				children: [
-				],
+				children: [],
 			},
 			{
 				text: 'Мои поиски',
 				hidden: false,
-				children: [
-					{
-						text: 'fuck',
-						hidden: false,
-						children: [
-							{
-								text: 'rock',
-								hidden: false,
-							}
-						]
-					}
-				]
+				children: []
 			},
 			{
 				text: 'Другие поиски',
 				hidden: false,
-				children: [
-
-				]
+				children: []
 			},
 		],
 	},
