@@ -33,6 +33,7 @@ watchEffect(() => {
 	if (store.del === true) {
 		tree.value.remove(store.currentNode)
 		store.setCurrentNode(null)
+		store.del = false
 	}
 	if (store.dub === true) {
 		let temp = {
