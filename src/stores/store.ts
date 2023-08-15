@@ -4,8 +4,9 @@ export const useStore = defineStore({
 	id: 'store',
 	state: () => ({
 		mini: false,
+		editMode: false,
 		currentNode: null as Stat | null,
-		editMode: false
+		del: false,
 	}),
 	getters: {
 	},
@@ -19,5 +20,8 @@ export const useStore = defineStore({
 		toggleEdit() {
 			this.editMode = !this.editMode
 		},
+		toggleDel() {
+			this.del = !this.del
+		}
 	},
 })

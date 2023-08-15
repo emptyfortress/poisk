@@ -11,6 +11,9 @@ const insideModel = ref(50)
 const hei = computed(() => {
 	return 'height: ' + (window.innerHeight - 160) + 'px;'
 })
+const rem = (() => {
+	console.log(111)
+})
 </script>
 
 <template lang="pug">
@@ -26,7 +29,9 @@ q-page(padding)
 				q-splitter(v-model="insideModel" horizontal)
 					template(v-slot:before)
 						.main
-							ZaprosMain(:splitter="splitterModel" @maximize="splitterModel = 0" @reset="splitterModel = 30")
+							ZaprosMain(:splitter="splitterModel"
+								@maximize="splitterModel = 0"
+								@reset="splitterModel = 30")
 					template(v-slot:after)
 						.q-ml-sm.main
 							p laksldjal alsj 

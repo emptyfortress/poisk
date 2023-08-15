@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, watchEffect } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { treenodes } from '@/stores/tree'
@@ -27,6 +27,13 @@ watch(query, (newValue) => {
 			}
 		})
 	} else clearFilter()
+
+})
+watchEffect(() => {
+	if (store.del === true) {
+		tree.value.remove(store.currentNode)
+		store.setCurrentNode(null)
+	}
 })
 
 const tree = ref()
@@ -57,7 +64,7 @@ const toggleEdit = (() => {
 </script>
 
 <template lang="pug">
-.con
+div
 	q-form.quick
 		q-card-section.q-pt-xs
 			q-input(dense
@@ -97,14 +104,11 @@ const toggleEdit = (() => {
 		div
 			q-btn(unelevated  label="Отмена" @click="toggleEdit") 
 			q-btn(unelevated label="OK" @click="toggleEdit") 
-	q-btn(v-else flat round icon="mdi-pencil" @click="toggleEdit" size="sm").add
+	q-btn.add(v-else flat round icon="mdi-pencil" @click="toggleEdit" size="sm")
+
 </template>
 
 <style scoped lang="scss">
-// .con {
-// 	position: relative;
-// 	height: calc(100vh - 190px);
-// }
 .node {
 	background: var(--bg-panel);
 	padding: 4px 8px;
