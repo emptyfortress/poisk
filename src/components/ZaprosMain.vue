@@ -17,6 +17,9 @@ const switchSidebar = () => {
 const remove = (() => {
 	store.toggleDel()
 })
+const double = (() => {
+	store.toggleDub()
+})
 </script>
 
 <template lang="pug">
@@ -27,7 +30,7 @@ const remove = (() => {
 	.zg(v-if="store.currentNode") {{ store.currentNode.data.text }}
 	div(v-else) Выберите поиск
 	.btngroup
-		q-btn(outline size="10px" color="primary" @click="" :disable="!store.currentNode") Дублировать
+		q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
 .row.justify-between(v-if="store.currentNode")
 	q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
 		q-menu(anchor="bottom right" self="top right")

@@ -7,6 +7,7 @@ export const useStore = defineStore({
 		editMode: false,
 		currentNode: null as Stat | null,
 		del: false,
+		dub: false,
 	}),
 	getters: {
 	},
@@ -22,6 +23,9 @@ export const useStore = defineStore({
 		},
 		toggleDel() {
 			this.del = !this.del
+		},
+		toggleDub() {
+			this.dub = !this.dub
 		}
 	},
 })

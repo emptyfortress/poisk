@@ -34,6 +34,15 @@ watchEffect(() => {
 		tree.value.remove(store.currentNode)
 		store.setCurrentNode(null)
 	}
+	if (store.dub === true) {
+		let temp = {
+			text: store.currentNode.data.text + '-copy'
+		}
+		tree.value.add(temp, store.currentNode.parent )
+		let one = tree.value.getStat(temp)
+		select(one)
+		store.toggleDub()
+	}
 })
 
 const tree = ref()
