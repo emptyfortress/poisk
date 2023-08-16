@@ -9,7 +9,7 @@ const splitterModel = ref(30)
 const insideModel = ref(50)
 
 const hei = computed(() => {
-	return 'height: ' + (window.innerHeight - 160) + 'px;'
+	return 'height: ' + (window.innerHeight - 180) + 'px;'
 })
 const rem = (() => {
 	console.log(111)
@@ -27,17 +27,9 @@ q-page(padding)
 						BaseTree
 			template(v-slot:after)
 				.main
-					ZaprosMain
-				// .main
-				// q-splitter(v-model="insideModel" horizontal)
-				// 	template(v-slot:before)
-				// 		.main
-				// 			ZaprosMain(:splitter="splitterModel"
-				// 				@maximize="splitterModel = 0"
-				// 				@reset="splitterModel = 30")
-				// 	template(v-slot:after)
-				// 		.q-ml-sm.main
-				// 			p laksldjal alsj 
+					ZaprosMain(:splitter="splitterModel"
+						@maximize="splitterModel = 0"
+						@reset="splitterModel = 30")
 </template>
 
 <style scoped lang="scss">
@@ -45,7 +37,7 @@ q-page(padding)
 	border: 1px solid var(--my-border-color);
 	background: var(--bg-panel);
 	margin-right: 0.5rem;
-	height: calc(100vh - 160px);
+	height: calc(100vh - 180px);
 
 	&.edit {
 		border-color: red;
@@ -57,10 +49,8 @@ q-page(padding)
 }
 
 .main {
-	border: 1px solid var(--my-border-color);
-	// background: var(--bg-panel);
-	margin-left: 0.5rem;
-	height: calc(100vh - 160px);
-	padding: 1rem;
+	// border: 1px solid var(--my-border-color);
+	margin-left: .5rem;
+	height: calc(100vh - 180px);
 }
 </style>
