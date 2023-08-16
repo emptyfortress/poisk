@@ -23,22 +23,11 @@ const next = (e: Stat) => {
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
-
-const filterFn1 = (val, update) => {
-	// if (val === '') {
-	// 	update(() => {
-	// 		options1.value = stringOptions1
-	// 	})
-	// 	return
-	// }
-	//
-	// update(() => {
-	// 	const needle = val.toLowerCase()
-	// 	options1.value = stringOptions1.filter(
-	// 		(v) => v.toLowerCase().indexOf(needle) > -1
-	// 	)
-	// })
-}
+const clear = (() => {
+	props.stat.data.text = ''
+	props.stat.data.text1 = ''
+	props.stat.data.text2 = ''
+})
 
 </script>
 
@@ -52,9 +41,10 @@ const filterFn1 = (val, update) => {
 	.one(v-if="props.stat.data.type === 1")
 		.handle
 		.row.q-gutter-sm
-			q-select(v-model="pole" :options="options1" outlined label="Поле" dense bg-color="white")
-			q-select(v-model="cond" :options="options2" outlined label="Условие" dense bg-color="white")
-			q-select(v-model="val" :options="options3"  outlined label="Значение" dense bg-color="white")
+			q-select(v-model="props.stat.data.text" :options="options1" outlined label="Поле" dense bg-color="white")
+			q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white")
+			q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white")
+		q-btn(flat round icon="mdi-reload" @click="clear" ) 
 </template>
 
 <style scoped lang="scss">
@@ -132,7 +122,7 @@ const filterFn1 = (val, update) => {
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAClJREFUGFclysENwEAQg0Cm/6Idbe6DEDbZpFWKaie7tqDd+sj/eR7rA9inDgnK6GXhAAAAAElFTkSuQmCC
 ) repeat;
 }
-.q-select {
-	width: 200px;
+:deep(.q-select) {
+	width: 190px;
 }
 </style>
