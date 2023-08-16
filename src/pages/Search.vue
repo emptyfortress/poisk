@@ -19,7 +19,7 @@ const rem = (() => {
 <template lang="pug">
 q-page(padding)
 	.container
-		.zag.q-mb-lg Настройка поисков и представлений
+		.zag.q-mb-lg Настройка поисковых запросов
 		q-splitter(v-model="splitterModel" :limits="[0, 100]" :style="hei" )
 			template(v-slot:before)
 				.blo(:class="{ edit: store.editMode }")
