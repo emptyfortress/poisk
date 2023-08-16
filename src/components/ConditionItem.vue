@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import TreeMenu from '@/components/TreeMenu.vue'
 
 const props = defineProps<{
 	stat: Stat
 }>()
+
 const pole = ref('test')
 const next = (e: Stat) => {
 	if (e.data.typ === 1) {
@@ -31,7 +31,6 @@ const toggle = (stat: any) => {
 			q-input(v-model="pole" outlined label="Поле" dense bg-color="white")
 			q-input(v-model="pole" outlined label="Поле" dense bg-color="white")
 			q-input(v-model="pole" outlined label="Поле" dense bg-color="white")
-	TreeMenu
 </template>
 
 <style scoped lang="scss">

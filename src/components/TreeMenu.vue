@@ -10,16 +10,20 @@ q-menu(context-menu)
 
 <script setup lang="ts">
 
+const props = defineProps<{
+	stat: Stat
+}>()
+
 const emit = defineEmits(['addOp', 'addCond', 'kill', 'cut', 'paste'])
 
 const addOp = () => {
-	emit('addOp')
+	emit('addOp', props.stat)
 }
 const addCond = () => {
-	emit('addCond')
+	emit('addCond', props.stat)
 }
 const kill = () => {
-	emit('kill')
+	emit('kill', props.stat)
 }
 
 const menu = [

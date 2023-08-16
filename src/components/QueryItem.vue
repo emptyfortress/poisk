@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import ConditionItem from '@/components/ConditionItem.vue'
+import TreeMenu from '@/components/TreeMenu.vue'
 
 const treeData = [
 	{
@@ -20,7 +21,11 @@ const isDrop = (e: any) => {
 	if (e.data.type == 0) return true
 	else return false
 }
-const pole = ref('test')
+
+const tree = ref()
+const remove = ((e: Stat) => {
+	tree.value.remove(e)
+})
 </script>
 
 <template lang="pug">
@@ -32,7 +37,8 @@ const pole = ref('test')
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			ConditionItem(:stat="stat" )
+			ConditionItem( :stat="stat")
+			TreeMenu(:stat="stat" @kill="remove")
 
 </template>
 
