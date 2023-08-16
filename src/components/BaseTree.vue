@@ -37,9 +37,9 @@ watchEffect(() => {
 	}
 	if (store.dub === true) {
 		let temp = {
-			text: store.currentNode.data.text + '-copy'
+			text: store.currentNode!.data.text + '-copy'
 		}
-		tree.value.add(temp, store.currentNode.parent )
+		tree.value.add(temp, store.currentNode!.parent)
 		let one = tree.value.getStat(temp)
 		select(one)
 		store.toggleDub()

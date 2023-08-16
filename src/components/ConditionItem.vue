@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { fields, conditions, values, names } from '@/stores/select.js'
 
 const props = defineProps<{
 	stat: Stat
 }>()
 
-const pole = ref('test')
+const pole = ref('')
+const cond = ref('')
+const val = ref('')
+
+const options1 = ref(fields)
+const options2 = ref(conditions)
+const options3 = ref(values)
+
 const next = (e: Stat) => {
 	if (e.data.typ === 1) {
 		e.data.typ = 0
@@ -14,6 +22,22 @@ const next = (e: Stat) => {
 
 const toggle = (stat: any) => {
 	stat.open = !stat.open
+}
+
+const filterFn1 = (val, update) => {
+	// if (val === '') {
+	// 	update(() => {
+	// 		options1.value = stringOptions1
+	// 	})
+	// 	return
+	// }
+	//
+	// update(() => {
+	// 	const needle = val.toLowerCase()
+	// 	options1.value = stringOptions1.filter(
+	// 		(v) => v.toLowerCase().indexOf(needle) > -1
+	// 	)
+	// })
 }
 
 </script>
@@ -28,9 +52,9 @@ const toggle = (stat: any) => {
 	.one(v-if="props.stat.data.type === 1")
 		.handle
 		.row.q-gutter-sm
-			q-input(v-model="pole" outlined label="Поле" dense bg-color="white")
-			q-input(v-model="pole" outlined label="Поле" dense bg-color="white")
-			q-input(v-model="pole" outlined label="Поле" dense bg-color="white")
+			q-select(v-model="pole" :options="options1" outlined label="Поле" dense bg-color="white")
+			q-select(v-model="cond" :options="options2" outlined label="Условие" dense bg-color="white")
+			q-select(v-model="val" :options="options3"  outlined label="Значение" dense bg-color="white")
 </template>
 
 <style scoped lang="scss">
@@ -49,7 +73,8 @@ const toggle = (stat: any) => {
 	background: transparent;
 	padding: .5rem;
 	margin-bottom: 4px;
-	border: 1px solid transparent;
+	background: var(--bg-panel);
+	border: 1px solid #ccc;
 
 	&:hover {
 		background: var(--bg-panel);
@@ -106,5 +131,8 @@ const toggle = (stat: any) => {
 	top: 0;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAClJREFUGFclysENwEAQg0Cm/6Idbe6DEDbZpFWKaie7tqDd+sj/eR7rA9inDgnK6GXhAAAAAElFTkSuQmCC
 ) repeat;
+}
+.q-select {
+	width: 200px;
 }
 </style>

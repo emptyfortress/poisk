@@ -15,7 +15,7 @@ export const useStore = defineStore({
 		toggleMini() {
 			this.mini = !this.mini
 		},
-		setCurrentNode(e: Stat) {
+		setCurrentNode(e: Stat | null) {
 			this.currentNode = e
 		},
 		toggleEdit() {

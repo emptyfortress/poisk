@@ -7,14 +7,9 @@ import TreeMenu from '@/components/TreeMenu.vue'
 const treeData = [
 	{
 		text: 'One', type: 0, typ: 0, children: [
-			{ text: 'children', type: 1, children: [] },
-			{ text: 'children', type: 1, children: [] },
-			{ text: 'children', type: 1, children: [] },
-			{ text: 'children', type: 1, children: [] },
-
+			{ text: 'first condition', type: 1, children: [] },
 		]
 	},
-	{ text: 'two', type: 0, typ: 1, children: [] },
 ]
 
 const isDrop = (e: any) => {
@@ -24,7 +19,18 @@ const isDrop = (e: any) => {
 
 const tree = ref()
 const remove = ((e: Stat) => {
+	console.log(e)
 	tree.value.remove(e)
+})
+const addOperator = ((e: Stat) => {
+	tree.value.add({text: 'operator', type: 0, typ: 0}, e)
+})
+const addCondition = ((e: Stat) => {
+	if (e.data.type === 0) {
+		tree.value.add({text: 'condition', type: 1 }, e)
+	} else {
+		tree.value.add({text: 'condition', type: 1 }, e.parent)
+	}
 })
 </script>
 
@@ -37,8 +43,8 @@ const remove = ((e: Stat) => {
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			ConditionItem( :stat="stat")
-			TreeMenu(:stat="stat" @kill="remove")
+			component(:is="ConditionItem" :stat="stat")
+			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" )
 
 </template>
 
