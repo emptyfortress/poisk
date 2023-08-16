@@ -46,6 +46,14 @@ QueryItem
 </template>
 
 <style scoped lang="scss">
+.main {
+	border: 1px solid var(--my-border-color);
+	background: var(--bg-card);
+	margin-left: 0.5rem;
+	height: calc(100vh - 160px);
+	padding: 1rem;
+
+}
 .zg {
 	font-size: 1.2rem;
 }

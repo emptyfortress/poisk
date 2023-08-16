@@ -26,15 +26,18 @@ q-page(padding)
 					q-scroll-area.list
 						BaseTree
 			template(v-slot:after)
-				q-splitter(v-model="insideModel" horizontal)
-					template(v-slot:before)
-						.main
-							ZaprosMain(:splitter="splitterModel"
-								@maximize="splitterModel = 0"
-								@reset="splitterModel = 30")
-					template(v-slot:after)
-						.q-ml-sm.main
-							p laksldjal alsj 
+				.main
+					ZaprosMain
+				// .main
+				// q-splitter(v-model="insideModel" horizontal)
+				// 	template(v-slot:before)
+				// 		.main
+				// 			ZaprosMain(:splitter="splitterModel"
+				// 				@maximize="splitterModel = 0"
+				// 				@reset="splitterModel = 30")
+				// 	template(v-slot:after)
+				// 		.q-ml-sm.main
+				// 			p laksldjal alsj 
 </template>
 
 <style scoped lang="scss">
@@ -55,8 +58,9 @@ q-page(padding)
 
 .main {
 	border: 1px solid var(--my-border-color);
+	// background: var(--bg-panel);
 	margin-left: 0.5rem;
-	background: var(--bg-card);
-	padding: .5rem;
+	height: calc(100vh - 160px);
+	padding: 1rem;
 }
 </style>
