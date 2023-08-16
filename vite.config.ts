@@ -7,7 +7,12 @@ import path from 'path'
 export default defineConfig({
 	plugins: [
 		vue({
-			template: { transformAssetUrls },
+			template: {
+				transformAssetUrls,
+				// compilerOptions: {
+				// 	isCustomElement: (tag) => ['draggable'].includes(tag),
+				// }
+			},
 			script: {
 				defineModel: true
 			}
