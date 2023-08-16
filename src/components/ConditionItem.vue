@@ -40,10 +40,9 @@ const clear = (() => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1")
 		.handle
-		.row.q-gutter-sm
-			q-select(v-model="props.stat.data.text" :options="options1" outlined label="Поле" dense bg-color="white")
-			q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white")
-			q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white")
+		q-select(v-model="props.stat.data.text" :options="options1" outlined label="Поле" dense bg-color="white")
+		q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white")
+		q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white")
 		q-btn(flat round icon="mdi-reload" @click="clear" ) 
 </template>
 
@@ -73,16 +72,16 @@ const clear = (() => {
 }
 
 .one {
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 42px;
 	align-items: center;
-	justify-content: space-between;
 	background: var(--bg-panel);
-	padding: .5rem 1rem;
+	padding: .5rem;
 	padding-left: 3rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	margin-bottom: 4px;
-	gap: 1rem;
+	gap: .5rem;
 	position: relative;
 
 	&:hover {
@@ -123,6 +122,6 @@ const clear = (() => {
 ) repeat;
 }
 :deep(.q-select) {
-	width: 190px;
+	width: 100%;
 }
 </style>

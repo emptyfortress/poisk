@@ -13,9 +13,15 @@ const pages = [
 	},
 	{
 		id: 1,
-		title: 'Настройка',
+		title: 'Запросы',
 		icon: 'mdi-briefcase-search-outline',
 		url: '/search',
+	},
+	{
+		id: 2,
+		title: 'Представления',
+		icon: 'mdi-briefcase-edit-outline',
+		url: '/layout',
 	},
 ]
 </script>
