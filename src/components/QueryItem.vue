@@ -3,13 +3,15 @@ import { ref } from 'vue'
 import { Draggable } from '@he-tree/vue'
 
 const treeData = [
-	{ text: 'One', type: 0, typ: 0, children: [
-		{ text: 'children', type: 1, children: [] },
-		{ text: 'children', type: 1, children: [] },
-		{ text: 'children', type: 1, children: [] },
-		{ text: 'children', type: 1, children: [] },
+	{
+		text: 'One', type: 0, typ: 0, children: [
+			{ text: 'children', type: 1, children: [] },
+			{ text: 'children', type: 1, children: [] },
+			{ text: 'children', type: 1, children: [] },
+			{ text: 'children', type: 1, children: [] },
 
-	] },
+		]
+	},
 ]
 
 const toggle = (stat: any) => {
@@ -22,6 +24,11 @@ const next = (e: any) => {
 	} else e.typ = e.typ + 1
 }
 const drag = ref(false)
+
+const isDrop = (e: any) => {
+	if (e.data.type == 0) return true
+	else return false
+}
 </script>
 
 <template lang="pug">
@@ -30,16 +37,18 @@ const drag = ref(false)
 		v-model="treeData"
 		ref="tree"
 		:indent="40"
+		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			.zero(v-if="stat.data.type === 0")
-				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
-				.icon(:class="{or : node.typ === 1}" @click.stop="next(node)")
-				.q-ml-md Оператор
-				.text-weight-bold.q-ml-sm {{node.typ === 1 ? 'ИЛИ' : 'И'}}
-			.one(v-if="stat.data.type === 1" )
-				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
-				span one
+			.node
+				.zero(v-if="stat.data.type === 0")
+					q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
+					.icon(:class="{ or: node.typ === 1 }" @click.stop="next(node)")
+					.q-ml-md Оператор
+					.text-weight-bold.q-ml-sm {{ node.typ === 1 ? 'ИЛИ' : 'И' }}
+				.one(v-if="stat.data.type === 1")
+					q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
+					span one
 
 </template>
 
@@ -47,23 +56,28 @@ const drag = ref(false)
 .con {
 	margin: 1rem;
 }
+
 .node {
-	background: var(--bg-panel);
 	cursor: pointer;
+
 	img {
 		width: 42px;
 		margin-right: 1rem;
 	}
 }
+
 .zero {
 	display: flex;
 	align-items: center;
 	background: transparent;
 	padding: .5rem;
+	margin-bottom: 4px;
+
 	&:hover {
-		background: var(--bg-main);
+		background: var(--bg-panel);
 	}
 }
+
 .one {
 	display: flex;
 	align-items: center;
@@ -72,7 +86,8 @@ const drag = ref(false)
 	padding: .8rem;
 	border: 1px solid var(--bg-head);
 	border-radius: 4px;
-	margin-bottom: 2px;
+	margin-bottom: 4px;
+
 	&:hover {
 		border-color: $primary;
 	}
@@ -87,6 +102,7 @@ const drag = ref(false)
 		transform: rotate(-90deg);
 	}
 }
+
 .icon {
 	width: 49px;
 	height: 36px;
@@ -94,8 +110,13 @@ const drag = ref(false)
 	transition: 0.2s ease-out all;
 	background-position: top left;
 	cursor: pointer;
+
 	&.or {
 		background-position: bottom left;
 	}
+}
+
+:deep(.drag-placeholder) {
+	height: 48px;
 }
 </style>
