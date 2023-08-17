@@ -6,13 +6,10 @@ import { useStore } from '@/stores/store'
 
 const store = useStore()
 const splitterModel = ref(30)
-const insideModel = ref(50)
+// const insideModel = ref(50)
 
 const hei = computed(() => {
 	return 'height: ' + (window.innerHeight - 180) + 'px;'
-})
-const rem = (() => {
-	console.log(111)
 })
 </script>
 

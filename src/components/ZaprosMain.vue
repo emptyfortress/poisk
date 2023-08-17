@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import QueryItem from '@/components/QueryItem.vue'
 import type { QTableColumn } from 'quasar'
@@ -81,6 +81,13 @@ const showPreview = (() => {
 		loading.value = false
 	}, 3000)
 })
+const calcRows = computed(() => {
+	if (!loading.value) {
+		return rows
+	} else {
+		return undefined
+	}
+})
 </script>
 
 <template lang="pug">
@@ -113,12 +120,12 @@ q-dialog(v-model="preview")
 	q-card(style="width: 900px; max-width: 80vw;")
 		q-card-section.row.items-center.q-pb-none
 			.text-h6 {{ store.currentNode?.data.text }}
-				span.q-ml-lg (найдено 9)
+				span.q-ml-lg(v-if="!loading") (найдено 9)
 			q-space
 			q-btn(icon="mdi-close" flat round dense @click="preview = false")
 
 		q-card-section
-			q-table(flat :columns="cols" :rows="rows" row-key="id" :loading="loading" color="primary")
+			q-table(flat :columns="cols" :rows="calcRows" row-key="id" :loading="loading" color="primary")
 </template>
 
 <style scoped lang="scss">
