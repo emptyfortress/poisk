@@ -5,7 +5,6 @@ export const useStore = defineStore({
 	state: () => ({
 		mini: false,
 		editMode: false,
-		editMode1: false,
 		currentNode: null as Stat | null,
 		del: false,
 		dub: false,
@@ -22,8 +21,8 @@ export const useStore = defineStore({
 		toggleEdit() {
 			this.editMode = !this.editMode
 		},
-		toggleEdit1() {
-			this.editMode1 = !this.editMode1
+		offEdit() {
+			this.editMode = false
 		},
 		toggleDel() {
 			this.del = !this.del

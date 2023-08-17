@@ -25,6 +25,6 @@ app.use(Quasar, {
 
 })
 
-app.use(router)
 app.use(pinia)
+app.use(router)
 app.mount('#app')

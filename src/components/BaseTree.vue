@@ -77,17 +77,11 @@ const remove = ((e: Stat) => {
 		store.setCurrentNode(null)
 	}
 })
-const drag = ref(true)
+const drag = ref(false)
 
 const toggleEdit = (() => {
-	if (route.name === 'search') {
-		store.toggleEdit()
-		drag.value = !drag.value
-	}
-	if (route.name === 'layout') {
-		store.toggleEdit1()
-		drag.value = !drag.value
-	}
+	store.toggleEdit()
+	drag.value = !drag.value
 })
 </script>
 
@@ -117,7 +111,7 @@ div
 					q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
 					WordHighlighter(:query="query") {{ node.text }}
 
-				.btn(v-if="store.editMode || store.editMode1")
+				.btn(v-if="store.editMode")
 					q-btn(flat round icon="mdi-pencil" size="7px" @click.stop="")
 						q-popup-edit(v-model="node.text" auto-save v-slot="scope")
 							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
@@ -127,7 +121,7 @@ div
 								q-item.pink(clickable @click="remove(stat)" v-close-popup)
 									q-item-section Удалить
 
-	.edit(v-if="store.editMode || store.editMode1")
+	.edit(v-if="store.editMode")
 		q-btn(round icon="mdi-plus" color="primary"  @click="add" size="sm" )
 		div
 			q-btn(unelevated  label="Отмена" @click="toggleEdit") 
@@ -138,7 +132,7 @@ div
 
 <style scoped lang="scss">
 .node {
-	background: var(--bg-panel);
+	// background: var(--bg-card);
 	padding: 4px 8px;
 	cursor: pointer;
 	display: flex;
