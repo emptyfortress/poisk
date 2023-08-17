@@ -55,6 +55,7 @@ const enable = (() => {
 .node {
 	cursor: pointer;
 	position: relative;
+	// background: #ccc;
 
 	img {
 		width: 42px;
@@ -66,6 +67,7 @@ const enable = (() => {
 		}
 		.one, .zero {
 			border: 1px solid red;
+			background: #fae4e8;
 		}
 	}
 }
