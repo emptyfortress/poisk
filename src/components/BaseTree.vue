@@ -1,14 +1,25 @@
 <script setup lang="ts">
-import { ref, reactive, watch, watchEffect } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
-import { treenodes } from '@/stores/tree'
+import { searches, views } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 import WordHighlighter from "vue-word-highlighter"
+import { useRoute } from 'vue-router'
 
 const store = useStore()
 const query = ref('')
-const treeData = reactive(treenodes)
+const route = useRoute()
+const treeData = computed({
+	get() {
+		if (route.name === 'search') {
+			return searches
+		} else if (route.name === 'layout') {
+			return views
+		}
+	},
+	set(val) { }
+})
 
 const clearFilter = (() => {
 	query.value = ''
@@ -58,7 +69,7 @@ const toggle = (stat: any) => {
 }
 
 const add = (() => {
-	tree.value.add({ text: 'Новый поиск', hidden: false }, store.currentNode)
+	tree.value.add({ text: 'New item', hidden: false }, store.currentNode)
 })
 const remove = ((e: Stat) => {
 	tree.value.remove(e)
@@ -67,9 +78,16 @@ const remove = ((e: Stat) => {
 	}
 })
 const drag = ref(true)
+
 const toggleEdit = (() => {
-	store.toggleEdit()
-	drag.value = !drag.value
+	if (route.name === 'search') {
+		store.toggleEdit()
+		drag.value = !drag.value
+	}
+	if (route.name === 'layout') {
+		store.toggleEdit1()
+		drag.value = !drag.value
+	}
 })
 </script>
 
@@ -99,7 +117,7 @@ div
 					q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
 					WordHighlighter(:query="query") {{ node.text }}
 
-				.btn(v-if="store.editMode")
+				.btn(v-if="store.editMode || store.editMode1")
 					q-btn(flat round icon="mdi-pencil" size="7px" @click.stop="")
 						q-popup-edit(v-model="node.text" auto-save v-slot="scope")
 							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
@@ -109,7 +127,7 @@ div
 								q-item.pink(clickable @click="remove(stat)" v-close-popup)
 									q-item-section Удалить
 
-	.edit(v-if="store.editMode")
+	.edit(v-if="store.editMode || store.editMode1")
 		q-btn(round icon="mdi-plus" color="primary"  @click="add" size="sm" )
 		div
 			q-btn(unelevated  label="Отмена" @click="toggleEdit") 

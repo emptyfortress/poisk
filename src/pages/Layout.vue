@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
+import BaseTree from '@/components/BaseTree.vue'
 
 const store = useStore()
 
@@ -18,7 +19,7 @@ q-page(padding)
 			template(v-slot:before)
 				.blo(:class="{ edit: store.editMode1 }")
 					q-scroll-area.list
-						p fuck lkajs ljalsjk 
+						BaseTree
 			template(v-slot:after)
 				p fuck lkajs ljalsjk 
 </template>

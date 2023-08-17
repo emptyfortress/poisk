@@ -1,4 +1,4 @@
-const treenodes = [
+const searches = [
 	{
 		text: 'Поиски DV',
 		hidden: false,
@@ -22,4 +22,27 @@ const treenodes = [
 	},
 ]
 
-export { treenodes }
+const views = [
+	{
+		text: 'Представления',
+		hidden: false,
+		children: [
+			{
+				text: 'Digest',
+				hidden: false,
+				children: [],
+			},
+			{
+				text: 'Задания',
+				hidden: false,
+				children: []
+			},
+			{
+				text: 'Отдел кадров',
+				hidden: false,
+				children: []
+			},
+		],
+	},
+]
+export { searches, views }
