@@ -31,6 +31,10 @@ const addCondition = ((e: Stat) => {
 		tree.value.add({text: '', type: 1 }, e.parent)
 	}
 })
+const disable = ((e: Stat) => {
+	e.data.restrict = true
+	console.log(e)
+})
 </script>
 
 <template lang="pug">
@@ -42,8 +46,8 @@ const addCondition = ((e: Stat) => {
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			component(:is="ConditionItem" :stat="stat")
-			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" )
+			ConditionItem(:stat="stat")
+			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>
 

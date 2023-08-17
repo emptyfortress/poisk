@@ -14,7 +14,7 @@ const props = defineProps<{
 	stat: Stat
 }>()
 
-const emit = defineEmits(['addOp', 'addCond', 'kill', 'cut', 'paste'])
+const emit = defineEmits(['addOp', 'addCond', 'kill', 'disable' ])
 
 const addOp = () => {
 	emit('addOp', props.stat)
@@ -24,6 +24,9 @@ const addCond = () => {
 }
 const kill = () => {
 	emit('kill', props.stat)
+}
+const disable = () => {
+	emit('disable', props.stat)
 }
 
 const menu = [
@@ -39,7 +42,8 @@ const menu = [
 		icon: 'mdi-crosshairs-question',
 		action: addCond,
 	},
-	{ id: 2, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
+	{ id: 2, label: 'Выключить', icon: 'mdi-minus-circle', action: disable },
+	{ id: 3, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
 ]
 </script>
 
