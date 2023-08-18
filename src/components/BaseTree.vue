@@ -77,7 +77,7 @@ const remove = ((e: Stat) => {
 		store.setCurrentNode(null)
 	}
 })
-const drag = ref(false)
+const drag = ref(true)
 
 const toggleEdit = (() => {
 	store.toggleEdit()
