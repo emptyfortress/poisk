@@ -121,13 +121,6 @@ div
 								q-item.pink(clickable @click="remove(stat)" v-close-popup)
 									q-item-section Удалить
 
-	.edit(v-if="store.editMode")
-		q-btn(round icon="mdi-plus" color="primary"  @click="add" size="sm" )
-		div
-			q-btn(unelevated  label="Отмена" @click="toggleEdit") 
-			q-btn(unelevated label="OK" @click="toggleEdit") 
-	q-btn.add(v-else flat round icon="mdi-pencil" @click="toggleEdit" size="sm")
-
 </template>
 
 <style scoped lang="scss">
@@ -173,21 +166,4 @@ div
 	}
 }
 
-.add {
-	position: fixed;
-	bottom: .5rem;
-	right: .5rem;
-}
-
-.edit {
-	position: fixed;
-	right: 0;
-	bottom: 0;
-	background: var(--bg-panel);
-	padding: 0 .5rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-}
 </style>
