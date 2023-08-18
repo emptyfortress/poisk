@@ -1,7 +1,7 @@
 <template lang="pug">
 q-menu(context-menu)
 	q-list
-		q-item(v-for="item in menu" :key="item.id" clickable v-close-popup @click="item.action")
+		q-item(v-for="item in menu" :disable="dis(item.id)" :key="item.id" clickable v-close-popup @click="item.action")
 			q-item-section(avatar)
 				q-icon(:name="item.icon")
 			q-item-section
@@ -10,7 +10,15 @@ q-menu(context-menu)
 
 <script setup lang="ts">
 
-const emit = defineEmits(['addFolder', 'add', 'kill', 'disable'])
+const props = defineProps<{ stat: Stat }>()
+
+const dis = ((e: number) => {
+	if (props.stat.data.type === 0 && e === 2) {
+		return true
+	} else return false
+})
+
+const emit = defineEmits(['addFolder', 'add', 'kill', 'duble'])
 
 const addFolder = () => {
 	emit('addFolder')
@@ -21,8 +29,8 @@ const add = () => {
 const kill = () => {
 	emit('kill')
 }
-const disable = () => {
-	emit('disable')
+const duble = () => {
+	emit('duble')
 }
 
 const menu = [
@@ -38,14 +46,13 @@ const menu = [
 		icon: 'mdi-plus-circle-outline',
 		action: add,
 	},
-	{ id: 2, label: 'Дублировать запрос', icon: 'mdi-plus-circle-multiple-outline', action: disable },
-	{ id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: disable },
+	{ id: 2, label: 'Дублировать запрос', icon: 'mdi-plus-circle-multiple-outline', action: duble },
+	{ id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: add },
 	{ id: 4, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
 ]
 </script>
 
 <style scoped lang="scss">
-//@import '@/assets/css/colors.scss';
 .q-item:last-child {
 	border-top: 1px solid #ccc;
 	color: darkred;

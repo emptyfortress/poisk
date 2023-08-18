@@ -89,8 +89,11 @@ const remove = ((e: Stat) => {
 		store.setCurrentNode(null)
 	}
 })
+const duble = ((e: Stat) => {
+	tree.value.add({text: e.data.text + '-copy'}, e.parent)
+})
 
-const isDrop = (e: any) => {
+const isDrop = (e: Stat) => {
 	if (e.data.type == 0) return true
 	else return false
 }
@@ -125,7 +128,12 @@ div
 				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
 				q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
 				WordHighlighter(:query="query") {{ node.text }}
-				DirMenu(@kill="remove(stat)" @add="add(stat)" @addFolder="addFolder(stat)")
+				DirMenu(
+					:stat="stat"
+					@kill="remove(stat)"
+					@add="add(stat)"
+					@addFolder="addFolder(stat)"
+					@duble="duble(stat)")
 
 </template>
 
