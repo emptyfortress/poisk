@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
 import ZaprosMain from '@/components/ZaprosMain.vue'
 
-const splitterModel = ref(30)
+const splitterModel = ref(25)
 
 const hei = computed(() => {
 	return 'height: ' + (window.innerHeight - 180) + 'px;'
@@ -16,9 +16,8 @@ q-page(padding)
 		.zag.q-mb-lg Настройка поисковых запросов
 		q-splitter(v-model="splitterModel" :limits="[0, 100]" :style="hei" )
 			template(v-slot:before)
-				.blo
-					q-scroll-area.list
-						BaseTree
+				q-scroll-area.list
+					BaseTree
 			template(v-slot:after)
 				.main
 					ZaprosMain(:splitter="splitterModel"
@@ -27,23 +26,13 @@ q-page(padding)
 </template>
 
 <style scoped lang="scss">
-.blo {
-	border: 1px solid var(--my-border-color);
-	background: var(--bg-panel);
-	margin-right: 0.5rem;
-	height: calc(100vh - 180px);
-
-	&.edit {
-		border-color: red;
-	}
-}
 
 .list {
-	height: 100%;
+	height: calc(100vh - 180px);
+	margin-right: 1rem;
 }
 
 .main {
-	// border: 1px solid var(--my-border-color);
 	margin-left: .5rem;
 	height: calc(100vh - 180px);
 }

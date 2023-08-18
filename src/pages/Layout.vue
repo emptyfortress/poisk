@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useStore } from '@/stores/store'
 import BaseTree from '@/components/BaseTree.vue'
 import ViewMain from '@/components/ViewMain.vue'
-
-const store = useStore()
 
 const splitterModel = ref(30)
 const hei = computed(() => {
@@ -18,7 +15,7 @@ q-page(padding)
 		.zag.q-mb-lg Настройка представлений
 		q-splitter(v-model="splitterModel" :limits="[0, 100]" :style="hei" )
 			template(v-slot:before)
-				.blo(:class="{ edit: store.editMode }")
+				.blo
 					q-scroll-area.list
 						BaseTree
 			template(v-slot:after)

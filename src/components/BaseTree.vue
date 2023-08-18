@@ -6,6 +6,7 @@ import { searches, views } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 import WordHighlighter from "vue-word-highlighter"
 import { useRoute } from 'vue-router'
+import DirMenu from '@/components/DirMenu.vue'
 
 const store = useStore()
 const query = ref('')
@@ -68,8 +69,19 @@ const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 
-const add = (() => {
-	tree.value.add({ text: 'New item', hidden: false }, store.currentNode)
+const add = ((e: Stat) => {
+	if (e.data.type === 0) {
+		tree.value.add({ text: 'New item', hidden: false, type: 1 }, e)
+	} else {
+		tree.value.add({ text: 'New item', hidden: false, type: 1 }, e.parent)
+	}
+})
+const addFolder = ((e: Stat) => {
+	if (e.data.type === 0) {
+		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e)
+	} else {
+		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e.parent)
+	}
 })
 const remove = ((e: Stat) => {
 	tree.value.remove(e)
@@ -77,7 +89,11 @@ const remove = ((e: Stat) => {
 		store.setCurrentNode(null)
 	}
 })
-const drag = ref(true)
+
+const isDrop = (e: any) => {
+	if (e.data.type == 0) return true
+	else return false
+}
 
 const toggleEdit = (() => {
 	store.toggleEdit()
@@ -102,48 +118,30 @@ div
 		v-model="treeData"
 		ref="tree"
 		:indent="30"
-		:disable-drag="drag"
+		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
 			.node(@click="select(stat)" :class="{ 'selected': stat.data.selected }")
-				div
-					q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
-					q-icon(name="mdi-folder-outline" v-if="stat.children.length").fold
-					WordHighlighter(:query="query") {{ node.text }}
-
-				.btn(v-if="store.editMode")
-					q-btn(flat round icon="mdi-pencil" size="7px" @click.stop="")
-						q-popup-edit(v-model="node.text" auto-save v-slot="scope")
-							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set").pop
-					q-btn(flat round icon="mdi-close" size="7px" @click.stop="")
-						q-menu
-							q-list
-								q-item.pink(clickable @click="remove(stat)" v-close-popup)
-									q-item-section Удалить
+				q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
+				q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
+				WordHighlighter(:query="query") {{ node.text }}
+				DirMenu(@kill="remove(stat)" @add="add(stat)" @addFolder="addFolder(stat)")
 
 </template>
 
 <style scoped lang="scss">
 .node {
-	// background: var(--bg-card);
 	padding: 4px 8px;
 	cursor: pointer;
-	display: flex;
-	justify-content: space-between;
 
 	&.selected {
 		background: #b1ddfc;
 		color: #1565c0;
 
-		&:hover {
-			background: #b1ddfc;
-		}
+		&:hover { background: #b1ddfc; }
 	}
 
-	&:hover {
-		background: hsla(0, 0%, 91%);
-
-	}
+	&:hover { background: hsla(0, 0%, 91%); }
 }
 
 .quick .q-field--dense .q-field__control,

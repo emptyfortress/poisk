@@ -5,44 +5,41 @@ q-menu(context-menu)
 			q-item-section(avatar)
 				q-icon(:name="item.icon")
 			q-item-section
-				q-item-label {{item.label}}
+				q-item-label {{ item.label }}
 </template>
 
 <script setup lang="ts">
 
-const props = defineProps<{
-	stat: Stat
-}>()
+const emit = defineEmits(['addFolder', 'add', 'kill', 'disable'])
 
-const emit = defineEmits(['addOp', 'addCond', 'kill', 'disable' ])
-
-const addOp = () => {
-	emit('addOp', props.stat)
+const addFolder = () => {
+	emit('addFolder')
 }
-const addCond = () => {
-	emit('addCond', props.stat)
+const add = () => {
+	emit('add')
 }
 const kill = () => {
-	emit('kill', props.stat)
+	emit('kill')
 }
 const disable = () => {
-	emit('disable', props.stat)
+	emit('disable')
 }
 
 const menu = [
 	{
 		id: 0,
-		label: 'Добавить оператор',
-		icon: 'mdi-gate-and',
-		action: addOp,
+		label: 'Добавить папку',
+		icon: 'mdi-folder-outline',
+		action: addFolder,
 	},
 	{
 		id: 1,
-		label: 'Добавить условие',
-		icon: 'mdi-crosshairs-question',
-		action: addCond,
+		label: 'Добавить запрос',
+		icon: 'mdi-plus-circle-outline',
+		action: add,
 	},
-	{ id: 2, label: 'Выключить', icon: 'mdi-minus-circle', action: disable },
+	{ id: 2, label: 'Дублировать запрос', icon: 'mdi-plus-circle-multiple-outline', action: disable },
+	{ id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: disable },
 	{ id: 4, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
 ]
 </script>
@@ -58,6 +55,7 @@ const menu = [
 	opacity: 0.5;
 	cursor: not-allowed !important;
 }
+
 :deep(.q-item__section--avatar) {
 	min-width: 0;
 }

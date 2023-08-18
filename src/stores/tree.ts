@@ -2,21 +2,17 @@ const searches = [
 	{
 		text: 'Поиски DV',
 		hidden: false,
+		type: 0,
 		children: [
 			{
-				text: 'По умолчанию',
+				text: 'Договоры',
 				hidden: false,
-				children: [],
+				type: 1,
 			},
 			{
-				text: 'Мои поиски',
+				text: 'Мои документы',
 				hidden: false,
-				children: []
-			},
-			{
-				text: 'Другие поиски',
-				hidden: false,
-				children: []
+				type: 1,
 			},
 		],
 	},
@@ -26,21 +22,22 @@ const views = [
 	{
 		text: 'Представления',
 		hidden: false,
+		type: 0,
 		children: [
 			{
 				text: 'Digest',
 				hidden: false,
-				children: [],
+				type: 1,
 			},
 			{
 				text: 'Задания',
 				hidden: false,
-				children: []
+				type: 1,
 			},
 			{
 				text: 'Отдел кадров',
 				hidden: false,
-				children: []
+				type: 1,
 			},
 		],
 	},

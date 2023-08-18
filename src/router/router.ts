@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { useStore } from '@/stores/store'
 import Home from '@/pages/Home.vue'
 
 declare module 'vue-router' {
@@ -37,7 +36,5 @@ export const router = createRouter({
 
 const DEFAULT_TITLE = 'Поиски и представления'
 router.beforeEach((to) => {
-	const store = useStore()
 	document.title = to.meta.title || DEFAULT_TITLE
-	store.offEdit()
 })
