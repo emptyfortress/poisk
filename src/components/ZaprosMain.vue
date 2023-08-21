@@ -105,21 +105,21 @@ const calcRows = computed(() => {
 			q-btn(flat round dense @click="switchSidebar" )
 				q-icon(name="mdi-forwardburger" v-if="props.splitter === 0")
 				q-icon(name="mdi-backburger" v-else)
-			template(v-if="store.currentNode" )
+			template(v-if="store.currentNode?.data.type == 1" )
 				.zg {{ store.currentNode.data.text }}
-					q-popup-edit( v-model="store.currentNode.data.text " auto-save v-slot="scope")
+					q-popup-edit( v-model="store.currentNode.data.text" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 			div(v-else) Выберите запрос
 			.btngroup
 				q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
-		template( v-if="store.currentNode")
+		template(v-if="store.currentNode?.data.type == 1" )
 			.descr {{ store.currentNode.data.text1 }}
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-		QueryItem(v-if="store.currentNode")
+		QueryItem(v-if="store.currentNode?.data.type == 1" )
 
 	div
-		.row.justify-between(v-if="store.currentNode")
+		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
 			q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
 				q-menu(anchor="bottom right" self="top right")
 					q-list
@@ -158,19 +158,23 @@ q-dialog(v-model="preview")
 	padding-bottom: 0;
 	border-bottom: 1px dotted var(--q-primary);
 }
+
 .descr {
 	margin: .5rem 1rem;
 	padding: 0.5rem;
 	padding-bottom: 0;
 	border-bottom: 1px dotted var(--q-primary);
 }
+
 .q-select {
 	width: 175px;
 }
+
 :deep(.q-table th) {
 	background: #dedede;
 	// border-top-width: 1px;
 }
+
 :deep(.q-table tr) {
 	height: 32px;
 }
