@@ -6,6 +6,7 @@ q-menu(context-menu)
 				q-icon(:name="item.icon")
 			q-item-section
 				q-item-label {{ item.label }}
+
 </template>
 
 <script setup lang="ts">
@@ -32,6 +33,9 @@ const kill = () => {
 const duble = () => {
 	emit('duble')
 }
+const rename = () => {
+	emit('rename')
+}
 
 const menu = [
 	{
@@ -47,7 +51,7 @@ const menu = [
 		action: add,
 	},
 	{ id: 2, label: 'Дублировать запрос', icon: 'mdi-plus-circle-multiple-outline', action: duble },
-	// { id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: rename },
+	{ id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: rename },
 	{ id: 4, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
 ]
 </script>

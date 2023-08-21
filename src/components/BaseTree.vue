@@ -93,16 +93,19 @@ const duble = ((e: Stat) => {
 	tree.value.add({text: e.data.text + '-copy'}, e.parent)
 })
 
+const edit = ((e: Stat) => {
+	e.data.edit = true
+})
+const setText = (($event: Event, e: Stat) => {
+	e.data.text =  $event.target.value
+	e.data.edit = false
+})
+
 const isDrop = (e: Stat) => {
 	if (e.data.type == 0) return true
 	else return false
 }
 
-const toggleEdit = (() => {
-	store.toggleEdit()
-	drag.value = !drag.value
-})
-const test = ref(false)
 </script>
 
 <template lang="pug">
@@ -134,7 +137,14 @@ div
 					@kill="remove(stat)"
 					@add="add(stat)"
 					@addFolder="addFolder(stat)"
+					@rename="edit(stat)"
 					@duble="duble(stat)")
+				q-menu.q-px-md(no-parent-event v-model="stat.data.edit" cover anchor="top left")
+					q-input(:model-value="stat.data.text"
+					dense
+					autofocus counter
+					@keyup.enter="setText($event, stat)"
+					)
 
 </template>
 
@@ -142,6 +152,7 @@ div
 .node {
 	padding: 4px 8px;
 	cursor: pointer;
+	// position: relative;
 
 	&.selected {
 		background: #b1ddfc;
@@ -151,6 +162,11 @@ div
 	}
 
 	&:hover { background: hsla(0, 0%, 91%); }
+
+	// .ed {
+	// 	position: absolute;
+	// 	top: 1rem;
+	// }
 }
 
 .quick .q-field--dense .q-field__control,

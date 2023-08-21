@@ -2,7 +2,7 @@ interface NodeData {
 	id: number
 	text: string
 	text1?: string
-	text2?: string
+	edit?: boolean
 	selected?: boolean
 	restrict?: boolean
 	icon?: string
