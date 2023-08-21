@@ -102,13 +102,13 @@ const duble = ((e: Stat) => {
 const edit = ((e: Stat) => {
 	e.data.edit = true
 })
-const setText = (($event: Event, e: Stat) => {
-	e.data.text =  $event.target.value
+const setText = ((e: Stat, ev: any) => {
+	e.data.text = ev.target.value
 	e.data.edit = false
 })
 
-const isDrop = (e: Stat) => {
-	if (e.data.type == 0) return true
+const isDrop = (e: any) => {
+	if (e.data.type == 1) return true
 	else return false
 }
 
@@ -149,7 +149,7 @@ div
 					q-input(:model-value="stat.data.text"
 					dense
 					autofocus counter
-					@keyup.enter="setText($event, stat)"
+					@keyup.enter="setText(stat, $event)"
 					)
 
 </template>
@@ -164,10 +164,14 @@ div
 		background: #b1ddfc;
 		color: #1565c0;
 
-		&:hover { background: #b1ddfc; }
+		&:hover {
+			background: #b1ddfc;
+		}
 	}
 
-	&:hover { background: hsla(0, 0%, 91%); }
+	&:hover {
+		background: hsla(0, 0%, 91%);
+	}
 
 	// .ed {
 	// 	position: absolute;
@@ -194,5 +198,4 @@ div
 		transform: rotate(-90deg);
 	}
 }
-
 </style>
