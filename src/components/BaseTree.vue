@@ -102,6 +102,7 @@ const toggleEdit = (() => {
 	store.toggleEdit()
 	drag.value = !drag.value
 })
+const test = ref(false)
 </script>
 
 <template lang="pug">

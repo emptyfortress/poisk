@@ -6,11 +6,13 @@ const searches = [
 		children: [
 			{
 				text: 'Договоры',
+				text1: 'Поиск договоров до 100 тыс. руб',
 				hidden: false,
 				type: 1,
 			},
 			{
 				text: 'Мои документы',
+				text1: 'Поиск моих документов. Я - автор',
 				hidden: false,
 				type: 1,
 			},

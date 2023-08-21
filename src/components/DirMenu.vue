@@ -18,7 +18,7 @@ const dis = ((e: number) => {
 	} else return false
 })
 
-const emit = defineEmits(['addFolder', 'add', 'kill', 'duble'])
+const emit = defineEmits(['addFolder', 'add', 'kill', 'duble', 'rename'])
 
 const addFolder = () => {
 	emit('addFolder')
@@ -47,7 +47,7 @@ const menu = [
 		action: add,
 	},
 	{ id: 2, label: 'Дублировать запрос', icon: 'mdi-plus-circle-multiple-outline', action: duble },
-	{ id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: add },
+	// { id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: rename },
 	{ id: 4, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
 ]
 </script>

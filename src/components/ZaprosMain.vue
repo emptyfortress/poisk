@@ -23,6 +23,14 @@ const remove = (() => {
 const double = (() => {
 	store.toggleDub()
 })
+const pred = ref('Дайджест')
+const options = [
+	'Представление 1',
+	'Представление 2',
+	'Представление 3',
+	'Представление 4',
+	'Представление 5',
+]
 const preview = ref(false)
 const cols: QTableColumn[] = [
 	{
@@ -97,13 +105,18 @@ const calcRows = computed(() => {
 			q-btn(flat round dense @click="switchSidebar" )
 				q-icon(name="mdi-forwardburger" v-if="props.splitter === 0")
 				q-icon(name="mdi-backburger" v-else)
-			.zg(v-if="store.currentNode")
-				q-icon(name="mdi-briefcase-search-outline" size="sm")
-				span.q-ml-md {{ store.currentNode.data.text }}
+			template(v-if="store.currentNode" )
+				.zg {{ store.currentNode.data.text }}
+					q-popup-edit( v-model="store.currentNode.data.text " auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 			div(v-else) Выберите запрос
 			.btngroup
 				q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
-		QueryItem(v-if="store.currentNode" )
+		template( v-if="store.currentNode")
+			.descr {{ store.currentNode.data.text1 }}
+				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
+					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+		QueryItem(v-if="store.currentNode")
 
 	div
 		.row.justify-between(v-if="store.currentNode")
@@ -120,8 +133,9 @@ q-dialog(v-model="preview")
 	q-card(style="width: 900px; max-width: 80vw;")
 		q-card-section.row.items-center.q-pb-none
 			.text-h6 {{ store.currentNode?.data.text }}
-				span.q-ml-lg(v-if="!loading") (найдено 9)
+				span.q-ml-lg(v-if="!loading") (9)
 			q-space
+			q-select.q-mr-xl(v-model="pred" filled dense :options="options")
 			q-btn(icon="mdi-close" flat round dense @click="preview = false")
 
 		q-card-section
@@ -137,6 +151,27 @@ q-dialog(v-model="preview")
 }
 
 .zg {
-	font-size: 1.2rem;
+	font-size: 1rem;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding: 0.5rem;
+	padding-bottom: 0;
+	border-bottom: 1px dotted var(--q-primary);
+}
+.descr {
+	margin: .5rem 1rem;
+	padding: 0.5rem;
+	padding-bottom: 0;
+	border-bottom: 1px dotted var(--q-primary);
+}
+.q-select {
+	width: 175px;
+}
+:deep(.q-table th) {
+	background: #dedede;
+	// border-top-width: 1px;
+}
+:deep(.q-table tr) {
+	height: 32px;
 }
 </style>
