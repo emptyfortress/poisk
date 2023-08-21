@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { fields, conditions, values, names } from '@/stores/select.js'
+import { fields, conditions, values } from '@/stores/select'
 
 const props = defineProps<{
 	stat: Stat
@@ -36,7 +36,7 @@ const enable = (() => {
 </script>
 
 <template lang="pug">
-.node(:class="{ dis : props.stat.data.restrict === true}" )
+.node(:class="{ dis: props.stat.data.restrict === true }" )
 	.zero(v-if="props.stat.data.type === 0")
 		q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
 		.icon(:class="{ or: props.stat.data.typ === 1 }" @click.stop="next(props.stat)")
@@ -61,16 +61,20 @@ const enable = (() => {
 		width: 42px;
 		margin-right: 1rem;
 	}
+
 	&.dis {
 		.restrict {
 			display: block;
 		}
-		.one, .zero {
+
+		.one,
+		.zero {
 			border: 1px solid red;
 			background: #fae4e8;
 		}
 	}
 }
+
 .restrict {
 	position: absolute;
 	top: 50%;
