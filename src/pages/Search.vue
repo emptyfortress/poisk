@@ -16,24 +16,35 @@ q-page(padding)
 		.zag.q-mb-lg Настройка поисковых запросов
 		q-splitter(v-model="splitterModel" :limits="[0, 100]" :style="hei" )
 			template(v-slot:before)
-				q-scroll-area.list
-					BaseTree
+				.blo
+					q-scroll-area.list
+						BaseTree()
 			template(v-slot:after)
 				.main
-					ZaprosMain(:splitter="splitterModel"
-						@maximize="splitterModel = 0"
-						@reset="splitterModel = 30")
+					q-scroll-area.list
+						ZaprosMain(:splitter="splitterModel"
+							@maximize="splitterModel = 0"
+							@reset="splitterModel = 30")
 </template>
 
 <style scoped lang="scss">
+.blo {
+	border: 1px solid var(--my-border-color);
+	background: var(--bg-panel);
+	margin-right: 0.5rem;
+	height: calc(100vh - 180px);
+}
 
 .list {
-	height: calc(100vh - 180px);
-	margin-right: 1rem;
+	height: 100%;
 }
 
 .main {
+	border: 1px solid var(--my-border-color);
+	background: var(--bg-panel);
+	height: 100%;
 	margin-left: .5rem;
-	height: calc(100vh - 180px);
+	padding: 1rem;
+
 }
 </style>

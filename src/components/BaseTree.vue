@@ -108,7 +108,7 @@ const setText = ((e: Stat, ev: any) => {
 })
 
 const isDrop = (e: any) => {
-	if (e.data.type == 1) return true
+	if (e.data.type == 0) return true
 	else return false
 }
 
