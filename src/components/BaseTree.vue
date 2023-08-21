@@ -90,7 +90,13 @@ const remove = ((e: Stat) => {
 	}
 })
 const duble = ((e: Stat) => {
-	tree.value.add({text: e.data.text + '-copy'}, e.parent)
+	let temp = {
+		text: e.data.text + '-copy',
+		text1: e.data.text1,
+		hidden: false,
+	}
+	tree.value.add(temp, e.parent)
+	select(tree.value.getStat(temp))
 })
 
 const edit = ((e: Stat) => {
