@@ -118,7 +118,7 @@ const calcRows = computed(() => {
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 		QueryItem(v-if="store.currentNode?.data.type == 1" )
 
-	div
+	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
 			q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
 				q-menu(anchor="bottom right" self="top right")

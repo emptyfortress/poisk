@@ -14,7 +14,7 @@ const pages = [
 	{
 		id: 1,
 		title: 'Запросы',
-		icon: 'mdi-briefcase-search-outline',
+		icon: 'mdi-puzzle-outline',
 		url: '/search',
 	},
 	{
@@ -22,6 +22,12 @@ const pages = [
 		title: 'Представления',
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout',
+	},
+	{
+		id: 3,
+		title: 'Мои поиски',
+		icon: 'mdi-briefcase-search-outline',
+		url: '/mysearch',
 	},
 ]
 </script>

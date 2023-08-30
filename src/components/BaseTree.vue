@@ -2,7 +2,7 @@
 import { ref, computed, watch, watchEffect } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
-import { searches, views } from '@/stores/tree'
+import { searches, views, mySearches } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 import WordHighlighter from "vue-word-highlighter"
 import { useRoute } from 'vue-router'
@@ -17,6 +17,8 @@ const treeData = computed({
 			return searches
 		} else if (route.name === 'layout') {
 			return views
+		} else if (route.name === 'mysearch') {
+			return mySearches
 		}
 	},
 	set(val) { }
@@ -49,7 +51,10 @@ watchEffect(() => {
 	}
 	if (store.dub === true) {
 		let temp = {
-			text: store.currentNode!.data.text + '-copy'
+			text: store.currentNode!.data.text + '-copy',
+			text1: store.currentNode!.data.text1,
+			hidden: false,
+			type: 1
 		}
 		tree.value.add(temp, store.currentNode!.parent)
 		let one = tree.value.getStat(temp)
@@ -94,6 +99,7 @@ const duble = ((e: Stat) => {
 		text: e.data.text + '-copy',
 		text1: e.data.text1,
 		hidden: false,
+		type: 1
 	}
 	tree.value.add(temp, e.parent)
 	select(tree.value.getStat(temp))
@@ -112,6 +118,10 @@ const isDrop = (e: any) => {
 	else return false
 }
 
+const initial = (stat: any) => {
+	stat.data.selected = false
+	return stat
+}
 </script>
 
 <template lang="pug">
@@ -132,6 +142,7 @@ div
 		ref="tree"
 		:indent="30"
 		:eachDroppable="isDrop"
+		:statHandler="initial"
 		:watermark="false")
 		template(#default="{ node, stat }")
 			.node(@click="select(stat)" :class="{ 'selected': stat.data.selected }")

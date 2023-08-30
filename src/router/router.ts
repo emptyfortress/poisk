@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/pages/Home.vue'
+import { useStore } from '@/stores/store'
 
 declare module 'vue-router' {
 	interface RouteMeta {
@@ -26,9 +27,21 @@ export const router = createRouter({
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 		{
+			path: '/mysearch',
+			name: 'mysearch',
+			component: () => import('@/pages/MySearch.vue'),
+			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
+		},
+		{
 			path: '/layout',
 			name: 'layout',
 			component: () => import('@/pages/Layout.vue'),
+			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
+		},
+		{
+			path: '/dog',
+			name: 'dog',
+			component: () => import('@/pages/Dog.vue'),
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 	],
@@ -37,4 +50,6 @@ export const router = createRouter({
 const DEFAULT_TITLE = 'Поиски и представления'
 router.beforeEach((to) => {
 	document.title = to.meta.title || DEFAULT_TITLE
+	const store = useStore()
+	store.setCurrentNode(null)
 })

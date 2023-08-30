@@ -1,3 +1,35 @@
+const mySearches = [
+	{
+		text: 'Мои поиски',
+		hidden: false,
+		type: 0,
+		selected: false,
+		children: [
+			{
+				text: 'Заявки от АХУ',
+				text1: 'Пояснительный текст про поиск',
+				hidden: false,
+				selected: false,
+				type: 1,
+			},
+			{
+				text: 'Мои командировки',
+				text1: 'Пояснительный текст про поиск',
+				hidden: false,
+				selected: false,
+				type: 1,
+			},
+			{
+				text: 'Задания на контроле',
+				text1: 'Пояснительный текст про поиск',
+				hidden: false,
+				selected: false,
+				type: 1,
+			},
+		]
+	}
+]
+
 const searches = [
 	{
 		text: 'Поиски DV',
@@ -44,4 +76,4 @@ const views = [
 		],
 	},
 ]
-export { searches, views }
+export { searches, views, mySearches }

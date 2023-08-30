@@ -6,10 +6,6 @@ const props = defineProps<{
 	stat: Stat
 }>()
 
-const pole = ref('')
-const cond = ref('')
-const val = ref('')
-
 const options1 = ref(fields)
 const options2 = ref(conditions)
 const options3 = ref(values)
@@ -55,7 +51,6 @@ const enable = (() => {
 .node {
 	cursor: pointer;
 	position: relative;
-	// background: #ccc;
 
 	img {
 		width: 42px;
@@ -89,11 +84,11 @@ const enable = (() => {
 	background: transparent;
 	padding: .5rem;
 	margin-bottom: 4px;
-	background: var(--bg-panel);
+	background: var(--bg-head);
 	border: 1px solid #ccc;
+	border-radius: 4px;
 
 	&:hover {
-		background: var(--bg-panel);
 		border-color: $primary;
 	}
 }
@@ -102,7 +97,7 @@ const enable = (() => {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 42px;
 	align-items: center;
-	background: var(--bg-panel);
+	background: var(--bg-head);
 	padding: .5rem;
 	padding-left: 3rem;
 	border: 1px solid #ccc;
