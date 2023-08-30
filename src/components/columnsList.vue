@@ -19,7 +19,7 @@ watch(list.value, () => {
 
 <template lang="pug">
 .grid
-	.text-right Настройте видимость <br />и порядок следования колонок:
+	div Настройте видимость <br />и порядок следования колонок:
 	draggable(:list="list"
 		item-key="id"
 		class="list-group"
@@ -27,23 +27,36 @@ watch(list.value, () => {
 		)
 
 		template(#item="{ element }")
+
 			.list-group-item
+				.drag
 				q-checkbox(v-model="element.check" dense :label="element.name")
 </template>
 
 <style scoped lang="scss">
 .grid {
 	display: grid;
-	grid-template-columns: 300px auto;
+	grid-template-columns: auto 1fr;
 	align-items: start;
 	gap: 2rem;
 }
 
 .list-group-item {
 	background: #fff;
-	padding: 6px 1rem;
-	width: 200px;
-	margin-bottom: 2px;
+	padding: 6px 1rem 6px 1.5rem;
+	width: 250px;
+	margin-bottom: -1px;
+	position: relative;
+	border: 1px solid #dedede;
+
+}
+.drag {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 15px;
+	height: 100%;
+	background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAChJREFUGFc1ikEOwDAAguD/j2ax7fSiBMUgE1xlOY/uemCaTRjrV/kAE0wHDsCeQbcAAAAASUVORK5CYII=) repeat;
 }
 
 .ghost {
