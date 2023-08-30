@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useStore } from '@/stores/store'
 import SearchForm from '@/components/SearchForm.vue'
 import resultItem from '@/components/resultItem.vue'
@@ -24,6 +24,10 @@ const double = (() => {
 	store.toggleDub()
 })
 
+const name = ref('name')
+watchEffect(() => {
+	name.value = store.currentNode?.data.text
+})
 </script>
 
 <template lang="pug">
@@ -34,8 +38,8 @@ const double = (() => {
 				q-icon(name="mdi-forwardburger" v-if="props.splitter === 0")
 				q-icon(name="mdi-backburger" v-else)
 			template(v-if="store.currentNode?.data.type == 1" )
-				.zg {{ store.currentNode.data.text }}
-					q-popup-edit( v-model="store.currentNode.data.text" auto-save v-slot="scope")
+				.zg {{ name }}
+					q-popup-edit( v-model="name" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			div(v-else) Выберите запрос
