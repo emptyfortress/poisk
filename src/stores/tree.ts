@@ -7,21 +7,21 @@ const mySearches = [
 		children: [
 			{
 				text: 'Заявки от АХУ',
-				text1: 'Пояснительный текст про поиск',
+				text1: 'Описание поиска',
 				hidden: false,
 				selected: false,
 				type: 1,
 			},
 			{
 				text: 'Мои командировки',
-				text1: 'Пояснительный текст про поиск',
+				text1: 'Описание поиска',
 				hidden: false,
 				selected: false,
 				type: 1,
 			},
 			{
 				text: 'Задания на контроле',
-				text1: 'Пояснительный текст про поиск',
+				text1: 'Описание поиска',
 				hidden: false,
 				selected: false,
 				type: 1,

@@ -21,14 +21,6 @@ const right = [
 	{id: 5, label: 'Контрагент'},
 	{id: 6, label: 'Партнер'},
 ]
-const view = ref('Дайджест')
-const options = [
-	'Дайджест',
-	'Я - автор',
-	'Договоры',
-	'Заявки',
-	'Служебный записки',
-]
 </script>
 
 <template lang="pug">
@@ -38,15 +30,6 @@ const options = [
 	.left
 		formItem(v-for="item in right" :label="item.label")
 
-br
-q-expansion-item
-	template(v-slot:header)
-		q-item-section(avatar)
-			q-icon(name="mdi-view-compact" )
-		q-item-section
-			label Представление результатов в виде:
-		q-item-section(@click.stop="")
-			q-select(v-model="view" dense outlined bg-color="white" :options="options")
 </template>
 
 <style scoped lang="scss">

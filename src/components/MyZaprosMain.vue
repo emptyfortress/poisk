@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import SearchForm from '@/components/SearchForm.vue'
+import resultItem from '@/components/resultItem.vue'
 
 const props = defineProps({
 	splitter: Number,
@@ -54,15 +55,20 @@ const double = (() => {
 					q-list
 						q-item.pink(clickable @click="remove" v-close-popup )
 							q-item-section Удалить
+			q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save") 
+
+	br
+	template(v-if="store.currentNode?.data.type == 1" )
+		resultItem
+		br
+		.row.justify-between
 			div
-				q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save") 
-				q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="showPreview") 
+			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
 
 </template>
 
 <style scoped lang="scss">
 .layout {
-	// height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
