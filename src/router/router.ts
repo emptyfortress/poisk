@@ -38,12 +38,6 @@ export const router = createRouter({
 			component: () => import('@/pages/Layout.vue'),
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
-		{
-			path: '/dog',
-			name: 'dog',
-			component: () => import('@/pages/Dog.vue'),
-			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
-		},
 	],
 })
 
