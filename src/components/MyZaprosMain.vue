@@ -28,6 +28,14 @@ const name = ref('name')
 watchEffect(() => {
 	name.value = store.currentNode?.data.text
 })
+const showSave = ref(false)
+const toggleShowSave = (() => {
+	showSave.value = !showSave.value
+})
+const savePoisk = (() => {
+	store.savePoisk(name.value, store.currentNode.data.text1)
+	showSave.value = false
+})
 </script>
 
 <template lang="pug">
@@ -59,7 +67,7 @@ watchEffect(() => {
 					q-list
 						q-item.pink(clickable @click="remove" v-close-popup )
 							q-item-section Удалить
-			q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save") 
+			q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save" @click="toggleShowSave") 
 
 	br
 	template(v-if="store.currentNode?.data.type == 1" )
@@ -69,6 +77,20 @@ watchEffect(() => {
 			div
 			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
 
+q-dialog(v-model="showSave")
+	q-card(style="min-width: 500px;")
+		q-card-section.row.items-center.q-pb-none
+			.text-h6 Сохранить поиск
+			q-space
+			q-btn(icon="mdi-close" flat round dense @click="toggleShowSave")
+
+		q-card-section
+			q-input.q-mb-sm(v-model="name" dense filled label="Название")
+			q-input(v-model="store.currentNode.data.text1" dense filled label="Описание")
+		q-card-section
+			q-card-actions(align="right")
+				q-btn(flat color="primary" label="Отмена" @click="toggleShowSave") 
+				q-btn(unelevated color="primary" label="Сохранить" @click="savePoisk") 
 </template>
 
 <style scoped lang="scss">

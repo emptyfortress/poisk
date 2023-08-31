@@ -35,5 +35,6 @@ q-expansion-item
 
 .q-expansion-item {
 	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 </style>

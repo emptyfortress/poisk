@@ -22,6 +22,10 @@ export const useStore = defineStore({
 		},
 		toggleDub() {
 			this.dub = !this.dub
+		},
+		savePoisk(e: string, c: string) {
+			this.currentNode.data.text = e
+			this.currentNode.data.text1 = c
 		}
 	},
 })
