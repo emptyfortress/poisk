@@ -3,6 +3,7 @@ import { ref, computed, watchEffect } from 'vue'
 import { useStore } from '@/stores/store'
 import SearchForm from '@/components/SearchForm.vue'
 import resultItem from '@/components/resultItem.vue'
+import twoList from '@/components/twoList.vue'
 
 const props = defineProps({
 	splitter: Number,
@@ -25,6 +26,7 @@ const double = (() => {
 })
 
 const name = ref('name')
+
 watchEffect(() => {
 	name.value = store.currentNode?.data.text
 })
@@ -32,8 +34,9 @@ const showSave = ref(false)
 const toggleShowSave = (() => {
 	showSave.value = !showSave.value
 })
+
 const savePoisk = (() => {
-	store.savePoisk(name.value, store.currentNode.data.text1)
+	store.savePoisk(name.value, store.currentNode?.data.text1)
 	showSave.value = false
 })
 </script>
@@ -59,18 +62,19 @@ const savePoisk = (() => {
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-	SearchForm(v-if="store.currentNode?.data.type == 1" )
-	.q-mt-lg
-		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
-			q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
-				q-menu(anchor="bottom right" self="top right")
-					q-list
-						q-item.pink(clickable @click="remove" v-close-popup )
-							q-item-section Удалить
-			q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save" @click="toggleShowSave") 
-
-	br
 	template(v-if="store.currentNode?.data.type == 1" )
+		twoList()
+
+		.q-mt-lg
+			.row.justify-between
+				q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
+					q-menu(anchor="bottom right" self="top right")
+						q-list
+							q-item.pink(clickable @click="remove" v-close-popup )
+								q-item-section Удалить
+				q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save" @click="toggleShowSave") 
+
+		br
 		resultItem
 		br
 		.row.justify-between
@@ -116,16 +120,4 @@ q-dialog(v-model="showSave")
 	border-bottom: 1px dotted var(--q-primary);
 }
 
-.q-select {
-	width: 175px;
-}
-
-:deep(.q-table th) {
-	background: #dedede;
-	// border-top-width: 1px;
-}
-
-:deep(.q-table tr) {
-	height: 32px;
-}
 </style>

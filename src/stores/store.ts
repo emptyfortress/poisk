@@ -24,8 +24,8 @@ export const useStore = defineStore({
 			this.dub = !this.dub
 		},
 		savePoisk(e: string, c: string) {
-			this.currentNode.data.text = e
-			this.currentNode.data.text1 = c
+			this.currentNode!.data.text = e
+			this.currentNode!.data.text1 = c
 		}
 	},
 })
