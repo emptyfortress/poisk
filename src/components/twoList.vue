@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
 import draggable from "vuedraggable"
-import { datasource } from '@/stores/select'
+import { datasource, datasource1 } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
 
-const source = ref('Общий - по атрибутам')
+const source = ref('Документы - поиски документов')
 const sourceOptions = [
-	'Общий - по атрибутам',
 	'Документы - поиски документов',
+	'Общий - по атрибутам',
 ]
 
-const list = reactive(datasource)
+// const list = reactive(datasource)
+const list = computed(() => {
+	if (source.value === 'Документы - поиски документов') {
+		return datasource
+	} else return datasource1
+})
 
 const list1 = reactive([])
 const query = ref('')
@@ -19,9 +24,9 @@ const clearFilter = (() => {
 })
 const filtList = computed(() => {
 	if (query.value.length === 0) {
-		return list
+		return list.value
 	} else {
-		return list.filter(item => item.label.toLowerCase().includes(query.value.toLowerCase()))
+		return list.value.filter(item => item.label.toLowerCase().includes(query.value.toLowerCase()))
 	}
 })
 </script>

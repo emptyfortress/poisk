@@ -161,4 +161,15 @@ const datasource = [
 	{id: 18, check: true, type: 0, label: 'Дополнительные файлы',},
 	{id: 19, check: true, type: 0, label: 'Подпись',},
 ]
-export { datasource, fields, conditions, values, names, type, cols, vid, status, history }
+const datasource1 = [
+	{id: 0, check: true, type: 1, label: 'Атрибут 1', options: []},
+	{id: 1, check: true, type: 1, label: 'Атрибут 2', options: []},
+	{id: 2, check: true, type: 1, label: 'Атрибут 3', options: []},
+	{id: 3, check: true, type: 1, label: 'Атрибут 4', options: []},
+	{id: 4, check: true, type: 1, label: 'Атрибут 5', options: []},
+	{id: 5, check: true, type: 1, label: 'Атрибут 6', options: []},
+	{id: 6, check: true, type: 1, label: 'Атрибут 7', options: []},
+	{id: 7, check: true, type: 1, label: 'Атрибут 8', options: []},
+	{id: 8, check: true, type: 1, label: 'Атрибут 9', options: []},
+]
+export { datasource, datasource1, fields, conditions, values, names, type, cols, vid, status, history }
