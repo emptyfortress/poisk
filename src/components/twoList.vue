@@ -18,9 +18,7 @@ const list = ref([
 	{ id: 4, name: 'Ответственный', check: true },
 ])
 
-const list1 = ref([
-	{ id: 5, name: 'Fuck', check: true },
-])
+const list1 = ref([])
 </script>
 
 <template lang="pug">
@@ -82,7 +80,7 @@ const list1 = ref([
 	margin-bottom: -1px;
 	position: relative;
 	border: 1px solid #dedede;
-
+	font-size: .9rem;
 }
 
 .dragg {
