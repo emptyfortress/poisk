@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import draggable from "vuedraggable"
+import { datasource } from '@/stores/select'
+import formItem from '@/components/formItem.vue'
 
 const source = ref('Общий - по атрибутам')
 const sourceOptions = [
 	'Общий - по атрибутам',
-	// 'Договоры - поиски договоров',
-	// 'Задания - поиски заданий',
 	'Документы - поиски документов',
 ]
 
-const list = ref([
-	{ id: 0, name: 'Номер', check: true },
-	{ id: 1, name: 'Контрагент', check: true },
-	{ id: 2, name: 'Сумма', check: true },
-	{ id: 3, name: 'Дата подписания', check: true },
-	{ id: 4, name: 'Ответственный', check: true },
-])
+const list = reactive(datasource)
 
-const list1 = ref([])
+const list1 = reactive([
+	{ id: 0, label: 'Дайджест', check: true, type: 0 }
+])
+const query = ref('')
+const clearFilter = (() => {
+	query.value = ''
+})
 </script>
 
 <template lang="pug">
@@ -27,32 +27,43 @@ const list1 = ref([])
 	q-select(v-model="source" dense :options="sourceOptions" outlined bg-color="white")
 .drag
 	div
-		.text-center Доступно
-		draggable(:list="list"
-			item-key="id"
-			class="list-group"
-			ghost-class="ghost"
-			group="data"
-			)
+		.filt Доступно
+			q-input(dense
+				v-model="query"
+				autofocus
+				clearable
+				@clear="clearFilter"
+				placeholder="фильтр"
+				).query
+				template(v-slot:prepend)
+					q-icon(name="mdi-magnify")
+		q-scroll-area.avail
+			draggable(:list="list"
+				item-key="id"
+				class="list-group"
+				ghost-class="ghost"
+				group="data"
+				)
 
-			template(#item="{ element }")
-				.list-group-item
-					.dragg
-					q-checkbox(v-model="element.check" dense :label="element.name")
+				template(#item="{ element }")
+					.list-group-item
+						.dragg
+						label {{ element.label }}
+						// q-checkbox(v-model="element.check" dense :label="element.name")
 
 	div
-		.text-center Выбрано
+		.filt Выбрано
 		draggable(:list="list1"
 			item-key="id"
 			class="list-group"
 			ghost-class="ghost"
-			group="data"
-			)
+			group="data")
 
-			template(#item="{ element }")
-				.list-group-item
+			template(#item="{ element }" )
+				.list-group-item.big
 					.dragg
-					q-checkbox(v-model="element.check" dense :label="element.name")
+					formItem(:item="element" )
+					// q-checkbox(v-model="element.check" dense :label="element.name")
 </template>
 
 <style scoped lang="scss">
@@ -67,20 +78,39 @@ const list1 = ref([])
 	}
 }
 
+.avail {
+	height: 250px;
+}
+
+.list-group {
+	display: flex;
+	flex-direction: column;
+	cursor: move;
+}
+
+.filt {
+	font-size: .9rem;
+	font-weight: 600;
+	margin-bottom: .5rem;
+}
+
 .drag {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 2fr;
 	gap: 2rem;
 }
 
 .list-group-item {
 	background: #fff;
 	padding: 6px 1rem 6px 1.5rem;
-	width: 250px;
 	margin-bottom: -1px;
 	position: relative;
 	border: 1px solid #dedede;
 	font-size: .9rem;
+
+	&.big {
+		padding: 1rem 1rem 1rem 1.5rem;
+	}
 }
 
 .dragg {
@@ -94,6 +124,6 @@ const list1 = ref([])
 
 .ghost {
 	opacity: 0.5;
-	background: #c8ebfb;
+	// background: #c8ebfb;
 }
 </style>

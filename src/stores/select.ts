@@ -121,4 +121,25 @@ const history = [
 	'Еще один запрос поиска 7',
 ]
 
-export { fields, conditions, values, names, type, cols, vid, status, history }
+const datasource = [
+	{id: 1,  check: true, type: 2, label: 'Тип',},
+	{id: 2,  check: true, type: 2, label: 'Вид карточки',},
+	{id: 3,  check: true, type: 2, label: 'Статус',},
+	{id: 4,  check: true, type: 1, label: 'Рег. номер',},
+	{id: 5,  check: true, type: 4, label: 'Дата регистрации',},
+	{id: 6,  check: true, type: 3, label: 'Автор',},
+	{id: 7,  check: true, type: 3, label: 'Исполнитель',},
+	{id: 8,  check: true, type: 3, label: 'Контролер',},
+	{id: 9,  check: true, type: 3, label: 'Подготовил',},
+	{id: 10, check: true, type: 4, label: 'Создано',},
+	{id: 11, check: true, type: 4, label: 'Изменено',},
+	{id: 12, check: true, type: 4, label: 'Срок исполнения',},
+	{id: 13, check: true, type: 3, label: 'Контрагент',},
+	{id: 14, check: true, type: 3, label: 'Согласущие',},
+	{id: 15, check: true, type: 3, label: 'Подписывает',},
+	{id: 16, check: true, type: 3, label: 'Получатели',},
+	{id: 17, check: true, type: 0, label: 'Основные файлы',},
+	{id: 18, check: true, type: 0, label: 'Дополнительные файлы',},
+	{id: 19, check: true, type: 0, label: 'Подпись',},
+]
+export { datasource, fields, conditions, values, names, type, cols, vid, status, history }

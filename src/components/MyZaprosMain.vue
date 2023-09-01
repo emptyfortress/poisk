@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect } from 'vue'
 import { useStore } from '@/stores/store'
-import SearchForm from '@/components/SearchForm.vue'
 import resultItem from '@/components/resultItem.vue'
 import twoList from '@/components/twoList.vue'
 
@@ -25,7 +24,7 @@ const double = (() => {
 	store.toggleDub()
 })
 
-const name = ref('name')
+const name = ref()
 
 watchEffect(() => {
 	name.value = store.currentNode?.data.text
@@ -36,7 +35,7 @@ const toggleShowSave = (() => {
 })
 
 const savePoisk = (() => {
-	store.savePoisk(name.value, store.currentNode?.data.text1)
+	store.savePoisk(name.value, store.currentNode!.data.text1)
 	showSave.value = false
 })
 </script>
@@ -119,5 +118,4 @@ q-dialog(v-model="showSave")
 	padding-bottom: 0;
 	border-bottom: 1px dotted var(--q-primary);
 }
-
 </style>
