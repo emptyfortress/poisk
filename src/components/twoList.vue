@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import draggable from "vuedraggable"
 import { datasource } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
@@ -12,12 +12,17 @@ const sourceOptions = [
 
 const list = reactive(datasource)
 
-const list1 = reactive([
-	{ id: 0, label: 'Дайджест', check: true, type: 0 }
-])
+const list1 = reactive([])
 const query = ref('')
 const clearFilter = (() => {
 	query.value = ''
+})
+const filtList = computed(() => {
+	if (query.value.length === 0) {
+		return list
+	} else {
+		return list.filter(item => item.label.toLowerCase().includes(query.value.toLowerCase()))
+	}
 })
 </script>
 
@@ -28,7 +33,7 @@ const clearFilter = (() => {
 .drag
 	div
 		.filt Доступно
-			q-input(dense
+			q-input.trim(dense
 				v-model="query"
 				autofocus
 				clearable
@@ -38,7 +43,7 @@ const clearFilter = (() => {
 				template(v-slot:prepend)
 					q-icon(name="mdi-magnify")
 		q-scroll-area.avail
-			draggable(:list="list"
+			draggable(:list="filtList"
 				item-key="id"
 				class="list-group"
 				ghost-class="ghost"
@@ -49,11 +54,10 @@ const clearFilter = (() => {
 					.list-group-item
 						.dragg
 						label {{ element.label }}
-						// q-checkbox(v-model="element.check" dense :label="element.name")
 
 	div
 		.filt Выбрано
-		draggable(:list="list1"
+		draggable.q-mt-xl(:list="list1"
 			item-key="id"
 			class="list-group"
 			ghost-class="ghost"
@@ -79,6 +83,7 @@ const clearFilter = (() => {
 }
 
 .avail {
+	// height: 100%;
 	height: 250px;
 }
 
@@ -96,8 +101,10 @@ const clearFilter = (() => {
 
 .drag {
 	display: grid;
-	grid-template-columns: 1fr 2fr;
+	grid-template-columns: 230px 1fr;
 	gap: 2rem;
+	// max-height: 450px;
+	// background: pink;
 }
 
 .list-group-item {
@@ -109,7 +116,13 @@ const clearFilter = (() => {
 	font-size: .9rem;
 
 	&.big {
-		padding: 1rem 1rem 1rem 1.5rem;
+		// display: flex;
+		display: grid;
+		grid-template-columns: 180px 1fr auto;
+		align-items: center;
+		gap: .5rem;
+		// background: transparent;
+		// padding: 1rem 1rem 1rem 1.5rem;
 	}
 }
 

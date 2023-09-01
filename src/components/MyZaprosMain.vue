@@ -77,7 +77,7 @@ const savePoisk = (() => {
 		resultItem
 		br
 		.row.justify-between
-			div
+			q-btn(flat color="primary" label="Сохранить как папку" icon="mdi-folder-outline" @click="")
 			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
 
 q-dialog(v-model="showSave")
@@ -87,7 +87,7 @@ q-dialog(v-model="showSave")
 			q-space
 			q-btn(icon="mdi-close" flat round dense @click="toggleShowSave")
 
-		q-card-section
+		q-card-section(v-if="store.currentNode !== null")
 			q-input.q-mb-sm(v-model="name" dense filled label="Название")
 			q-input(v-model="store.currentNode.data.text1" dense filled label="Описание")
 		q-card-section

@@ -25,16 +25,16 @@ const selModel = ref('Любой')
 </script>
 
 <template lang="pug">
-// label {{ props.item.label }}
-q-checkbox(v-model="props.item.check" dense :label="props.item.label")
-q-input(v-if="props.item.type === 1" v-model="mod" dense outlined bg-color="white")
-q-select(v-if="props.item.type === 2" v-model="selModel" dense outlined bg-color="white" :options="props.item.options")
-q-input(v-if="props.item.type === 4" v-model="mod" dense outlined bg-color="white")
+.lab {{ props.item.label }}
+q-input(v-if="props.item.type === 1" v-model="mod" dense filled )
+q-select(v-if="props.item.type === 2" v-model="selModel" dense filled :options="props.item.options")
+q-input(v-if="props.item.type === 4" v-model="mod" dense filled )
 	template(v-slot:append)
 		q-icon(name="mdi-calendar")
-q-input(v-if="props.item.type === 3" v-model="mod" dense outlined bg-color="white")
+q-input(v-if="props.item.type === 3" v-model="mod" dense filled )
 	template(v-slot:prepend)
 		q-icon(name="mdi-book-open-page-variant-outline")
+q-checkbox(v-model="props.item.check" dense label="Показать")
 </template>
 
 <style scoped lang="scss">
