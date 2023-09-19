@@ -77,7 +77,7 @@ const savePoisk = (() => {
 		resultItem
 		br
 		.row.justify-between
-			q-btn(flat color="primary" label="Сохранить как папку" icon="mdi-folder-outline" @click="")
+			q-btn(flat color="primary" label="Сохранить как виртуальную папку" icon="mdi-folder-search-outline" @click="")
 			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
 
 q-dialog(v-model="showSave")

@@ -62,7 +62,7 @@ const filtList = computed(() => {
 
 	div
 		.filt Выбрано
-		draggable.q-mt-xl(:list="list1"
+		draggable.sele(:list="list1"
 			item-key="id"
 			class="list-group"
 			ghost-class="ghost"
@@ -84,6 +84,23 @@ const filtList = computed(() => {
 
 	.q-select {
 		width: 350px;
+	}
+}
+
+.sele {
+	background: var(--bg-main);
+	min-height: 48px;
+	margin-top: 2rem;
+	position: relative;
+
+	&::before {
+		content: 'Пусто. Перетащите сюда для выбора';
+		font-size: .8rem;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		color: #999;
 	}
 }
 
