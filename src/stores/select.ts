@@ -1,3 +1,6 @@
+import { useStore } from '@/stores/store'
+const store = useStore()
+
 const fields = [
 	'Тип',
 	'Вид карточки',

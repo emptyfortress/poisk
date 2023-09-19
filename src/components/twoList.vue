@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, } from 'vue'
 import draggable from "vuedraggable"
 import { datasource, datasource1 } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
@@ -10,18 +10,22 @@ const sourceOptions = [
 	'Общий - по атрибутам',
 ]
 
-// const list = reactive(datasource)
+const ds = ref(datasource)
+const dt = ref(datasource1)
+
 const list = computed(() => {
 	if (source.value === 'Документы - поиски документов') {
-		return datasource
-	} else return datasource1
+		return ds.value
+	} else return dt.value
 })
 
-const list1 = reactive([])
+const list1 = ref([])
+
 const query = ref('')
 const clearFilter = (() => {
 	query.value = ''
 })
+
 const filtList = computed(() => {
 	if (query.value.length === 0) {
 		return list.value
@@ -72,7 +76,6 @@ const filtList = computed(() => {
 				.list-group-item.big
 					.dragg
 					formItem(:item="element" )
-					// q-checkbox(v-model="element.check" dense :label="element.name")
 </template>
 
 <style scoped lang="scss">
