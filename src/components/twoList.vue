@@ -40,6 +40,9 @@ const route = useRoute()
 const height = computed(() => {
 	return route.name === 'layout' ? '440px' : '250px'
 })
+const field = computed(() => {
+	return route.name === 'layout' ? 'колонки' : 'поля'
+})
 </script>
 
 <template lang="pug">
@@ -48,7 +51,7 @@ const height = computed(() => {
 	q-select(v-model="source" dense :options="sourceOptions" outlined bg-color="white")
 .drag
 	div
-		.filt Доступные поля:
+		.filt Доступные {{ field }}:
 			q-input.trim(dense
 				v-model="query"
 				autofocus
@@ -71,7 +74,7 @@ const height = computed(() => {
 						label {{ element.label }}
 
 	div
-		.filt Выбранные поля:
+		.filt Выбранные {{ field }}:
 		draggable.sele(:list="list1"
 			item-key="id"
 			class="list-group"
