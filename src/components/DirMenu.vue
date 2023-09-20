@@ -5,7 +5,8 @@ q-menu(context-menu)
 			q-item-section(avatar)
 				q-icon(:name="item.icon")
 			q-item-section
-				q-item-label {{ item.label }}
+				q-item-label
+					span {{ item.label }}
 
 </template>
 
@@ -46,14 +47,15 @@ const menu = [
 	},
 	{
 		id: 1,
-		label: 'Добавить запрос',
+		label: 'Добавить',
 		icon: 'mdi-plus-circle-outline',
 		action: add,
 	},
-	{ id: 2, label: 'Дублировать запрос', icon: 'mdi-plus-circle-multiple-outline', action: duble },
+	{ id: 2, label: 'Дублировать', icon: 'mdi-plus-circle-multiple-outline', action: duble },
 	{ id: 3, label: 'Переименовать', icon: 'mdi-pencil', action: rename },
 	{ id: 4, label: 'Удалить', icon: 'mdi-trash-can-outline', action: kill },
 ]
+
 </script>
 
 <style scoped lang="scss">
