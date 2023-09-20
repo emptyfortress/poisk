@@ -178,14 +178,14 @@ const commonOptions = [
 
 ]
 const datasource1 = [
-	{ id: 0, check: true, type: 2, label: 'Атрибут 1', options: commonOptions },
-	{ id: 1, check: true, type: 2, label: 'Атрибут 2', options: commonOptions },
-	{ id: 2, check: true, type: 2, label: 'Атрибут 3', options: commonOptions },
-	{ id: 3, check: true, type: 2, label: 'Атрибут 4', options: commonOptions },
-	{ id: 4, check: true, type: 2, label: 'Атрибут 5', options: commonOptions },
-	{ id: 5, check: true, type: 2, label: 'Атрибут 6', options: commonOptions },
-	{ id: 6, check: true, type: 2, label: 'Атрибут 7', options: commonOptions },
-	{ id: 7, check: true, type: 2, label: 'Атрибут 8', options: commonOptions },
-	{ id: 8, check: true, type: 2, label: 'Атрибут 9', options: commonOptions },
+	{ id: 0, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 1', options: commonOptions },
+	{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 2', options: commonOptions },
+	{ id: 2, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 3', options: commonOptions },
+	{ id: 3, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 4', options: commonOptions },
+	{ id: 4, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 5', options: commonOptions },
+	{ id: 5, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 6', options: commonOptions },
+	{ id: 6, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 7', options: commonOptions },
+	{ id: 7, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 8', options: commonOptions },
+	{ id: 8, check: true, sort: true, filter: true, type: 2, label: 'Атрибут 9', options: commonOptions },
 ]
 export { datasource, datasource1, fields, conditions, values, names, type, cols, vid, status, history }

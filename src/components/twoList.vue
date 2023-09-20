@@ -32,7 +32,7 @@ const filtList = computed(() => {
 	if (query.value.length === 0) {
 		return list.value
 	} else {
-		return list.value.filter(item => item.label.toLowerCase().includes(query.value.toLowerCase()))
+		return list.value.filter((item: any) => item.label.toLowerCase().includes(query.value.toLowerCase()))
 	}
 })
 
