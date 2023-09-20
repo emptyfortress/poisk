@@ -62,16 +62,19 @@ const views = [
 				text: 'Digest',
 				hidden: false,
 				type: 1,
+				text1: 'Описание'
 			},
 			{
 				text: 'Задания',
 				hidden: false,
 				type: 1,
+				text1: 'Описание'
 			},
 			{
 				text: 'Отдел кадров',
 				hidden: false,
 				type: 1,
+				text1: 'Описание'
 			},
 		],
 	},

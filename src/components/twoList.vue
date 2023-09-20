@@ -38,7 +38,7 @@ const filtList = computed(() => {
 
 const route = useRoute()
 const height = computed(() => {
-	return route.name === 'layout' ? '440px' : '250px'
+	return route.name === 'layout' ? '415px' : '250px'
 })
 const field = computed(() => {
 	return route.name === 'layout' ? 'колонки' : 'поля'

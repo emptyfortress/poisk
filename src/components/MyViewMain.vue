@@ -73,13 +73,6 @@ const savePoisk = (() => {
 				q-btn(flat icon="mdi-cog" color="primary" label="Расширенные настройки") 
 				q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save" @click="toggleShowSave") 
 
-		br
-		// resultItem
-		// br
-		// .row.justify-between
-			q-btn(flat color="primary" label="Сохранить как виртуальную папку" icon="mdi-folder-search-outline" @click="")
-			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
-
 q-dialog(v-model="showSave")
 	q-card(style="min-width: 500px;")
 		q-card-section.row.items-center.q-pb-none
@@ -117,5 +110,6 @@ q-dialog(v-model="showSave")
 	padding: 0.5rem;
 	padding-bottom: 0;
 	border-bottom: 1px dotted var(--q-primary);
+	min-height: 32px;
 }
 </style>
