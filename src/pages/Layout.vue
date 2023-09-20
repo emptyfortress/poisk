@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
-import ViewMain from '@/components/ViewMain.vue'
+import MyViewMain from '@/components/MyViewMain.vue'
 
 const splitterModel = ref(30)
 const hei = computed(() => {
@@ -21,9 +21,12 @@ q-page(padding)
 			template(v-slot:after)
 				.main
 					q-scroll-area.list
-						ViewMain(:splitter="splitterModel"
+						MyViewMain(:splitter="splitterModel"
 							@maximize="splitterModel = 0"
 							@reset="splitterModel = 30")
+						// ViewMain(:splitter="splitterModel"
+						// 	@maximize="splitterModel = 0"
+						// 	@reset="splitterModel = 30")
 </template>
 
 <style scoped lang="scss">
@@ -41,6 +44,7 @@ q-page(padding)
 .list {
 	height: 100%;
 }
+
 .main {
 	border: 1px solid var(--my-border-color);
 	background: var(--bg-panel);

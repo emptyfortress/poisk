@@ -25,9 +25,7 @@ const double = (() => {
 	q-btn(flat round dense @click="switchSidebar" )
 		q-icon(name="mdi-forwardburger" v-if="props.splitter === 0")
 		q-icon(name="mdi-backburger" v-else)
-	.zg(v-if="store.currentNode")
-		q-icon(name="mdi-briefcase-edit-outline" size="sm")
-		span.q-ml-md {{ store.currentNode.data.text }}
+	.zg(v-if="store.currentNode") {{ store.currentNode.data.text }}
 	div(v-else) Выберите представление
 	.btngroup
 		q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать

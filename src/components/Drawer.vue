@@ -18,16 +18,16 @@ const pages = [
 		url: '/search',
 	},
 	{
-		id: 2,
-		title: 'Представления',
-		icon: 'mdi-briefcase-edit-outline',
-		url: '/layout',
-	},
-	{
 		id: 3,
 		title: 'Мои поиски',
 		icon: 'mdi-briefcase-search-outline',
 		url: '/mysearch',
+	},
+	{
+		id: 2,
+		title: 'Представления',
+		icon: 'mdi-briefcase-edit-outline',
+		url: '/layout',
 	},
 ]
 </script>
