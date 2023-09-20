@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { ref, computed, } from 'vue'
+import { ref, computed } from 'vue'
 import draggable from "vuedraggable"
 import { datasource, datasource1 } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
+import formItem1 from '@/components/formItem1.vue'
+import { useRoute } from 'vue-router'
 
-const source = ref('Документы - поиски документов')
+const source = ref('Все поля из документов')
 const sourceOptions = [
-	'Документы - поиски документов',
+	'Все поля из документов',
 	'Общий - по атрибутам',
 ]
 
@@ -14,7 +16,7 @@ const ds = ref(datasource)
 const dt = ref(datasource1)
 
 const list = computed(() => {
-	if (source.value === 'Документы - поиски документов') {
+	if (source.value === 'Все поля из документов') {
 		return ds.value
 	} else return dt.value
 })
@@ -33,6 +35,11 @@ const filtList = computed(() => {
 		return list.value.filter(item => item.label.toLowerCase().includes(query.value.toLowerCase()))
 	}
 })
+
+const route = useRoute()
+const height = computed(() => {
+	return route.name === 'layout' ? '440px' : '250px'
+})
 </script>
 
 <template lang="pug">
@@ -41,7 +48,7 @@ const filtList = computed(() => {
 	q-select(v-model="source" dense :options="sourceOptions" outlined bg-color="white")
 .drag
 	div
-		.filt Доступно
+		.filt Доступные поля:
 			q-input.trim(dense
 				v-model="query"
 				autofocus
@@ -56,8 +63,7 @@ const filtList = computed(() => {
 				item-key="id"
 				class="list-group"
 				ghost-class="ghost"
-				group="data"
-				)
+				group="data")
 
 				template(#item="{ element }")
 					.list-group-item
@@ -65,7 +71,7 @@ const filtList = computed(() => {
 						label {{ element.label }}
 
 	div
-		.filt Выбрано
+		.filt Выбранные поля:
 		draggable.sele(:list="list1"
 			item-key="id"
 			class="list-group"
@@ -75,7 +81,8 @@ const filtList = computed(() => {
 			template(#item="{ element }" )
 				.list-group-item.big
 					.dragg
-					formItem(:item="element" )
+					formItem1(:item="element" v-if="route.name === 'layout'")
+					formItem(:item="element" v-else)
 </template>
 
 <style scoped lang="scss">
@@ -108,8 +115,7 @@ const filtList = computed(() => {
 }
 
 .avail {
-	// height: 100%;
-	height: 250px;
+	height: v-bind(height);
 }
 
 .list-group {
@@ -162,6 +168,5 @@ const filtList = computed(() => {
 
 .ghost {
 	opacity: 0.5;
-	// background: #c8ebfb;
 }
 </style>

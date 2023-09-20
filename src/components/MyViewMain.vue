@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
 import { useStore } from '@/stores/store'
-import resultItem from '@/components/resultItem.vue'
 import twoList from '@/components/twoList.vue'
 
 const props = defineProps({
@@ -52,7 +51,7 @@ const savePoisk = (() => {
 					q-popup-edit( v-model="name" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			div(v-else) Выберите запрос
+			div(v-else) Выберите представление
 			.btngroup
 				q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
 
@@ -66,24 +65,25 @@ const savePoisk = (() => {
 
 		.q-mt-lg
 			.row.justify-between
-				q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
+				q-btn(flat color="primary" label="Удалить" icon="mdi-trash-can-outline") 
 					q-menu(anchor="bottom right" self="top right")
 						q-list
 							q-item.pink(clickable @click="remove" v-close-popup )
 								q-item-section Удалить
+				q-btn(flat icon="mdi-cog" color="primary" label="Расширенные настройки") 
 				q-btn(flat color="primary" label="Сохранить" icon="mdi-content-save" @click="toggleShowSave") 
 
 		br
-		resultItem
-		br
-		.row.justify-between
+		// resultItem
+		// br
+		// .row.justify-between
 			q-btn(flat color="primary" label="Сохранить как виртуальную папку" icon="mdi-folder-search-outline" @click="")
 			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
 
 q-dialog(v-model="showSave")
 	q-card(style="min-width: 500px;")
 		q-card-section.row.items-center.q-pb-none
-			.text-h6 Сохранить поиск
+			.text-h6 Сохранить представление
 			q-space
 			q-btn(icon="mdi-close" flat round dense @click="toggleShowSave")
 
