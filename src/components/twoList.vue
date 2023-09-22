@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router'
 const source = ref('Все поля из документов')
 const sourceOptions = [
 	'Все поля из документов',
-	'Общий - по атрибутам',
+	'Общие поля',
 ]
 
 const ds = ref(datasource)

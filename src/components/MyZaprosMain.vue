@@ -38,6 +38,12 @@ const savePoisk = (() => {
 	store.savePoisk(name.value, store.currentNode!.data.text1)
 	showSave.value = false
 })
+
+const virtualDialog = ref(false)
+const folderName = ref('')
+const toggleVirtualDialog = (() => {
+	virtualDialog.value = !virtualDialog.value
+})
 </script>
 
 <template lang="pug">
@@ -77,7 +83,7 @@ const savePoisk = (() => {
 		resultItem
 		br
 		.row.justify-between
-			q-btn(flat color="primary" label="Сохранить как виртуальную папку" icon="mdi-folder-search-outline" @click="")
+			q-btn(flat color="primary" label="Сохранить как виртуальную папку" icon="mdi-folder-search-outline" @click="toggleVirtualDialog")
 			q-btn(unelevated color="primary" label="Искать" icon="mdi-magnify" @click="")
 
 q-dialog(v-model="showSave")
@@ -94,6 +100,19 @@ q-dialog(v-model="showSave")
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="toggleShowSave") 
 				q-btn(unelevated color="primary" label="Сохранить" @click="savePoisk") 
+
+q-dialog(v-model="virtualDialog")
+	q-card(style="min-width: 500px;")
+		q-card-section.row.items-center.q-pb-none
+			.text-h6 Сохранить как виртуальную папку
+			q-space
+			q-btn(icon="mdi-close" flat round dense @click="toggleVirtualDialog")
+		q-card-section
+			q-input.q-mb-sm(v-model="folderName" dense filled label="Название")
+		q-card-section
+			q-card-actions(align="right")
+				q-btn(flat color="primary" label="Отмена" @click="toggleVirtualDialog")
+				q-btn(unelevated color="primary" label="Сохранить" @click="toggleVirtualDialog")
 </template>
 
 <style scoped lang="scss">
