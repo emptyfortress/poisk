@@ -5,15 +5,13 @@ q-page(padding)
 	.container
 		h5 Сервис поисков и представлений
 		p Настройка поисковых запросов и внешнего вида представлений
-		// q-card
-		// 	q-card-section Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quo voluptas officiis voluptates ratione, voluptatibus modi cum sunt doloribus, similique fugit nesciunt tempora ipsam. Aliquid inventore ea accusamus ad veniam.
-	.container1
-		.leg-l
-		.leg-r
-		.body
-		.face
-			.eyes
-			.tongue
+		.container1
+			.leg-l
+			.leg-r
+			.body
+			.face
+				.eyes
+				.tongue
 
 </template>
 
@@ -33,14 +31,12 @@ h5 {
 }
 
 
-// fuck
+// toad
 .container1 {
 	height: 400px;
 	width: 400px;
 	position: relative;
-	transform: translateX(100px);
-	// top: 100px;
-	// left: 100px;
+	transform: translateX(-80px);
 }
 
 .face {
