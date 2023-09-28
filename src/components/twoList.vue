@@ -6,17 +6,17 @@ import formItem from '@/components/formItem.vue'
 import formItem1 from '@/components/formItem1.vue'
 import { useRoute } from 'vue-router'
 
-const source = ref('Все поля из документов')
+const source = ref('Источник 1')
 const sourceOptions = [
-	'Все поля из документов',
-	'Общие поля',
+	'Источник 1',
+	'Источник 2',
 ]
 
 const ds = ref(datasource)
 const dt = ref(datasource1)
 
 const list = computed(() => {
-	if (source.value === 'Все поля из документов') {
+	if (source.value === 'Источник 1') {
 		return ds.value
 	} else return dt.value
 })
