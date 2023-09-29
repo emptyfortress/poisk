@@ -122,7 +122,7 @@ const history = [
 ]
 
 const datasource = [
-	{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'] },
+	{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
 	{
 		id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', options: [
 			'Любой',
@@ -135,7 +135,7 @@ const datasource = [
 			'Заявление',
 			'Письмо',
 			'Черновик',
-		]
+		], val: 'Любой', notset: false
 	},
 	{
 		id: 3, check: true, sort: true, filter: true, type: 2, label: 'Статус', options: [
@@ -146,24 +146,24 @@ const datasource = [
 			'На согласовании',
 			'Согласовано',
 			'В архиве',
-		]
+		], val: 'Любой', notset: false
 	},
-	{ id: 4, check: true, sort: true, filter: true, type: 1, label: 'Рег. номер', },
-	{ id: 5, check: true, sort: true, filter: true, type: 4, label: 'Дата регистрации', },
-	{ id: 6, check: true, sort: true, filter: true, type: 3, label: 'Автор', },
-	{ id: 7, check: true, sort: true, filter: true, type: 3, label: 'Исполнитель', },
-	{ id: 8, check: true, sort: true, filter: true, type: 3, label: 'Контролер', },
-	{ id: 9, check: true, sort: true, filter: true, type: 3, label: 'Подготовил', },
-	{ id: 10, check: true, sort: true, filter: true, type: 4, label: 'Создано', },
-	{ id: 11, check: true, sort: true, filter: true, type: 4, label: 'Изменено', },
-	{ id: 12, check: true, sort: true, filter: true, type: 4, label: 'Срок исполнения', },
-	{ id: 13, check: true, sort: true, filter: true, type: 3, label: 'Контрагент', },
-	{ id: 14, check: true, sort: true, filter: true, type: 3, label: 'Согласущие', },
-	{ id: 15, check: true, sort: true, filter: true, type: 3, label: 'Подписывает', },
-	{ id: 16, check: true, sort: true, filter: true, type: 3, label: 'Получатели', },
-	{ id: 17, check: true, sort: true, filter: true, type: 0, label: 'Основные файлы', },
-	{ id: 18, check: true, sort: true, filter: true, type: 0, label: 'Дополнительные файлы', },
-	{ id: 19, check: true, sort: true, filter: true, type: 0, label: 'Подпись', },
+	{ id: 4, check: true, sort: true, filter: true, type: 1, label: 'Рег. номер', notset: false, },
+	{ id: 5, check: true, sort: true, filter: true, type: 4, label: 'Дата регистрации', notset: false, },
+	{ id: 6, check: true, sort: true, filter: true, type: 3, label: 'Автор', notset: false, },
+	{ id: 7, check: true, sort: true, filter: true, type: 3, label: 'Исполнитель', notset: false, },
+	{ id: 8, check: true, sort: true, filter: true, type: 3, label: 'Контролер', notset: false, },
+	{ id: 9, check: true, sort: true, filter: true, type: 3, label: 'Подготовил', notset: false, },
+	{ id: 10, check: true, sort: true, filter: true, type: 4, label: 'Создано', notset: false, },
+	{ id: 11, check: true, sort: true, filter: true, type: 4, label: 'Изменено', notset: false, },
+	{ id: 12, check: true, sort: true, filter: true, type: 4, label: 'Срок исполнения', notset: false, },
+	{ id: 13, check: true, sort: true, filter: true, type: 3, label: 'Контрагент', notset: false, },
+	{ id: 14, check: true, sort: true, filter: true, type: 3, label: 'Согласущие', notset: false, },
+	{ id: 15, check: true, sort: true, filter: true, type: 3, label: 'Подписывает', notset: false, },
+	{ id: 16, check: true, sort: true, filter: true, type: 3, label: 'Получатели', notset: false, },
+	{ id: 17, check: true, sort: true, filter: true, type: 0, label: 'Основные файлы', notset: false, },
+	{ id: 18, check: true, sort: true, filter: true, type: 0, label: 'Дополнительные файлы', notset: false, },
+	{ id: 19, check: true, sort: true, filter: true, type: 0, label: 'Подпись', notset: false, },
 ]
 const commonOptions = [
 	'Любой',

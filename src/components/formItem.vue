@@ -13,11 +13,14 @@ interface Item {
 	label: string,
 	type: InputType,
 	options?: String[],
-	check: boolean
+	check: boolean,
+	val: string,
+	notset: boolean
 }
 
 const props = defineProps<{
-	item: Item
+	item: Item,
+	wind: boolean
 }>()
 
 const mod = ref('')
@@ -27,14 +30,15 @@ const selModel = ref('Любой')
 <template lang="pug">
 .lab {{ props.item.label }}
 q-input(v-if="props.item.type === 1" v-model="mod" dense filled )
-q-select(v-if="props.item.type === 2" v-model="selModel" dense filled :options="props.item.options")
+q-select(v-if="props.item.type === 2" v-model="props.item.val" dense filled :options="props.item.options")
 q-input(v-if="props.item.type === 4" v-model="mod" dense filled )
 	template(v-slot:append)
 		q-icon(name="mdi-calendar")
 q-input(v-if="props.item.type === 3" v-model="mod" dense filled )
 	template(v-slot:prepend)
 		q-icon(name="mdi-book-open-page-variant-outline")
-q-checkbox(v-model="props.item.check" dense label="Показать")
+q-checkbox(v-if="!props.wind" v-model="props.item.check" dense label="Показать")
+q-toggle(v-if="props.wind" v-model="props.item.notset" label="Не задано")
 </template>
 
 <style scoped lang="scss">

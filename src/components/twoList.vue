@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onBeforeMount } from 'vue'
 import draggable from "vuedraggable"
 import { datasource, datasource1 } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
 import formItem1 from '@/components/formItem1.vue'
 import { useRoute } from 'vue-router'
+import { useStore } from '@/stores/store'
 
+const store = useStore()
 const source = ref('Источник 1')
 const sourceOptions = [
 	'Источник 1',
@@ -16,12 +18,20 @@ const ds = ref(datasource)
 const dt = ref(datasource1)
 
 const list = computed(() => {
-	if (source.value === 'Источник 1') {
+	if (source.value === 'Источник 1' && store.dialog === true) {
+		return ds.value.filter((e) => e.id > 2 )
+	} else if (source.value === 'Источник 1' && store.dialog === false) {
 		return ds.value
 	} else return dt.value
 })
 
 const list1 = ref([])
+
+onBeforeMount(() => {
+	if (store.dialog === true) {
+		list1.value = store.attributes
+	}
+})
 
 const query = ref('')
 const clearFilter = (() => {
@@ -38,7 +48,15 @@ const filtList = computed(() => {
 
 const route = useRoute()
 const height = computed(() => {
-	return route.name === 'layout' ? '415px' : '250px'
+	if (store.dialog === true) {
+		return '300px'
+	}
+	if (route.name === 'layout') {
+		return '415px'
+	}
+	if (route.name === 'mysearch') {
+		return '250px'
+	}
 })
 const field = computed(() => {
 	return route.name === 'layout' ? 'колонки' : 'поля'
@@ -94,6 +112,7 @@ const field = computed(() => {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
+	justify-content: center;
 
 	.q-select {
 		width: 350px;
