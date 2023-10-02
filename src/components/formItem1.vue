@@ -1,15 +1,14 @@
 <script setup lang="ts">
 
-interface Item {
+interface Item1 {
 	id: number,
 	label: string,
-	check: boolean,
 	sort: boolean,
 	filter: boolean
 }
 
 const props = defineProps<{
-	item: Item
+	item: Item1
 }>()
 
 </script>

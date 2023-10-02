@@ -14,35 +14,46 @@ const sourceOptions = [
 	'Источник 2',
 ]
 
-const ds = ref(datasource)
-const dt = ref(datasource1)
+// const ds = ref(datasource)
+// const dt = ref(datasource1)
 
-const list = computed(() => {
-	if (source.value === 'Источник 1' && store.dialog === true) {
-		return ds.value.filter((e) => e.id > 2 )
-	} else if (source.value === 'Источник 1' && store.dialog === false) {
-		return ds.value
-	} else return dt.value
-})
+// const list = computed(() => {
+// 	if (source.value === 'Источник 1' && store.dialog === true) {
+// 		return ds.value.filter((e) => e.id > 2)
+// 	} else if (source.value === 'Источник 1' && store.dialog === false) {
+// 		return ds.value
+// 	} else return dt.value
+// })
 
-const list1 = ref([])
+// const list = computed(() => {
+// 	if (source.value === 'Источник 1') {
+// 		return ds.value
+// 	} else return dt.value
+// })
 
-onBeforeMount(() => {
-	if (store.dialog === true) {
-		list1.value = store.attributes
-	}
-})
+const list1 = ref<Select[]>([])
+
+// onBeforeMount(() => {
+// 	if (store.dialog === true) {
+// 		list1.value = store.attributes
+// 	}
+// })
 
 const query = ref('')
 const clearFilter = (() => {
 	query.value = ''
 })
 
-const filtList = computed(() => {
-	if (query.value.length === 0) {
-		return list.value
-	} else {
-		return list.value.filter((item: any) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+
+const list = computed(() => {
+	if (query.value.length > 0 && source.value === 'Источник 1') {
+		return datasource.filter((item: Select) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+	} else if (query.value.length > 0 && source.value === 'Источник 2') {
+		return datasource1.filter((item: Select) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+	} else if (query.value.length === 0 && source.value === 'Источник 1') {
+		return datasource
+	} else if (query.value.length === 0 && source.value === 'Источник 2') {
+		return datasource1
 	}
 })
 
@@ -80,7 +91,7 @@ const field = computed(() => {
 				template(v-slot:prepend)
 					q-icon(name="mdi-magnify")
 		q-scroll-area.avail
-			draggable(:list="filtList"
+			draggable(:list="list"
 				item-key="id"
 				class="list-group"
 				ghost-class="ghost"
@@ -102,8 +113,8 @@ const field = computed(() => {
 			template(#item="{ element }" )
 				.list-group-item.big
 					.dragg
-					formItem1(:item="element" v-if="route.name === 'layout'")
-					formItem(:item="element" v-else)
+					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch'")
+					formItem1(:item="element" v-else)
 </template>
 
 <style scoped lang="scss">

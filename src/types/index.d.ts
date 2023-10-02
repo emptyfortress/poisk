@@ -25,3 +25,13 @@ interface Stat {
 	style: any // Customize node style. Vue's style format.
 	class: any // Customize node class name. Vue's class format.
 }
+
+interface Select {
+	id: number
+	label: string
+	check: boolean
+	sort: boolean
+	filter: boolean
+	type: number
+	notset: boolean
+}
