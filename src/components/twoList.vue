@@ -14,30 +14,8 @@ const sourceOptions = [
 	'Источник 2',
 ]
 
-// const ds = ref(datasource)
-// const dt = ref(datasource1)
-
-// const list = computed(() => {
-// 	if (source.value === 'Источник 1' && store.dialog === true) {
-// 		return ds.value.filter((e) => e.id > 2)
-// 	} else if (source.value === 'Источник 1' && store.dialog === false) {
-// 		return ds.value
-// 	} else return dt.value
-// })
-
-// const list = computed(() => {
-// 	if (source.value === 'Источник 1') {
-// 		return ds.value
-// 	} else return dt.value
-// })
-
-const list1 = ref<Select[]>([])
-
-// onBeforeMount(() => {
-// 	if (store.dialog === true) {
-// 		list1.value = store.attributes
-// 	}
-// })
+// const list1 = ref<Select[]>([])
+const list1 = store.attributes
 
 const query = ref('')
 const clearFilter = (() => {
@@ -113,7 +91,7 @@ const field = computed(() => {
 			template(#item="{ element }" )
 				.list-group-item.big
 					.dragg
-					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch'")
+					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch' || store.dialog === true")
 					formItem1(:item="element" v-else)
 </template>
 
