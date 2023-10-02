@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
 import MyZaprosMain from '@/components/MyZaprosMain.vue'
+import { mySearches } from '@/stores/tree'
 
 const splitterModel = ref(25)
 
@@ -18,7 +19,7 @@ q-page(padding)
 			template(v-slot:before)
 				.blo
 					q-scroll-area.list
-						BaseTree()
+						BaseTree(:treeData="mySearches")
 			template(v-slot:after)
 				.main
 					q-scroll-area.list

@@ -1,28 +1,17 @@
 <script setup lang="ts">
-import { ref, computed, watch, watchEffect } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
-import { searches, views, mySearches } from '@/stores/tree'
 import { useStore } from '@/stores/store'
 import WordHighlighter from "vue-word-highlighter"
-import { useRoute } from 'vue-router'
 import DirMenu from '@/components/DirMenu.vue'
+
+const props = defineProps<{
+	treeData: Stat[]
+}>()
 
 const store = useStore()
 const query = ref('')
-const route = useRoute()
-const treeData = computed({
-	get() {
-		if (route.name === 'search') {
-			return searches
-		} else if (route.name === 'layout') {
-			return views
-		} else if (route.name === 'mysearch') {
-			return mySearches
-		}
-	},
-	set(val) { }
-})
 
 const clearFilter = (() => {
 	query.value = ''
@@ -138,7 +127,7 @@ div
 				template(v-slot:prepend)
 					q-icon(name="mdi-magnify")
 	Draggable(
-		v-model="treeData"
+		v-model="props.treeData"
 		ref="tree"
 		:indent="30"
 		:eachDroppable="isDrop"

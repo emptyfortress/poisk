@@ -122,21 +122,6 @@ const history = [
 ]
 
 const datasource = [
-	// { id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
-	// {
-	// 	id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', options: [
-	// 		'Любой',
-	// 		'Заявка',
-	// 		'Договор',
-	// 		'Письмо',
-	// 		'Входящий',
-	// 		'Исходящий',
-	// 		'Приказ',
-	// 		'Заявление',
-	// 		'Письмо',
-	// 		'Черновик',
-	// 	], val: 'Любой', notset: false
-	// },
 	{
 		id: 3, check: true, sort: true, filter: true, type: 2, label: 'Статус', options: [
 			'Любой',
