@@ -7,50 +7,53 @@ import BaseTree from '@/components/BaseTree.vue'
 import { mySearches } from '@/stores/tree'
 
 const dialog = defineModel<boolean>()
+const edit = ref(false)
 
 const mystore = useStore()
-const edit = ref(false)
 
 const goToEdit = (() => {
 	edit.value = true
 	mystore.dialog = !mystore.dialog
 })
-const tabs = ref('poisk')
+const sidebar = ref(false)
+const switchSidebar = (() => {
+	sidebar.value = !sidebar.value
+})
 </script>
 
 <template lang="pug">
 q-dialog(v-model="dialog")
 	q-card.dialog
 		q-card-section.row.items-center.q-pb-none
-			q-tabs.text-primary(v-model="tabs" inline-label)
-				q-tab(name="poisk" label="Поиск 1")
-				q-tab.all(name="all" label="Мои поиски" icon="mdi-folder-search-outline")
+			q-btn(flat round dense @click="switchSidebar" )
+				q-icon(name="mdi-forwardburger" v-if="sidebar")
+				q-icon(name="mdi-backburger" v-else)
+			.text-h6.q-ml-lg Поиск 1
 			q-space
 			q-btn(icon="mdi-close" flat round dense v-close-popup )
 
 		q-separator
-		q-tab-panels(v-model="tabs" animated)
-			q-tab-panel.fl(name="poisk")
-				q-form.grid
-					template(v-for="el in mystore.attributes" :key="el.id")
-						formItem(:item="el" wind)
+		q-card-section
+			q-form.grid
+				template(v-for="el in mystore.attributes" :key="el.id")
+					formItem(:item="el" wind)
 
-				q-card-actions.q-mt-md(align="between")
-					q-btn(flat color="primary" label="Отмена" v-close-popup) 
-					.q-gutter-md
-						q-btn(flat color="primary" icon="mdi-cog" label="Настроить" @click="goToEdit") 
-						q-btn(unelevated color="primary" icon="mdi-magnify" label="Искать" v-close-popup) 
+			q-card-actions.q-mt-md(align="between")
+				q-btn(flat color="primary" label="Отмена" v-close-popup) 
+				.q-gutter-md
+					q-btn(flat color="primary" icon="mdi-cog" label="Настроить" @click="goToEdit") 
+					q-btn(unelevated color="primary" icon="mdi-magnify" label="Искать" v-close-popup) 
 
-			q-tab-panel(name="all")
-				q-scroll-area.list
-					BaseTree(:treeData="mySearches")
+			// q-tab-panel(name="all")
+			// 	q-scroll-area.list
+			// 		BaseTree(:treeData="mySearches")
 
 EditSearch(v-model="edit" )
 </template>
 
 <style scoped lang="scss">
 .dialog {
-	min-width: 700px;
+	min-width: 780px;
 }
 
 .grid {
