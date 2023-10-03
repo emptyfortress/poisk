@@ -34,8 +34,10 @@ const toggleShowSave = (() => {
 })
 
 const savePoisk = (() => {
-	store.savePoisk(name.value, store.currentNode!.data.text1)
-	showSave.value = false
+	if (store.currentNode !== null) {
+		store.savePoisk(name.value, store.currentNode.data.text1)
+		showSave.value = false
+	}
 })
 </script>
 

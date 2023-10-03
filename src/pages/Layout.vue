@@ -25,9 +25,6 @@ q-page(padding)
 						MyViewMain(:splitter="splitterModel"
 							@maximize="splitterModel = 0"
 							@reset="splitterModel = 30")
-						// ViewMain(:splitter="splitterModel"
-						// 	@maximize="splitterModel = 0"
-						// 	@reset="splitterModel = 30")
 </template>
 
 <style scoped lang="scss">

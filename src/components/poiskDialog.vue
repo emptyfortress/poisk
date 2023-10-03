@@ -65,26 +65,28 @@ EditSearch(v-model="edit" )
 .q-field {
 	font-size: 1rem;
 }
+
 .all {
 	margin-left: 4rem;
 	font-size: 1rem;
 }
+
 :deep(.q-tab__label) {
 	font-size: 1rem;
+
 	.all & {
 		font-size: .8rem;
 	}
 }
-:deep(.q-tab-panels) {
-	// min-height: 200px;
-}
+
 .fl {
 	min-height: 200px;
-	heigth: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
+
 .list {
 	height: 300px;
 }

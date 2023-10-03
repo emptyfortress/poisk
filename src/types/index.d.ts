@@ -2,7 +2,7 @@ interface NodeData {
 	id: number
 	text: string
 	text1: string
-	text2: string
+	text2?: string
 	edit?: boolean
 	selected?: boolean
 	restrict?: boolean
@@ -34,4 +34,14 @@ interface Select {
 	filter: boolean
 	type: number
 	notset: boolean
+	options?: String[],
+}
+
+interface TreeNode {
+	text: string
+	text1?: string
+	hidden: boolean,
+	type: number
+	selected: boolean,
+	children?: TreeNode[]
 }

@@ -7,7 +7,7 @@ import WordHighlighter from "vue-word-highlighter"
 import DirMenu from '@/components/DirMenu.vue'
 
 const props = defineProps<{
-	treeData: Stat[]
+	treeData: TreeNode[]
 }>()
 
 const store = useStore()
