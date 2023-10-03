@@ -24,7 +24,7 @@ const mySearches = [
 				text: 'Задания на контроле',
 				text1: 'Описание поиска',
 				hidden: false,
-				selected: false,
+				selected: true,
 				type: 1,
 			},
 		]

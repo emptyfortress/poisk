@@ -5,12 +5,14 @@ import '@he-tree/vue/style/default.css'
 import { useStore } from '@/stores/store'
 import WordHighlighter from "vue-word-highlighter"
 import DirMenu from '@/components/DirMenu.vue'
+import { useRoute } from 'vue-router'
 
 const props = defineProps<{
 	treeData: TreeNode[]
 }>()
 
 const store = useStore()
+const route = useRoute()
 const query = ref('')
 
 const clearFilter = (() => {
@@ -108,7 +110,8 @@ const isDrop = (e: any) => {
 }
 
 const initial = (stat: any) => {
-	stat.data.selected = false
+	// stat.data.selected = false
+	// tree.value.getStat(text: 'Задание на контроле')
 	return stat
 }
 </script>
@@ -158,7 +161,6 @@ div
 .node {
 	padding: 4px 8px;
 	cursor: pointer;
-	// position: relative;
 
 	&.selected {
 		background: #b1ddfc;

@@ -13,7 +13,6 @@ const mystore = useStore()
 
 const goToEdit = (() => {
 	edit.value = true
-	mystore.dialog = !mystore.dialog
 })
 const sidebar = ref(false)
 const switchSidebar = (() => {
@@ -28,7 +27,9 @@ q-dialog(v-model="dialog")
 			q-btn(flat round dense @click="switchSidebar" )
 				q-icon(name="mdi-backburger" v-if="sidebar")
 				q-icon(name="mdi-forwardburger" v-else)
-			.text-h6.q-ml-lg Поиск 1
+			.text-h6.q-ml-lg
+				span(v-if="mystore.currentNode") {{ mystore.currentNode.data.text }}
+				span(v-else) Задания на контроле
 			q-space
 			q-btn(icon="mdi-close" flat round dense v-close-popup )
 

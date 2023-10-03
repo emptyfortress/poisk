@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useStore } from '@/stores/store'
-// import { datasource } from '@/stores/select'
 import poiskDialog from '@/components/poiskDialog.vue'
 
 const modelValue = defineModel()
@@ -36,6 +35,8 @@ const pages = [
 const dialog = ref(false)
 const dialogToggle = (() => {
 	dialog.value = !dialog.value
+	mystore.dialog = !mystore.dialog
+	// mystore.setCurrentNode()
 })
 </script>
 
@@ -53,7 +54,7 @@ q-drawer(v-model="modelValue" bordered side="left" :width="256")
 		q-item(clickable @click="dialogToggle")
 			q-item-section(avatar)
 				q-icon(name="mdi-briefcase-search-outline")
-			q-item-section Поиск 1
+			q-item-section Задания на контроле
 
 poiskDialog(v-model="dialog")
 
@@ -68,5 +69,9 @@ poiskDialog(v-model="dialog")
 
 :deep(.q-drawer) {
 	background: var(--bg-panel);
+}
+
+:deep(.q-item__section--avatar) {
+	min-width: initial;
 }
 </style>
