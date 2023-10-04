@@ -14,7 +14,6 @@ const sourceOptions = [
 	'Источник 2',
 ]
 
-// const list1 = ref<Select[]>([])
 const list1 = store.attributes
 
 const query = ref('')
@@ -38,7 +37,7 @@ const list = computed(() => {
 const route = useRoute()
 const height = computed(() => {
 	if (store.dialog === true) {
-		return '300px'
+		return '400px'
 	}
 	if (route.name === 'layout') {
 		return '415px'
@@ -91,7 +90,8 @@ const field = computed(() => {
 			template(#item="{ element }" )
 				.list-group-item.big
 					.dragg
-					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch' || store.dialog === true")
+					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch' ")
+					formItem(:item="element" :wind="false" v-if="store.dialog")
 					formItem1(:item="element" v-else)
 </template>
 

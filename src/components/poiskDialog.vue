@@ -18,6 +18,10 @@ const sidebar = ref(false)
 const switchSidebar = (() => {
 	sidebar.value = !sidebar.value
 })
+const close = (() => {
+	// dialog.value = false
+	mystore.dialog = false
+})
 </script>
 
 <template lang="pug">
@@ -31,7 +35,7 @@ q-dialog(v-model="dialog")
 				span(v-if="mystore.currentNode") {{ mystore.currentNode.data.text }}
 				span(v-else) Задания на контроле
 			q-space
-			q-btn(icon="mdi-close" flat round dense v-close-popup )
+			q-btn(icon="mdi-close" flat round dense v-close-popup @click="close")
 
 		q-separator
 		.topgrid(:class="{ side: sidebar }")
@@ -42,10 +46,10 @@ q-dialog(v-model="dialog")
 					formItem(:item="el" wind )
 
 		q-card-actions.q-pa-md(align="between")
-			q-btn(flat color="primary" label="Отмена" v-close-popup) 
+			q-btn(flat color="primary" label="Отмена" v-close-popup @click="close") 
 			.q-gutter-md
 				q-btn(flat color="primary" icon="mdi-cog" label="Настроить" @click="goToEdit") 
-				q-btn(unelevated color="primary" icon="mdi-magnify" label="Искать" v-close-popup) 
+				q-btn(unelevated color="primary" icon="mdi-magnify" label="Искать" v-close-popup @click="close") 
 
 EditSearch(v-model="edit" )
 </template>
