@@ -13,15 +13,16 @@ const mystore = useStore()
 
 const goToEdit = (() => {
 	edit.value = true
+	save.value = true
 })
 const sidebar = ref(false)
 const switchSidebar = (() => {
 	sidebar.value = !sidebar.value
 })
 const close = (() => {
-	// dialog.value = false
 	mystore.dialog = false
 })
+const save = ref(false)
 </script>
 
 <template lang="pug">
@@ -49,7 +50,9 @@ q-dialog(v-model="dialog")
 			q-btn(flat color="primary" label="Отмена" v-close-popup @click="close") 
 			.q-gutter-md
 				q-btn(flat color="primary" icon="mdi-cog" label="Настроить" @click="goToEdit") 
-				q-btn(unelevated color="primary" icon="mdi-magnify" label="Искать" v-close-popup @click="close") 
+				q-btn(v-if="save" flat color="primary" icon="mdi-magnify" label="Искать") 
+				q-btn(v-else unelevated color="primary" icon="mdi-magnify" label="Искать") 
+				q-btn(unelevated color="primary" label="Сохранить" v-close-popup @click="close" v-if="save") 
 
 EditSearch(v-model="edit" )
 </template>

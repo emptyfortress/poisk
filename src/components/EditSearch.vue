@@ -24,7 +24,7 @@ q-dialog(v-model="edit" transition-show="slide-up" transition-hide="slide-down")
 
 		q-card-actions.q-pa-md(align="right")
 			q-btn(flat color="primary" label="Отмена" v-close-popup @click="close") 
-			q-btn(unelevated color="primary" label="Сохранить" v-close-popup @click="close") 
+			q-btn(unelevated color="primary" label="Применить" v-close-popup @click="close") 
 </template>
 
 <style scoped lang="scss">
