@@ -90,8 +90,8 @@ const field = computed(() => {
 			template(#item="{ element }" )
 				.list-group-item.big
 					.dragg
+					formItem(:item="element" :wind="false" v-if="route.name !== 'mysearch' && store.dialog")
 					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch'")
-					formItem(:item="element" :wind="false" v-if="store.dialog")
 					formItem1(:item="element" v-else)
 </template>
 
