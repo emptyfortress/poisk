@@ -14,7 +14,7 @@ interface Item {
 	type: InputType,
 	options?: String[],
 	check: boolean,
-	val: string,
+	val?: string,
 	notset: boolean
 }
 

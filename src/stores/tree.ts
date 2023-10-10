@@ -60,6 +60,7 @@ const searches = [
 		selected: false,
 		hidden: false,
 		type: 0,
+		fields: [],
 		children: [
 			{
 				text: 'Договоры',
@@ -67,6 +68,7 @@ const searches = [
 				text1: 'Поиск договоров до 100 тыс. руб',
 				hidden: false,
 				type: 1,
+				fields: [],
 			},
 			{
 				text: 'Мои документы',
@@ -74,6 +76,7 @@ const searches = [
 				text1: 'Поиск моих документов. Я - автор',
 				hidden: false,
 				type: 1,
+				fields: [],
 			},
 		],
 	},
@@ -86,6 +89,7 @@ const views = [
 		selected: false,
 		hidden: false,
 		type: 0,
+		fields: [],
 		children: [
 			{
 				text: 'Digest',

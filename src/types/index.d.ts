@@ -8,7 +8,7 @@ interface NodeData {
 	restrict?: boolean
 	icon?: string
 	type: number
-	typ?: number
+	typ: number
 	fields: Select[]
 }
 
@@ -36,7 +36,7 @@ interface Select {
 	filter: boolean
 	notset: boolean
 	options?: String[],
-	val: string,
+	val?: string,
 }
 
 interface TreeNode {

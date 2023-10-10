@@ -50,6 +50,7 @@ const tmp = {
 		hidden: false,
 		selected: true,
 		type: 1,
+		typ: 0,
 		fields: [
 			{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
 			{
