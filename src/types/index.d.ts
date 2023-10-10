@@ -1,5 +1,5 @@
 interface NodeData {
-	id: number
+	// id: number
 	text: string
 	text1: string
 	text2?: string
@@ -8,7 +8,8 @@ interface NodeData {
 	restrict?: boolean
 	icon?: string
 	type: number
-	typ: number
+	typ?: number
+	fields: Select[]
 }
 
 interface Stat {
@@ -30,11 +31,12 @@ interface Select {
 	id: number
 	label: string
 	check: boolean
+	type: number
 	sort: boolean
 	filter: boolean
-	type: number
 	notset: boolean
 	options?: String[],
+	val: string,
 }
 
 interface TreeNode {
@@ -44,4 +46,5 @@ interface TreeNode {
 	type: number
 	selected: boolean,
 	children?: TreeNode[]
+	fields: Select[]
 }

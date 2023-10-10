@@ -4,8 +4,63 @@ import { useStore } from '@/stores/store'
 import EditSearch from '@/components/EditSearch.vue'
 import formItem from '@/components/formItem.vue'
 import BaseTree from '@/components/BaseTree.vue'
-import { mySearches } from '@/stores/tree'
+// import { mySearches } from '@/stores/tree'
 
+const mySearches = [
+	{
+		text: 'Мои поиски',
+		text1: '',
+		hidden: false,
+		type: 0,
+		selected: false,
+		fields: [],
+		children: [
+			{
+				text: 'Заявки от АХУ',
+				text1: 'Описание поиска',
+				hidden: false,
+				selected: false,
+				type: 1,
+				fields: []
+			},
+			{
+				text: 'Мои командировки',
+				text1: 'Описание поиска',
+				hidden: false,
+				selected: false,
+				type: 1,
+				fields: [
+					{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
+				]
+			},
+		]
+	}
+
+]
+const adding = {
+	text: 'Задания на контроле',
+	text1: 'Описание поиска',
+	hidden: false,
+	selected: false,
+	type: 1,
+	fields: [
+		{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
+		{
+			id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', val: 'Любой', options: [
+				'Любой',
+				'Заявка',
+				'Договор',
+				'Письмо',
+				'Входящий',
+				'Исходящий',
+				'Приказ',
+				'Заявление',
+				'Письмо',
+				'Черновик',
+			], notset: false,
+		},
+	]
+}
 const dialog = defineModel<boolean>()
 const edit = ref(false)
 
@@ -40,11 +95,11 @@ q-dialog(v-model="dialog")
 
 		q-separator
 		.topgrid(:class="{ side: sidebar }")
-			q-scroll-area.list(v-if="sidebar")
-				BaseTree(:treeData="mySearches")
+			q-scroll-area.list(v-show="sidebar")
+				BaseTree(:treeData="mySearches" load)
 			q-form.grid
-				template(v-for="el in mystore.attributes" :key="el.id")
-					formItem(:item="el" wind )
+				template(v-for="el in mystore.currentNode?.data.fields" :key="el.id")
+					formItem(:item="el" wind)
 
 		q-card-actions.q-pa-md(align="between")
 			q-btn(flat color="primary" label="Отмена" v-close-popup @click="close") 

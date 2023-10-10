@@ -5,26 +5,10 @@ export const useStore = defineStore({
 	state: () => ({
 		mini: false,
 		currentNode: null as Stat | null,
+		// currentSearch: null as Stat | null,
 		del: false,
 		dub: false,
 		dialog: false,
-		attributes: [
-			{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false},
-			{
-				id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', val: 'Любой', options: [
-					'Любой',
-					'Заявка',
-					'Договор',
-					'Письмо',
-					'Входящий',
-					'Исходящий',
-					'Приказ',
-					'Заявление',
-					'Письмо',
-					'Черновик',
-				], notset: false
-			},
-		]
 	}),
 	getters: {
 	},
@@ -35,6 +19,9 @@ export const useStore = defineStore({
 		setCurrentNode(e: Stat | null) {
 			this.currentNode = e
 		},
+		// setCurrentSearch(e: Stat | null) {
+		// 	this.currentSearch = e
+		// },
 		toggleDel() {
 			this.del = !this.del
 		},

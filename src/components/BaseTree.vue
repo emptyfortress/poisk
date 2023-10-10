@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue'
+import { ref, watch, watchEffect, onMounted } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useStore } from '@/stores/store'
 import WordHighlighter from "vue-word-highlighter"
 import DirMenu from '@/components/DirMenu.vue'
-import { useRoute } from 'vue-router'
 
 const props = defineProps<{
-	treeData: TreeNode[]
+	treeData: TreeNode[],
+	load?: boolean
 }>()
 
 const store = useStore()
-const route = useRoute()
 const query = ref('')
 
 const clearFilter = (() => {
@@ -109,11 +108,43 @@ const isDrop = (e: any) => {
 	else return false
 }
 
+const adding = {
+	text: 'Задания на контроле',
+	text1: 'Описание поиска',
+	hidden: false,
+	selected: false,
+	type: 1,
+	fields: [
+		{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
+		{
+			id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', val: 'Любой', options: [
+				'Любой',
+				'Заявка',
+				'Договор',
+				'Письмо',
+				'Входящий',
+				'Исходящий',
+				'Приказ',
+				'Заявление',
+				'Письмо',
+				'Черновик',
+			], notset: false,
+		},
+	]
+}
+
 const initial = (stat: any) => {
-	// stat.data.selected = false
-	// tree.value.getStat(text: 'Задание на контроле')
+	stat.data.selected = false
 	return stat
 }
+
+onMounted(() => {
+	if (props.load === true) {
+		tree.value.add(adding, tree.value.rootChildren[0])
+		select(tree.value.getStat(adding))
+	}
+})
+
 </script>
 
 <template lang="pug">
@@ -129,8 +160,7 @@ div
 				).query
 				template(v-slot:prepend)
 					q-icon(name="mdi-magnify")
-	Draggable(
-		v-model="props.treeData"
+	Draggable(v-model="props.treeData"
 		ref="tree"
 		:indent="30"
 		:eachDroppable="isDrop"
@@ -154,7 +184,6 @@ div
 					autofocus counter
 					@keyup.enter="setText(stat, $event)"
 					)
-
 </template>
 
 <style scoped lang="scss">
@@ -174,11 +203,6 @@ div
 	&:hover {
 		background: hsla(0, 0%, 91%);
 	}
-
-	// .ed {
-	// 	position: absolute;
-	// 	top: 1rem;
-	// }
 }
 
 .quick .q-field--dense .q-field__control,

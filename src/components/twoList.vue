@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import draggable from "vuedraggable"
 import { datasource, datasource1 } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
@@ -14,25 +14,32 @@ const sourceOptions = [
 	'Источник 2',
 ]
 
-const list1 = store.attributes
-
 const query = ref('')
 const clearFilter = (() => {
 	query.value = ''
 })
 
 
+const ds = computed(() => {
+	return datasource.filter((array_el: any) => {
+		return store.currentNode?.data.fields.filter((anotherOne_el: Select) => {
+			return anotherOne_el.id == array_el.id
+		}).length == 0
+	})
+})
+
 const list = computed(() => {
 	if (query.value.length > 0 && source.value === 'Источник 1') {
-		return datasource.filter((item: Select) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+		return ds.value.filter((item: any) => item.label.toLowerCase().includes(query.value.toLowerCase()))
 	} else if (query.value.length > 0 && source.value === 'Источник 2') {
-		return datasource1.filter((item: Select) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+		return datasource1.filter((item: any) => item.label.toLowerCase().includes(query.value.toLowerCase()))
 	} else if (query.value.length === 0 && source.value === 'Источник 1') {
-		return datasource
+		return ds.value
 	} else if (query.value.length === 0 && source.value === 'Источник 2') {
 		return datasource1
 	}
 })
+
 
 const route = useRoute()
 const height = computed(() => {
@@ -81,7 +88,7 @@ const field = computed(() => {
 
 	div
 		.filt Выбранные {{ field }}:
-		draggable.sele(:list="list1"
+		draggable.sele(:list="store.currentNode?.data.fields"
 			item-key="id"
 			class="list-group"
 			ghost-class="ghost"
@@ -90,9 +97,9 @@ const field = computed(() => {
 			template(#item="{ element }" )
 				.list-group-item.big
 					.dragg
-					formItem(:item="element" :wind="false" v-if="route.name !== 'mysearch' && store.dialog")
-					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch'")
-					formItem1(:item="element" v-else)
+					formItem1(:item="element" v-if="route.name === 'layout' && !store.dialog")
+					formItem(:item="element" :wind="false" v-if="route.name === 'mysearch' && !store.dialog")
+					formItem(:item="element" :wind="true" v-if="store.dialog")
 </template>
 
 <style scoped lang="scss">

@@ -32,11 +32,49 @@ const pages = [
 		url: '/layout',
 	},
 ]
+const tmp = {
+	open: true,
+	parent: null,
+	children: [],
+	level: 1,
+	isStat: true,
+	hidden: false,
+	checked: false,
+	draggable: true,
+	droppable: false,
+	style: '',
+	class: '',
+	data: {
+		text: 'Задания на контроле',
+		text1: 'Описание поиска',
+		hidden: false,
+		selected: true,
+		type: 1,
+		fields: [
+			{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
+			{
+				id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', val: 'Любой', options: [
+					'Любой',
+					'Заявка',
+					'Договор',
+					'Письмо',
+					'Входящий',
+					'Исходящий',
+					'Приказ',
+					'Заявление',
+					'Письмо',
+					'Черновик',
+				], notset: false,
+			},
+		]
+
+	}
+}
 const dialog = ref(false)
 const dialogToggle = (() => {
 	dialog.value = !dialog.value
 	mystore.dialog = !mystore.dialog
-	// mystore.setCurrentNode()
+	mystore.setCurrentNode(tmp)
 })
 </script>
 
