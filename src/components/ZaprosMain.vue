@@ -12,17 +12,18 @@ const emit = defineEmits(['maximize', 'reset'])
 
 const store = useStore()
 
+const tip = ref('doc')
 const switchSidebar = () => {
 	if (props.splitter !== 0) {
 		emit('maximize')
 	} else emit('reset')
 }
-const remove = (() => {
+const remove = () => {
 	store.toggleDel()
-})
-const double = (() => {
+}
+const double = () => {
 	store.toggleDub()
-})
+}
 const pred = ref('Дайджест')
 const options = [
 	'Представление 1',
@@ -40,7 +41,7 @@ const cols: QTableColumn[] = [
 		align: 'left',
 		field: 'vid',
 		format: (val: any) => `${val}`,
-		sortable: true
+		sortable: true,
 	},
 	{
 		name: 'tema',
@@ -49,7 +50,7 @@ const cols: QTableColumn[] = [
 		align: 'left',
 		field: 'tema',
 		format: (val: any) => `${val}`,
-		sortable: true
+		sortable: true,
 	},
 	{
 		name: 'author',
@@ -58,7 +59,7 @@ const cols: QTableColumn[] = [
 		align: 'left',
 		field: 'author',
 		format: (val: any) => `${val}`,
-		sortable: true
+		sortable: true,
 	},
 	{
 		name: 'created',
@@ -67,28 +68,82 @@ const cols: QTableColumn[] = [
 		align: 'left',
 		field: 'created',
 		format: (val: any) => `${val}`,
-		sortable: true
+		sortable: true,
 	},
 ]
 const rows = [
-	{ id: 0, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 1, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 2, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 3, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 4, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 5, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 6, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 7, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
-	{ id: 8, vid: 'Документ', tema: 'Тема карточки в виде дайджеста', author: 'Орлов П.А.', created: '20.06.23' },
+	{
+		id: 0,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 1,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 2,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 3,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 4,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 5,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 6,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 7,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
+	{
+		id: 8,
+		vid: 'Документ',
+		tema: 'Тема карточки в виде дайджеста',
+		author: 'Орлов П.А.',
+		created: '20.06.23',
+	},
 ]
 const loading = ref(false)
-const showPreview = (() => {
+const showPreview = () => {
 	loading.value = true
 	preview.value = true
 	setTimeout(() => {
 		loading.value = false
 	}, 3000)
-})
+}
 const calcRows = computed(() => {
 	if (!loading.value) {
 		return rows
@@ -116,7 +171,21 @@ const calcRows = computed(() => {
 			.descr {{ store.currentNode.data.text1 }}
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-		QueryItem(v-if="store.currentNode?.data.type == 1" )
+
+			.type
+				.row.items-center
+					.label Тип:
+					q-select(v-model="type" :options="typeOptions" dense)
+				.row.items-center
+					.label Вид:
+					q-select(v-model="type" :options="typeOptions" dense)
+
+
+				// q-radio(v-model="tip" val="doc" label="Документ")
+				// q-radio(v-model="tip" val="task" label="Задание")
+				// q-radio(v-model="tip" val="group" label="Группа заданий")
+
+			QueryItem
 
 	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
@@ -160,7 +229,7 @@ q-dialog(v-model="preview")
 }
 
 .descr {
-	margin: .5rem 1rem;
+	margin: 0.5rem 1rem;
 	padding: 0.5rem;
 	padding-bottom: 0;
 	border-bottom: 1px dotted var(--q-primary);
@@ -177,5 +246,12 @@ q-dialog(v-model="preview")
 
 :deep(.q-table tr) {
 	height: 32px;
+}
+.type {
+	margin-left: 1rem;
+	margin-top: 1rem;
+	display: flex;
+	justify-content: flex-start;
+	gap: 4rem;
 }
 </style>

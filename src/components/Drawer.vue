@@ -52,9 +52,26 @@ const tmp = {
 		type: 1,
 		typ: 0,
 		fields: [
-			{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
 			{
-				id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', val: 'Любой', options: [
+				id: 1,
+				check: true,
+				sort: true,
+				filter: true,
+				type: 2,
+				label: 'Тип',
+				options: ['Документ', 'Задание', 'Группа заданий', 'Любой'],
+				val: 'Документ',
+				notset: false,
+			},
+			{
+				id: 2,
+				check: true,
+				sort: true,
+				filter: true,
+				type: 2,
+				label: 'Вид карточки',
+				val: 'Любой',
+				options: [
 					'Любой',
 					'Заявка',
 					'Договор',
@@ -65,18 +82,18 @@ const tmp = {
 					'Заявление',
 					'Письмо',
 					'Черновик',
-				], notset: false,
+				],
+				notset: false,
 			},
-		]
-
-	}
+		],
+	},
 }
 const dialog = ref(false)
-const dialogToggle = (() => {
+const dialogToggle = () => {
 	dialog.value = !dialog.value
 	mystore.dialog = !mystore.dialog
 	mystore.setCurrentNode(tmp)
-})
+}
 </script>
 
 <template lang="pug">
@@ -87,7 +104,11 @@ q-drawer(v-model="modelValue" bordered side="left" :width="256")
 				q-icon(:name="page.icon")
 			q-item-section
 				q-item-label {{ page.title }}
-		br
+		q-item(clickable v-ripple to="/state")
+			q-item-section(avatar)
+				q-icon(name="mdi-close")
+			q-item-section
+				q-item-label State
 		br
 		q-separator
 		q-item(clickable @click="dialogToggle")

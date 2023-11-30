@@ -9,7 +9,6 @@ declare module 'vue-router' {
 	}
 }
 
-
 export const router = createRouter({
 	history: createWebHashHistory(),
 
@@ -36,6 +35,12 @@ export const router = createRouter({
 			path: '/layout',
 			name: 'layout',
 			component: () => import('@/pages/Layout.vue'),
+			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
+		},
+		{
+			path: '/state',
+			name: 'state',
+			component: () => import('@/pages/State.vue'),
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 	],
