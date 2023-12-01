@@ -104,7 +104,7 @@ q-drawer(v-model="modelValue" bordered side="left" :width="256")
 				q-icon(:name="page.icon")
 			q-item-section
 				q-item-label {{ page.title }}
-		q-item(clickable v-ripple to="/state")
+		// q-item(clickable v-ripple to="/state")
 			q-item-section(avatar)
 				q-icon(name="mdi-close")
 			q-item-section
