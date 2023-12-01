@@ -31,14 +31,19 @@ const enable = () => {
 const attribute = ref(false)
 
 const addAttr = computed(() => {
-	if (text1.value.type == 1) {
+	if (text1.value?.type == 1) {
 		return 'attr'
 	}
 	return ''
 })
-const text1 = ref('')
-const text2 = ref('')
-const text3 = ref('')
+interface MySel {
+	type: number
+	value: string
+	label: string
+}
+const text1 = ref(null)
+const text2 = ref(null)
+const text3 = ref(null)
 </script>
 
 <template lang="pug">
@@ -51,7 +56,7 @@ const text3 = ref('')
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
 		q-select(v-model="text1" :options="options1" outlined label="Поле" dense bg-color="white")
-		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1.type == 1")
+		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1?.type == 1")
 		q-select(v-model="text2" :options="options2" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)
 		q-select(v-model="text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
