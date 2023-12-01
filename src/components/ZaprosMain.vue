@@ -59,10 +59,10 @@ const showPreview = () => {
 			.type
 				.row.items-center.q-gutter-x-md
 					.label Тип:
-					q-select(v-model="editor.type" :options="editor.typeOptions" dense)
+					q-select(v-model="editor.type" :options="editor.typeOptions" dense outlined bg-color="white")
 				.row.items-center.q-gutter-x-md
 					.label Вид:
-					q-select(v-model="editor.vid" :options="editor.calcVid" dense)
+					q-select(v-model="editor.vid" :options="editor.calcVid" dense outlined bg-color="white")
 
 			QueryItem()
 
