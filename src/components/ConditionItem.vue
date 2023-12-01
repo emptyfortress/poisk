@@ -31,11 +31,14 @@ const enable = () => {
 const attribute = ref(false)
 
 const addAttr = computed(() => {
-	if (props.stat.data.text.type == 1) {
+	if (text1.value.type == 1) {
 		return 'attr'
 	}
 	return ''
 })
+const text1 = ref('')
+const text2 = ref('')
+const text3 = ref('')
 </script>
 
 <template lang="pug">
@@ -47,11 +50,11 @@ const addAttr = computed(() => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
-		q-select(v-model="props.stat.data.text" :options="options1" outlined label="Поле" dense bg-color="white")
-		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="props.stat.data.text.type == 1")
-		q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white" v-if="!attribute")
+		q-select(v-model="text1" :options="options1" outlined label="Поле" dense bg-color="white")
+		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1.type == 1")
+		q-select(v-model="text2" :options="options2" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)
-		q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
+		q-select(v-model="text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
 		div(v-else)
 		q-btn(flat round icon="mdi-reload" @click="clear" ) 
 	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
