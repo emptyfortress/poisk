@@ -29,5 +29,9 @@ export const useEditor = defineStore({
 			if (state.type == 'Группа заданий') return state.vidOptions[2]
 		},
 	},
-	actions: {},
+	actions: {
+		resetVid() {
+			this.vid = 'Не указано'
+		},
+	},
 })
