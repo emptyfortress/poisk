@@ -4,7 +4,7 @@ import BaseTree from '@/components/BaseTree.vue'
 import ZaprosMain from '@/components/ZaprosMain.vue'
 import { searches } from '@/stores/tree'
 
-const splitterModel = ref(25)
+const splitterModel = ref(18)
 
 const hei = computed(() => {
 	return 'height: ' + (window.innerHeight - 180) + 'px;'
@@ -44,8 +44,7 @@ q-page(padding)
 	border: 1px solid var(--my-border-color);
 	background: var(--bg-panel);
 	height: 100%;
-	margin-left: .5rem;
+	margin-left: 0.5rem;
 	padding: 1rem;
-
 }
 </style>

@@ -180,11 +180,6 @@ const calcRows = computed(() => {
 					.label Вид:
 					q-select(v-model="type" :options="typeOptions" dense)
 
-
-				// q-radio(v-model="tip" val="doc" label="Документ")
-				// q-radio(v-model="tip" val="task" label="Задание")
-				// q-radio(v-model="tip" val="group" label="Группа заданий")
-
 			QueryItem
 
 	.q-mt-lg

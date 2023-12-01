@@ -19,16 +19,16 @@ const next = (e: Stat) => {
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
-const clear = (() => {
+const clear = () => {
 	props.stat.data.text = ''
 	props.stat.data.text1 = ''
 	props.stat.data.text2 = ''
-})
+}
 
-const enable = (() => {
+const enable = () => {
 	props.stat.data.restrict = false
-})
-
+}
+const attribute = ref(false)
 </script>
 
 <template lang="pug">
@@ -41,6 +41,7 @@ const enable = (() => {
 	.one(v-if="props.stat.data.type === 1")
 		.handle
 		q-select(v-model="props.stat.data.text" :options="options1" outlined label="Поле" dense bg-color="white")
+		q-checkbox(v-model="attribute" label="Атрибуты" dense)
 		q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white")
 		q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white")
 		q-btn(flat round icon="mdi-reload" @click="clear" ) 
@@ -82,7 +83,7 @@ const enable = (() => {
 	display: flex;
 	align-items: center;
 	background: transparent;
-	padding: .5rem;
+	padding: 0.5rem;
 	margin-bottom: 4px;
 	background: var(--bg-head);
 	border: 1px solid #ccc;
@@ -95,15 +96,15 @@ const enable = (() => {
 
 .one {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 42px;
-	align-items: center;
+	grid-template-columns: 1fr 120px 1fr 1fr 42px;
+	align-items: top;
 	background: var(--bg-head);
-	padding: .5rem;
-	padding-left: 3rem;
+	padding: 0.5rem;
+	padding-left: 2rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	margin-bottom: 4px;
-	gap: .5rem;
+	gap: 0.5rem;
 	position: relative;
 
 	&:hover {
@@ -136,12 +137,11 @@ const enable = (() => {
 
 .handle {
 	position: absolute;
-	width: 2rem;
+	width: 1rem;
 	height: 100%;
 	left: 0;
 	top: 0;
-	color: red;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAClJREFUGFclysENwEAQg0Cm/6Idbe6DEDbZpFWKaie7tqDd+sj/eR7rA9inDgnK6GXhAAAAAElFTkSuQmCC
-) repeat;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAClJREFUGFclysENwEAQg0Cm/6Idbe6DEDbZpFWKaie7tqDd+sj/eR7rA9inDgnK6GXhAAAAAElFTkSuQmCC)
+		repeat;
 }
 </style>

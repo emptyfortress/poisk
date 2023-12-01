@@ -1,39 +1,53 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useMachine } from '@xstate/vue'
-import { createMachine } from 'xstate'
+// import { ref, computed } from 'vue'
+// import { useMachine } from '@xstate/vue'
+// import { createMachine } from 'xstate'
+// import { typeOptions, vidOptions } from '@/stores/editor'
+import { useEditor } from '@/stores/editor'
 
-const toggleMachine = createMachine({
-	predictableActionArguments: true,
-	id: 'toggle',
-	initial: 'inactive',
-	states: {
-		inactive: {
-			on: { TOGGLE: 'active' },
-		},
-		active: {
-			on: { TOGGLE: 'inactive' },
-		},
-	},
-})
-const { state, send } = useMachine(toggleMachine)
-const typeOptions = ['Документ', 'Задание', 'Группа заданий']
-const type = ref('Документ')
+const editor = useEditor()
+
+// const editor = createMachine({
+// 	predictableActionArguments: true,
+// 	id: 'editor',
+// 	initial: 'doc',
+// 	states: {
+// 		doc: {
+// 			on: {
+// 				TO_TASK: 'task',
+// 			},
+// 		},
+// 		task: {
+// 			on: {},
+// 		},
+// 		group: {
+// 			on: {},
+// 		},
+// 	},
+// })
+// const { state, send } = useMachine(editor)
+
+// const type = ref('Документ')
+// const vid = ref()
+// const calcVid = computed(() => {
+// 	if (state.value.matches('doc')) {
+// 		return vidOptions[0]
+// 	} else return vidOptions[1]
+// })
 </script>
 
 <template lang="pug">
 q-page(padding)
 	.container
 		h2 Hello
-		button(@click="send('TOGGLE')") {{ state.value === 'inactive' ? 'Click to activate' : 'Active! Click to deactivate' }}
 
 		.type
 			.row.items-center
 				.label Тип:
-				q-select(v-model="type" :options="typeOptions" dense @update:model-value="send('TOGGLE')")
+				q-select(v-model="editor.type" :options="editor.typeOptions" dense )
 			.row.items-center
 				.label Вид:
-				q-select(v-model="type" :options="typeOptions" dense)
+				q-select(v-model="editor.vid" :options="editor.calcVid" dense)
 </template>
 
 <style scoped lang="scss">
