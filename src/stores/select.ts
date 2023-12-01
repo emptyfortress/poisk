@@ -9,7 +9,7 @@ const fields = [
 	{ type: 0, label: 'Создано' },
 	{ type: 0, label: 'Изменено' },
 	{ type: 0, label: 'Срок исполнения' },
-	{ type: 0, label: 'Контрагент' },
+	{ type: 1, label: 'Контрагент' },
 	{ type: 1, label: 'Согласущие' },
 	{ type: 1, label: 'Подписывает' },
 	{ type: 1, label: 'Получатели' },

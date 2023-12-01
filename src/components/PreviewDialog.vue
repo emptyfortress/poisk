@@ -139,7 +139,6 @@ q-dialog(v-model="modelValue")
 		q-card-section.row.items-center.q-pb-none
 			.text-h6 {{ store.currentNode?.data.text }}
 			span.q-ml-lg(v-if="!loading") (9)
-			// .text-h6 Fuck
 			q-space
 			q-select.q-mr-xl(v-model="pred" filled dense :options="options")
 			q-btn(icon="mdi-close" flat round dense @click="modelValue = false")
