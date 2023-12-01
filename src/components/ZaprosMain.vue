@@ -2,7 +2,8 @@
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import QueryItem from '@/components/QueryItem.vue'
-import type { QTableColumn } from 'quasar'
+import { useEditor } from '@/stores/editor'
+import PreviewDialog from '@/components/PreviewDialog.vue'
 
 const props = defineProps({
 	splitter: Number,
@@ -11,8 +12,8 @@ const props = defineProps({
 const emit = defineEmits(['maximize', 'reset'])
 
 const store = useStore()
+const editor = useEditor()
 
-const tip = ref('doc')
 const switchSidebar = () => {
 	if (props.splitter !== 0) {
 		emit('maximize')
@@ -24,119 +25,9 @@ const remove = () => {
 const double = () => {
 	store.toggleDub()
 }
-const pred = ref('Дайджест')
-const options = [
-	'Представление 1',
-	'Представление 2',
-	'Представление 3',
-	'Представление 4',
-	'Представление 5',
-]
 const preview = ref(false)
-const cols: QTableColumn[] = [
-	{
-		name: 'vid',
-		required: true,
-		label: 'Вид карточки',
-		align: 'left',
-		field: 'vid',
-		format: (val: any) => `${val}`,
-		sortable: true,
-	},
-	{
-		name: 'tema',
-		required: true,
-		label: 'Тема',
-		align: 'left',
-		field: 'tema',
-		format: (val: any) => `${val}`,
-		sortable: true,
-	},
-	{
-		name: 'author',
-		required: true,
-		label: 'Автор',
-		align: 'left',
-		field: 'author',
-		format: (val: any) => `${val}`,
-		sortable: true,
-	},
-	{
-		name: 'created',
-		required: true,
-		label: 'Создано',
-		align: 'left',
-		field: 'created',
-		format: (val: any) => `${val}`,
-		sortable: true,
-	},
-]
-const rows = [
-	{
-		id: 0,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 1,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 2,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 3,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 4,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 5,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 6,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 7,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-	{
-		id: 8,
-		vid: 'Документ',
-		tema: 'Тема карточки в виде дайджеста',
-		author: 'Орлов П.А.',
-		created: '20.06.23',
-	},
-]
 const loading = ref(false)
+
 const showPreview = () => {
 	loading.value = true
 	preview.value = true
@@ -144,13 +35,6 @@ const showPreview = () => {
 		loading.value = false
 	}, 3000)
 }
-const calcRows = computed(() => {
-	if (!loading.value) {
-		return rows
-	} else {
-		return undefined
-	}
-})
 </script>
 
 <template lang="pug">
@@ -173,14 +57,14 @@ const calcRows = computed(() => {
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
 			.type
-				.row.items-center
+				.row.items-center.q-gutter-x-md
 					.label Тип:
-					q-select(v-model="type" :options="typeOptions" dense)
-				.row.items-center
+					q-select(v-model="editor.type" :options="editor.typeOptions" dense)
+				.row.items-center.q-gutter-x-md
 					.label Вид:
-					q-select(v-model="type" :options="typeOptions" dense)
+					q-select(v-model="editor.vid" :options="editor.calcVid" dense)
 
-			QueryItem
+			QueryItem()
 
 	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
@@ -193,17 +77,7 @@ const calcRows = computed(() => {
 				q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 				q-btn(unelevated color="primary" label="Сохранить" icon="mdi-content-save") 
 
-q-dialog(v-model="preview")
-	q-card(style="width: 900px; max-width: 80vw;")
-		q-card-section.row.items-center.q-pb-none
-			.text-h6 {{ store.currentNode?.data.text }}
-				span.q-ml-lg(v-if="!loading") (9)
-			q-space
-			q-select.q-mr-xl(v-model="pred" filled dense :options="options")
-			q-btn(icon="mdi-close" flat round dense @click="preview = false")
-
-		q-card-section
-			q-table(flat :columns="cols" :rows="calcRows" row-key="id" :loading="loading" color="primary")
+	PreviewDialog(v-model="preview" :loading="loading")
 </template>
 
 <style scoped lang="scss">
