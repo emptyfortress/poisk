@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from '@/stores/store'
 import QueryItem from '@/components/QueryItem.vue'
 import { useEditor } from '@/stores/editor'
@@ -35,6 +35,12 @@ const showPreview = () => {
 		loading.value = false
 	}, 3000)
 }
+const type = ref(editor.type)
+watch(type, (val) => {
+	if (val) {
+		editor.vid = 'Не указано'
+	}
+})
 </script>
 
 <template lang="pug">
@@ -59,7 +65,7 @@ const showPreview = () => {
 			.type
 				.row.items-center.q-gutter-x-md
 					.label Тип:
-					q-select(v-model="editor.type" :options="editor.typeOptions" dense outlined bg-color="white")
+					q-select(v-model="type" :options="editor.typeOptions" dense outlined bg-color="white")
 				.row.items-center.q-gutter-x-md
 					.label Вид:
 					q-select(v-model="editor.vid" :options="editor.calcVid" dense outlined bg-color="white")
