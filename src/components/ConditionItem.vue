@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { fields, conditions, values } from '@/stores/select'
 
 const props = defineProps<{
@@ -29,6 +29,13 @@ const enable = () => {
 	props.stat.data.restrict = false
 }
 const attribute = ref(false)
+
+const addAttr = computed(() => {
+	if (props.stat.data.text.type == 1) {
+		return 'attr'
+	}
+	return ''
+})
 </script>
 
 <template lang="pug">
@@ -38,12 +45,14 @@ const attribute = ref(false)
 		.icon(:class="{ or: props.stat.data.typ === 1 }" @click.stop="next(props.stat)")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
-	.one(v-if="props.stat.data.type === 1")
+	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
 		q-select(v-model="props.stat.data.text" :options="options1" outlined label="Поле" dense bg-color="white")
-		q-checkbox(v-model="attribute" label="Атрибуты" dense)
-		q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white")
-		q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white")
+		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="props.stat.data.text.type == 1")
+		q-select(v-model="props.stat.data.text1" :options="options2" outlined label="Условие" dense bg-color="white" v-if="!attribute")
+		div(v-else)
+		q-select(v-model="props.stat.data.text2" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
+		div(v-else)
 		q-btn(flat round icon="mdi-reload" @click="clear" ) 
 	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
 </template>
@@ -96,7 +105,7 @@ const attribute = ref(false)
 
 .one {
 	display: grid;
-	grid-template-columns: 1fr 120px 1fr 1fr 42px;
+	grid-template-columns: 1fr 1fr 1fr 42px;
 	align-items: top;
 	background: var(--bg-head);
 	padding: 0.5rem;
@@ -109,6 +118,9 @@ const attribute = ref(false)
 
 	&:hover {
 		border-color: $primary;
+	}
+	&.attr {
+		grid-template-columns: 1fr 120px 1fr 1fr 42px;
 	}
 }
 
