@@ -70,7 +70,7 @@ watch(type, (val) => {
 					.label Вид:
 					q-select(v-model="editor.vid" :options="editor.calcVid" dense outlined bg-color="white")
 
-			QueryItem()
+			QueryItem
 
 	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )

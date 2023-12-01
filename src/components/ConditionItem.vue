@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { fields, conditions, values } from '@/stores/select'
 
 const props = defineProps<{
@@ -28,7 +28,16 @@ const clear = () => {
 const enable = () => {
 	props.stat.data.restrict = false
 }
-const attribute = ref(false)
+const attribute = ref(props.stat.data.drop)
+
+const emit = defineEmits(['addCollection'])
+
+watch(attribute, (val) => {
+	if (val == true) {
+		props.stat.droppable = true
+		emit('addCollection', props.stat)
+	} else props.stat.droppable = false
+})
 
 const addAttr = computed(() => {
 	if (text1.value?.type == 1) {

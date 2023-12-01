@@ -10,6 +10,7 @@ interface NodeData {
 	type: number
 	typ: number
 	fields: Select[]
+	drop?: boolean
 }
 
 interface Stat {
@@ -35,16 +36,16 @@ interface Select {
 	sort: boolean
 	filter: boolean
 	notset: boolean
-	options?: String[],
-	val?: string,
+	options?: String[]
+	val?: string
 }
 
 interface TreeNode {
 	text: string
 	text1?: string
-	hidden: boolean,
+	hidden: boolean
 	type: number
-	selected: boolean,
+	selected: boolean
 	children?: TreeNode[]
 	fields: Select[]
 }
