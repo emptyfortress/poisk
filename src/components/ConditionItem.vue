@@ -41,7 +41,7 @@ interface MySel {
 	value: string
 	label: string
 }
-const text1 = ref(null)
+const text1 = ref<MySel | null>(null)
 const text2 = ref(null)
 const text3 = ref(null)
 </script>
