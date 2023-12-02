@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { fields, conditions, values } from '@/stores/select'
+import { useEditor } from '@/stores/editor'
 
 const props = defineProps<{
 	stat: Stat
 }>()
+
+const editor = useEditor()
 
 const options1 = ref(fields)
 const options2 = ref(conditions)
@@ -20,9 +23,9 @@ const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 const clear = () => {
-	props.stat.data.text = ''
-	props.stat.data.text1 = ''
-	props.stat.data.text2 = ''
+	text1.value = null
+	text2.value = ''
+	text3.value = ''
 }
 
 const enable = () => {
@@ -47,12 +50,12 @@ const addAttr = computed(() => {
 })
 interface MySel {
 	type: number
-	value: string
-	label: string
+	value: string | null
+	label: string | null
 }
 const text1 = ref<MySel | null>(null)
-const text2 = ref(null)
-const text3 = ref(null)
+const text2 = ref('')
+const text3 = ref('')
 </script>
 
 <template lang="pug">
@@ -64,7 +67,7 @@ const text3 = ref(null)
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
-		q-select(v-model="text1" :options="options1" outlined label="Поле" dense bg-color="white")
+		q-select(v-model="text1" :options="editor.calcFirst" outlined label="Поле" dense bg-color="white")
 		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1?.type == 1")
 		q-select(v-model="text2" :options="options2" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)

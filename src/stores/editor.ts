@@ -1,4 +1,8 @@
+import { fields } from '@/stores/select'
 import { defineStore } from 'pinia'
+
+const isDoc = (el: string) => el == 'doc'
+const isTask = (el: string) => el == 'task'
 
 export const useEditor = defineStore({
 	id: 'editor',
@@ -10,13 +14,13 @@ export const useEditor = defineStore({
 		vidOptions: [
 			[
 				'Не указано',
-				'Договор',
+				'Входящий',
+				'Исходящий',
 				'Заявка',
 				'Служебная записка',
-				'Исходящий',
 				'ОРД',
 				'Рабочий',
-				'Входящий',
+				'Договор',
 			],
 			['Не указано', 'На исполнение', 'На ознакомление', 'На согласование'],
 			['Не указано'],
@@ -27,6 +31,15 @@ export const useEditor = defineStore({
 			if (state.type == 'Документ') return state.vidOptions[0]
 			if (state.type == 'Задание') return state.vidOptions[1]
 			if (state.type == 'Группа заданий') return state.vidOptions[2]
+		},
+		calcFirst: (state) => {
+			if (state.type == 'Документ') {
+				return fields.filter((e: any) => e.kind.some(isDoc))
+			}
+			if (state.type == 'Задание' || 'Группа заданий') {
+				return fields.filter((e: any) => e.kind.some(isTask))
+			}
+			return null
 		},
 	},
 	actions: {
