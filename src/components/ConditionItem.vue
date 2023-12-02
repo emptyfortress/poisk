@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { fields, conditions, values } from '@/stores/select'
+import { conditions, values } from '@/stores/select'
 import { useEditor } from '@/stores/editor'
 
 const props = defineProps<{
@@ -9,8 +9,17 @@ const props = defineProps<{
 
 const editor = useEditor()
 
-const options1 = ref(fields)
-const options2 = ref(conditions)
+const isMan = (el: string) => el == 'man'
+const isDate = (el: string) => el == 'date'
+const calcSecond = computed(() => {
+	if (!!text1.value && text1.value.type === 1) {
+		return conditions.filter((e: any) => e.kind.some(isMan))
+	}
+	if (!!text1.value && text1.value.type === 2) {
+		return conditions.filter((e: any) => e.kind.some(isDate))
+	}
+	return conditions
+})
 const options3 = ref(values)
 
 const next = (e: Stat) => {
@@ -24,7 +33,7 @@ const toggle = (stat: any) => {
 }
 const clear = () => {
 	text1.value = null
-	text2.value = ''
+	text2.value = null
 	text3.value = ''
 }
 
@@ -50,12 +59,19 @@ const addAttr = computed(() => {
 })
 interface MySel {
 	type: number
+	kind: String[]
 	value: string | null
 	label: string | null
 }
 const text1 = ref<MySel | null>(null)
-const text2 = ref('')
+const text2 = ref<MySel | null>(null)
 const text3 = ref('')
+
+watch(text1, (val) => {
+	if (val) {
+		text2.value = null
+	}
+})
 </script>
 
 <template lang="pug">
@@ -69,7 +85,7 @@ const text3 = ref('')
 		.handle
 		q-select(v-model="text1" :options="editor.calcFirst" outlined label="Поле" dense bg-color="white")
 		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1?.type == 1")
-		q-select(v-model="text2" :options="options2" outlined label="Условие" dense bg-color="white" v-if="!attribute")
+		q-select(v-model="text2" :options="calcSecond" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)
 		q-select(v-model="text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
 		div(v-else)

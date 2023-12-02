@@ -39,7 +39,7 @@ export const useEditor = defineStore({
 			if (state.type == 'Задание' || 'Группа заданий') {
 				return fields.filter((e: any) => e.kind.some(isTask))
 			}
-			return null
+			return fields
 		},
 	},
 	actions: {
