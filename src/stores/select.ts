@@ -37,6 +37,7 @@ const conditions = [
 	{ type: 0, kind: ['date'], value: 'Раньше, чем', label: 'Раньше, чем' },
 	{ type: 0, kind: ['date'], value: 'Позже, чем', label: 'Позже, чем' },
 	{ type: 0, kind: ['date'], value: 'В период между', label: 'В период между' },
+	{ type: 0, kind: ['date'], value: 'Исключая период', label: 'Исключая период' },
 ]
 
 const values = [
