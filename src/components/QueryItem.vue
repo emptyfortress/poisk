@@ -20,6 +20,7 @@ const isDrop = (e: any) => {
 }
 
 const tree = ref()
+
 const remove = (e: Stat) => {
 	tree.value.remove(e)
 }
@@ -38,9 +39,19 @@ interface Fuck {
 	text: any
 }
 const addColl = ({ stat, text }: Fuck) => {
-	if (text.value == 'Отправитель' || text.value == 'Получатели') {
+	if (stat.children.length > 0) {
+		stat.open = true
+	} else if (
+		stat.children.length == 0 &&
+		(text.value == 'Отправитель' || text.value == 'Получатели')
+	) {
 		tree.value.add({ text: 'b', type: 1, drop: false }, stat)
-	} else tree.value.add({ text: 'a', type: 1, drop: false }, stat)
+	} else if (stat.children.length == 0) {
+		tree.value.add({ text: 'a', type: 1, drop: false }, stat)
+	}
+}
+const remColl = (e: Stat) => {
+	e.open = false
 }
 const disable = (e: Stat) => {
 	e.data.restrict = true
@@ -56,7 +67,7 @@ const disable = (e: Stat) => {
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			ConditionItem(:stat="stat" @addCollection="addColl")
+			ConditionItem(:stat="stat" @addCollection="addColl" @removeCollection="remColl(stat)")
 			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>

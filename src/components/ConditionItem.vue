@@ -42,15 +42,16 @@ const enable = () => {
 }
 const attribute = ref(props.stat.data.drop)
 
-const emit = defineEmits(['addCollection'])
+const emit = defineEmits(['addCollection', 'removeCollection'])
 
 watch(attribute, (val) => {
 	if (val == true) {
 		props.stat.droppable = true
 		emit('addCollection', { stat: props.stat, text: text1.value })
-		console.log(props.stat)
-		console.log(text1.value)
-	} else props.stat.droppable = false
+	} else {
+		props.stat.droppable = false
+		emit('removeCollection')
+	}
 })
 
 const addAttr = computed(() => {
