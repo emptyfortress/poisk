@@ -47,7 +47,9 @@ const emit = defineEmits(['addCollection'])
 watch(attribute, (val) => {
 	if (val == true) {
 		props.stat.droppable = true
-		emit('addCollection', props.stat)
+		emit('addCollection', { stat: props.stat, text: text1.value })
+		console.log(props.stat)
+		console.log(text1.value)
 	} else props.stat.droppable = false
 })
 
@@ -83,11 +85,15 @@ watch(text1, (val) => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
-		q-select(v-model="text1" :options="editor.calcFirst" outlined label="Поле" dense bg-color="white")
+		q-select(v-model="text1" :options="editor.calcFirst(props.stat)" outlined label="Поле" dense bg-color="white")
 		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1?.type == 1")
 		q-select(v-model="text2" :options="calcSecond" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)
 		q-select(v-model="text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
+			template(v-slot:prepend v-if="text1?.type == 2")
+				q-icon(name="mdi-calendar")
+			template(v-slot:prepend v-if="text1?.type == 1")
+				q-icon(name="mdi-book-open-page-variant-outline")
 		div(v-else)
 		q-btn(flat round icon="mdi-reload" @click="clear" ) 
 	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")

@@ -1,4 +1,4 @@
-import { fields } from '@/stores/select'
+import { fields, man, org } from '@/stores/select'
 import { defineStore } from 'pinia'
 
 const isVhod = (el: string) => el == 'vhod'
@@ -42,21 +42,6 @@ export const useEditor = defineStore({
 			if (state.type == 'Задание') return state.vidOptions[1]
 			if (state.type == 'Группа заданий') return state.vidOptions[2]
 		},
-		calcFirst: (state) => {
-			if (state.vid.label == 'Входящий') {
-				return fields.filter((e: any) => e.kind.some(isVhod))
-			}
-			if (state.vid.label == 'Исходящий') {
-				return fields.filter((e: any) => e.kind.some(isIshod))
-			}
-			if (state.type == 'Задание') {
-				return fields.filter((e: any) => e.kind.some(isTask))
-			}
-			if (state.type == 'Группа заданий') {
-				return fields.filter((e: any) => e.kind.some(isTasks))
-			}
-			return []
-		},
 	},
 	actions: {
 		resetVid() {
@@ -65,6 +50,27 @@ export const useEditor = defineStore({
 				label: 'Не указано',
 				value: 'Не указано',
 			}
+		},
+		calcFirst(stat: Stat) {
+			if (stat.data.text == 'a') {
+				return man
+			}
+			if (stat.data.text == 'b') {
+				return org
+			}
+			if (this.vid.label == 'Входящий') {
+				return fields.filter((e: any) => e.kind.some(isVhod))
+			}
+			if (this.vid.label == 'Исходящий') {
+				return fields.filter((e: any) => e.kind.some(isIshod))
+			}
+			if (this.type == 'Задание') {
+				return fields.filter((e: any) => e.kind.some(isTask))
+			}
+			if (this.type == 'Группа заданий') {
+				return fields.filter((e: any) => e.kind.some(isTasks))
+			}
+			return []
 		},
 	},
 })

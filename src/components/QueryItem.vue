@@ -33,8 +33,10 @@ const addCondition = (e: Stat) => {
 		tree.value.add({ text: '', type: 1, drop: false }, e.parent)
 	}
 }
-const addColl = (e: Stat) => {
-	tree.value.add({ text: '', type: 1, drop: false }, e)
+const addColl = ({ stat, text }) => {
+	if (text.value == 'Отправитель' || text.value == 'Получатели') {
+		tree.value.add({ text: 'b', type: 1, drop: false }, stat)
+	} else tree.value.add({ text: 'a', type: 1, drop: false }, stat)
 }
 const disable = (e: Stat) => {
 	e.data.restrict = true
@@ -50,7 +52,7 @@ const disable = (e: Stat) => {
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			ConditionItem(:stat="stat" @addCollection="addColl(stat)")
+			ConditionItem(:stat="stat" @addCollection="addColl")
 			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>
