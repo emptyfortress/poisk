@@ -33,7 +33,11 @@ const addCondition = (e: Stat) => {
 		tree.value.add({ text: '', type: 1, drop: false }, e.parent)
 	}
 }
-const addColl = ({ stat, text }) => {
+interface Fuck {
+	stat: Stat
+	text: any
+}
+const addColl = ({ stat, text }: Fuck) => {
 	if (text.value == 'Отправитель' || text.value == 'Получатели') {
 		tree.value.add({ text: 'b', type: 1, drop: false }, stat)
 	} else tree.value.add({ text: 'a', type: 1, drop: false }, stat)
