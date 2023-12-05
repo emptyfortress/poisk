@@ -70,6 +70,10 @@ watch(
 				.row.items-center.q-gutter-x-md
 					.label Вид:
 					q-select(v-model="editor.vid" :options="editor.calcVid" dense outlined bg-color="white")
+						template( v-slot:option="scope" )
+							q-item( v-bind="scope.itemProps" :disable="scope.opt.type == 0")
+								q-item-section
+									q-item-label(:class="{ dis : scope.opt.type == 0}") {{ scope.opt.label }}
 
 			QueryItem()
 

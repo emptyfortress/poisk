@@ -1,8 +1,10 @@
 import { fields } from '@/stores/select'
 import { defineStore } from 'pinia'
 
-const isDoc = (el: string) => el == 'doc'
+const isVhod = (el: string) => el == 'vhod'
+const isIshod = (el: string) => el == 'ishod'
 const isTask = (el: string) => el == 'task'
+const isTasks = (el: string) => el == 'tasks'
 
 export const useEditor = defineStore({
 	id: 'editor',
@@ -10,20 +12,28 @@ export const useEditor = defineStore({
 		type: 'Документ',
 		typeOptions: ['Документ', 'Задание', 'Группа заданий'],
 
-		vid: 'Не указано',
+		vid: { label: 'Не указано', value: 'Не указано', type: 0 },
+
 		vidOptions: [
 			[
-				'Не указано',
-				'Входящий',
-				'Исходящий',
-				'Заявка',
-				'Служебная записка',
-				'ОРД',
-				'Рабочий',
-				'Договор',
+				{ type: 0, label: 'Не указано', value: 'Не указано' },
+				{ type: 1, label: 'Входящий', value: 'Входящий' },
+				{ type: 1, label: 'Исходящий', value: 'Исходящий' },
+				{ type: 0, label: 'Заявка', value: 'Заявка' },
+				{ type: 0, label: 'Договор', value: 'Договор' },
+				{ type: 0, label: 'Письмо', value: 'Письмо' },
+				{ type: 0, label: 'Приказ', value: 'Приказ' },
+				{ type: 0, label: 'Заявление', value: 'Заявление' },
+				{ type: 0, label: 'Письмо', value: 'Письмо' },
+				{ type: 0, label: 'Черновик', value: 'Черновик' },
 			],
-			['Не указано', 'На исполнение', 'На ознакомление', 'На согласование'],
-			['Не указано'],
+			[
+				{ type: 1, value: 'Не указано', label: 'Не указано' },
+				{ type: 1, value: 'На исполнение', label: 'На исполнение' },
+				{ type: 1, value: 'На ознакомление', label: 'На ознакомление' },
+				{ type: 1, value: 'На согласование', label: 'На согласование' },
+			],
+			[{ type: 1, value: 'Не указано', label: 'Не указано' }],
 		],
 	}),
 	getters: {
@@ -33,18 +43,28 @@ export const useEditor = defineStore({
 			if (state.type == 'Группа заданий') return state.vidOptions[2]
 		},
 		calcFirst: (state) => {
-			if (state.type == 'Документ') {
-				return fields.filter((e: any) => e.kind.some(isDoc))
+			if (state.vid.label == 'Входящий') {
+				return fields.filter((e: any) => e.kind.some(isVhod))
 			}
-			if (state.type == 'Задание' || 'Группа заданий') {
+			if (state.vid.label == 'Исходящий') {
+				return fields.filter((e: any) => e.kind.some(isIshod))
+			}
+			if (state.type == 'Задание') {
 				return fields.filter((e: any) => e.kind.some(isTask))
 			}
-			return fields
+			if (state.type == 'Группа заданий') {
+				return fields.filter((e: any) => e.kind.some(isTasks))
+			}
+			return []
 		},
 	},
 	actions: {
 		resetVid() {
-			this.vid = 'Не указано'
+			this.vid = {
+				type: 0,
+				label: 'Не указано',
+				value: 'Не указано',
+			}
 		},
 	},
 })
