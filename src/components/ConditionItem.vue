@@ -89,7 +89,7 @@ const calcFirst = computed(() => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 		.grow
 		.robt
-			q-btn(flat round icon="mdi-plus-circle-outline" @click="clear" size="sm") 
+			q-btn(flat round icon="mdi-plus-circle-outline" size="sm") 
 				q-menu
 					q-list
 						q-item(clickable @click="$emit('addOp')" v-close-popup)
@@ -117,7 +117,7 @@ const calcFirst = computed(() => {
 		div(v-else)
 		.rowbt
 			q-btn(flat round icon="mdi-reload" @click="clear" size="sm") 
-			q-btn(flat round icon="mdi-plus-circle-outline" @click="clear" size="sm") 
+			q-btn(flat round icon="mdi-plus-circle-outline" size="sm") 
 				q-menu
 					q-list
 						q-item(clickable @click="$emit('addOp')" v-close-popup)

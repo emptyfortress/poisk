@@ -29,12 +29,18 @@ const remove = (e: Stat) => {
 	tree.value.remove(e)
 }
 const addOperator = (e: Stat) => {
+	if (e.children.length > 0) {
+		e.open = true
+	}
 	tree.value.add(
 		{ text: 'operator', text1: '', text2: '', text3: '', type: 0, typ: false, drop: true },
 		e
 	)
 }
 const addCondition = (e: Stat) => {
+	if (e.children.length > 0) {
+		e.open = true
+	}
 	tree.value.add(
 		{ text: '', text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false },
 		e
