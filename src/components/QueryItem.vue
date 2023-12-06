@@ -29,12 +29,16 @@ const remove = (e: Stat) => {
 	tree.value.remove(e)
 }
 const addOperator = (e: Stat) => {
-	tree.value.add({ text: 'operator', type: 0, typ: 0, drop: true }, e)
+	tree.value.add(
+		{ text: 'operator', text1: '', text2: '', text3: '', type: 0, typ: false, drop: true },
+		e
+	)
 }
 const addCondition = (e: Stat) => {
-	tree.value.add({ text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false }, e)
-	// tree.value.add({ text: '', type: 1, drop: false }, e.parent)
-	// }
+	tree.value.add(
+		{ text: '', text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false },
+		e
+	)
 }
 interface Fuck {
 	stat: Stat
