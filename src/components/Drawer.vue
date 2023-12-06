@@ -52,7 +52,7 @@ const tmp = {
 		hidden: false,
 		selected: true,
 		type: 1,
-		typ: 0,
+		typ: false,
 		fields: [
 			{
 				id: 1,
