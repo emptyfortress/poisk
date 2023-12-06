@@ -12,7 +12,7 @@ export const useEditor = defineStore({
 		type: 'Документ',
 		typeOptions: ['Документ', 'Задание', 'Группа заданий'],
 
-		vid: { label: 'Не указано', value: 'Не указано', type: 0 },
+		vid: { type: 1, label: 'Входящий', value: 'Входящий' },
 
 		vidOptions: [
 			[

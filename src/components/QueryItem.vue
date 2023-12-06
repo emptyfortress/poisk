@@ -32,11 +32,9 @@ const addOperator = (e: Stat) => {
 	tree.value.add({ text: 'operator', type: 0, typ: 0, drop: true }, e)
 }
 const addCondition = (e: Stat) => {
-	if (e.data.type === 0) {
-		tree.value.add({ text: '', type: 1, drop: false }, e)
-	} else {
-		tree.value.add({ text: '', type: 1, drop: false }, e.parent)
-	}
+	tree.value.add({ text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false }, e)
+	// tree.value.add({ text: '', type: 1, drop: false }, e.parent)
+	// }
 }
 interface Fuck {
 	stat: Stat
@@ -49,9 +47,9 @@ const addColl = ({ stat, text }: Fuck) => {
 		stat.children.length == 0 &&
 		(text.value == 'Отправитель' || text.value == 'Получатели')
 	) {
-		tree.value.add({ text: 'b', type: 1, drop: false }, stat)
+		tree.value.add({ text1: '', text2: '', text3: '', type: 1, attribute: false }, stat)
 	} else if (stat.children.length == 0) {
-		tree.value.add({ text: 'a', type: 1, drop: false }, stat)
+		tree.value.add({ text1: '', text2: '', text3: '', type: 1, attribute: false }, stat)
 	}
 }
 const remColl = (e: Stat) => {
@@ -76,8 +74,14 @@ const clear = (e: Stat) => {
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			ConditionItem(:stat="stat" @addCollection="addColl" @removeCollection="remColl(stat)" @clear="clear(stat)" )
-			// TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
+			ConditionItem(:stat="stat"
+				@addCollection="addColl"
+				@removeCollection="remColl(stat)"
+				@clear="clear(stat)"
+				@addOp="addOperator(stat)"
+				@addCond="addCondition(stat)"
+				@kill="remove(stat)")
+			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { conditions, values } from '@/stores/select'
+import { conditions, values, man, org } from '@/stores/select'
 import { useEditor } from '@/stores/editor'
 
 const props = defineProps<{
@@ -38,14 +38,14 @@ const clear = () => {
 const enable = () => {
 	props.stat.data.restrict = false
 }
-const attribute = ref(props.stat.data.drop)
+const attribute = ref(props.stat.data.attribute)
 
-const emit = defineEmits(['addCollection', 'removeCollection', 'clear'])
+const emit = defineEmits(['addCollection', 'removeCollection', 'clear', 'kill', 'addCond', 'addOp'])
 
 watch(attribute, (val) => {
 	if (val == true) {
 		props.stat.droppable = true
-		emit('addCollection', { stat: props.stat, text: text1.value })
+		emit('addCollection', { stat: props.stat, text: props.stat.data.text1 })
 	} else {
 		props.stat.droppable = false
 		emit('removeCollection')
@@ -53,19 +53,31 @@ watch(attribute, (val) => {
 })
 
 const addAttr = computed(() => {
-	return props.stat.data.text1.type == 1 ? 'attr' : ''
+	if (props.stat.data.text1.type == 1 || props.stat.data.text1.type === 3) {
+		return 'attr'
+	}
+	return ''
 })
 
 watch(
 	() => props.stat.data.text1,
 	() => {
-		if (props.stat.data.text1.type === 1) {
+		if (props.stat.data.text1.type === 1 || props.stat.data.text1.type === 3) {
 			calcAttribute.value = true
 		} else calcAttribute.value = false
 	},
 	{ deep: true }
 )
 const calcAttribute = ref(false)
+const calcFirst = computed(() => {
+	if (props.stat.parent.level == 1) {
+		return editor.calcFirst
+	} else if (props.stat.parent.data.text1.type === 1) {
+		return man
+	} else if (props.stat.parent.data.text1.type === 3) {
+		return org
+	}
+})
 </script>
 
 <template lang="pug">
@@ -77,18 +89,38 @@ const calcAttribute = ref(false)
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
-		q-select(v-model="props.stat.data.text1" :options="editor.calcFirst" outlined label="Поле" dense bg-color="white")
-		q-checkbox(v-model="props.stat.data.attribute" label="Атрибуты" dense v-if="calcAttribute")
+		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")
+		q-checkbox(v-model="attribute" label="Ссылка" dense v-if="calcAttribute")
 		q-select(v-model="props.stat.data.text2" :options="calcSecond" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)
-		q-select(v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
-			// template(v-slot:prepend v-if="text1?.type == 2")
-			// 	q-icon(name="mdi-calendar")
-			// template(v-slot:prepend v-if="text1?.type == 1")
-			// 	q-icon(name="mdi-book-open-page-variant-outline")
-		// div(v-else)
-		q-btn(flat round icon="mdi-reload" @click="clear" ) 
-	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
+		q-select(v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute" )
+			template(v-slot:prepend v-if="props.stat.data.text1.type == 2")
+				q-icon(name="mdi-calendar")
+			template(v-slot:prepend v-if="props.stat.data.text1.type == 1")
+				q-icon(name="mdi-book-open-page-variant-outline")
+		div(v-else)
+		.rowbt
+			q-btn(flat round icon="mdi-reload" @click="clear" size="sm") 
+			q-btn(flat round icon="mdi-plus-circle-outline" @click="clear" size="sm") 
+				q-menu
+					q-list
+						q-item(clickable @click="$emit('addOp')" v-close-popup)
+							q-item-section(avatar)
+								q-icon(name="mdi-gate-and")
+							q-item-section
+								q-item-label Оператор
+						q-item(clickable @click="$emit('addCond')" v-close-popup)
+							q-item-section(avatar)
+								q-icon(name="mdi-crosshairs-question")
+							q-item-section
+								q-item-label Условие
+			q-btn(flat round icon="mdi-trash-can-outline"  size="sm") 
+				q-menu
+					q-list
+						q-item.pink(clickable @click="$emit('kill')" v-close-popup)
+							q-item-section
+								q-item-label Удалить
+	// q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
 </template>
 
 <style scoped lang="scss">
@@ -139,11 +171,11 @@ const calcAttribute = ref(false)
 
 .one {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 42px;
+	grid-template-columns: 1fr 1fr 1fr 92px;
 	align-items: top;
 	background: var(--bg-head);
 	padding: 0.5rem;
-	padding-left: 2rem;
+	padding-left: 1.3rem;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	margin-bottom: 4px;
@@ -154,7 +186,7 @@ const calcAttribute = ref(false)
 		border-color: $primary;
 	}
 	&.attr {
-		grid-template-columns: 1fr 120px 1fr 1fr 42px;
+		grid-template-columns: 1fr 120px 1fr 1fr 92px;
 	}
 }
 
@@ -183,11 +215,23 @@ const calcAttribute = ref(false)
 
 .handle {
 	position: absolute;
-	width: 1rem;
+	width: 0.7rem;
 	height: 100%;
 	left: 0;
 	top: 0;
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAClJREFUGFclysENwEAQg0Cm/6Idbe6DEDbZpFWKaie7tqDd+sj/eR7rA9inDgnK6GXhAAAAAElFTkSuQmCC)
 		repeat;
+}
+.rowbt {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	.q-btn {
+		height: 30px;
+	}
+}
+:deep(.q-item__section--avatar) {
+	min-width: 0;
 }
 </style>

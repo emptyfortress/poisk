@@ -9,8 +9,8 @@ interface NodeData {
 	restrict?: boolean
 	icon?: string
 	type: number
-	typ: number
-	fields: Select[]
+	typ?: number
+	// fields: Select[]
 	drop?: boolean
 }
 
