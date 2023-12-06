@@ -23,9 +23,10 @@ const calcSecond = computed(() => {
 const options3 = ref(values)
 
 const next = (e: Stat) => {
-	if (e.data.typ === 1) {
-		e.data.typ = 0
-	} else e.data.typ = e.data.typ + 1
+	e.data.typ = !e.data.typ
+	// if (e.data.typ === 1) {
+	// 	e.data.typ = 0
+	// } else e.data.typ = e.data.typ! + 1
 }
 
 const toggle = (stat: any) => {
@@ -81,12 +82,12 @@ const calcFirst = computed(() => {
 </script>
 
 <template lang="pug">
-.node(:class="{ dis: props.stat.data.restrict === true }" )
+.node(:class="{ dis: props.stat.data.restrict === true }")
 	.zero(v-if="props.stat.data.type === 0")
 		q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
-		.icon(:class="{ or: props.stat.data.typ === 1 }" @click.stop="next(props.stat)")
+		.icon(:class="{ or: props.stat.data.typ === true }" @click.stop="next(props.stat)")
 		.q-ml-md Оператор
-		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
+		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
 		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")

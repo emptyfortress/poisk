@@ -47,6 +47,8 @@ const tmp = {
 	data: {
 		text: 'Задания на контроле',
 		text1: 'Описание поиска',
+		text2: '',
+		text3: '',
 		hidden: false,
 		selected: true,
 		type: 1,

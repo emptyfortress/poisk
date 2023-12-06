@@ -1,6 +1,7 @@
 interface NodeData {
 	// id: number
-	text1: string
+	text: string
+	text1: any
 	text2: string
 	text3?: string
 	edit?: boolean
@@ -9,8 +10,8 @@ interface NodeData {
 	restrict?: boolean
 	icon?: string
 	type: number
-	typ?: number
-	// fields: Select[]
+	typ?: boolean
+	fields: Select[]
 	drop?: boolean
 }
 
