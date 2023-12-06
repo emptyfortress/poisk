@@ -1,9 +1,10 @@
 interface NodeData {
 	// id: number
-	text: string
 	text1: string
-	text2?: string
+	text2: string
+	text3?: string
 	edit?: boolean
+	attribute?: boolean
 	selected?: boolean
 	restrict?: boolean
 	icon?: string

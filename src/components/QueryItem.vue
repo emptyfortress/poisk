@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import ConditionItem from '@/components/ConditionItem.vue'
 import TreeMenu from '@/components/TreeMenu.vue'
 
-const treeData = [
+const treeData = reactive([
 	{
-		text: 'One',
+		text1: '',
+		text2: '',
+		text3: '',
 		type: 0,
 		typ: 0,
 		drop: true,
-		children: [{ text: '', text1: '', text2: '', type: 1, drop: false, children: [] }],
+		children: [
+			{ text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
+		],
 	},
-]
+])
 
 const isDrop = (e: any) => {
 	if (e.data.drop) return true
@@ -56,6 +60,11 @@ const remColl = (e: Stat) => {
 const disable = (e: Stat) => {
 	e.data.restrict = true
 }
+const clear = (e: Stat) => {
+	e.data.text1 = ''
+	e.data.text2 = ''
+	e.data.text3 = ''
+}
 </script>
 
 <template lang="pug">
@@ -67,8 +76,8 @@ const disable = (e: Stat) => {
 		:eachDroppable="isDrop"
 		:watermark="false")
 		template(#default="{ node, stat }")
-			ConditionItem(:stat="stat" @addCollection="addColl" @removeCollection="remColl(stat)")
-			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
+			ConditionItem(:stat="stat" @addCollection="addColl" @removeCollection="remColl(stat)" @clear="clear(stat)" )
+			// TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>
 

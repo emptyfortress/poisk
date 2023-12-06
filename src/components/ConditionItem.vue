@@ -12,10 +12,10 @@ const editor = useEditor()
 const isMan = (el: string) => el == 'man'
 const isDate = (el: string) => el == 'date'
 const calcSecond = computed(() => {
-	if (!!text1.value && text1.value.type === 1) {
+	if (props.stat.data.text1.type == 1) {
 		return conditions.filter((e: any) => e.kind.some(isMan))
 	}
-	if (!!text1.value && text1.value.type === 2) {
+	if (props.stat.data.text1.type === 2) {
 		return conditions.filter((e: any) => e.kind.some(isDate))
 	}
 	return conditions
@@ -32,9 +32,7 @@ const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 const clear = () => {
-	text1.value = null
-	text2.value = null
-	text3.value = ''
+	emit('clear')
 }
 
 const enable = () => {
@@ -42,7 +40,7 @@ const enable = () => {
 }
 const attribute = ref(props.stat.data.drop)
 
-const emit = defineEmits(['addCollection', 'removeCollection'])
+const emit = defineEmits(['addCollection', 'removeCollection', 'clear'])
 
 watch(attribute, (val) => {
 	if (val == true) {
@@ -55,26 +53,19 @@ watch(attribute, (val) => {
 })
 
 const addAttr = computed(() => {
-	if (text1.value?.type == 1) {
-		return 'attr'
-	}
-	return ''
+	return props.stat.data.text1.type == 1 ? 'attr' : ''
 })
-interface MySel {
-	type: number
-	kind: String[]
-	value: string | null
-	label: string | null
-}
-const text1 = ref<MySel | null>(null)
-const text2 = ref<MySel | null>(null)
-const text3 = ref('')
 
-watch(text1, (val) => {
-	if (val) {
-		text2.value = null
-	}
-})
+watch(
+	() => props.stat.data.text1,
+	() => {
+		if (props.stat.data.text1.type === 1) {
+			calcAttribute.value = true
+		} else calcAttribute.value = false
+	},
+	{ deep: true }
+)
+const calcAttribute = ref(false)
 </script>
 
 <template lang="pug">
@@ -86,16 +77,16 @@ watch(text1, (val) => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ === 1 ? 'ИЛИ' : 'И' }}
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
-		q-select(v-model="text1" :options="editor.calcFirst(props.stat)" outlined label="Поле" dense bg-color="white")
-		q-checkbox(v-model="attribute" label="Атрибуты" dense v-if="text1?.type == 1")
-		q-select(v-model="text2" :options="calcSecond" outlined label="Условие" dense bg-color="white" v-if="!attribute")
+		q-select(v-model="props.stat.data.text1" :options="editor.calcFirst" outlined label="Поле" dense bg-color="white")
+		q-checkbox(v-model="props.stat.data.attribute" label="Атрибуты" dense v-if="calcAttribute")
+		q-select(v-model="props.stat.data.text2" :options="calcSecond" outlined label="Условие" dense bg-color="white" v-if="!attribute")
 		div(v-else)
-		q-select(v-model="text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
-			template(v-slot:prepend v-if="text1?.type == 2")
-				q-icon(name="mdi-calendar")
-			template(v-slot:prepend v-if="text1?.type == 1")
-				q-icon(name="mdi-book-open-page-variant-outline")
-		div(v-else)
+		q-select(v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute")
+			// template(v-slot:prepend v-if="text1?.type == 2")
+			// 	q-icon(name="mdi-calendar")
+			// template(v-slot:prepend v-if="text1?.type == 1")
+			// 	q-icon(name="mdi-book-open-page-variant-outline")
+		// div(v-else)
 		q-btn(flat round icon="mdi-reload" @click="clear" ) 
 	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
 </template>
