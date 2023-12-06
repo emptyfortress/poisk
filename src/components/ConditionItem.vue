@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { conditions, values, man, org } from '@/stores/select'
+import { fields, conditions, values, man, org } from '@/stores/select'
 import { useEditor } from '@/stores/editor'
 
 const props = defineProps<{
@@ -24,9 +24,6 @@ const options3 = ref(values)
 
 const next = (e: Stat) => {
 	e.data.typ = !e.data.typ
-	// if (e.data.typ === 1) {
-	// 	e.data.typ = 0
-	// } else e.data.typ = e.data.typ! + 1
 }
 
 const toggle = (stat: any) => {
@@ -73,6 +70,8 @@ const calcAttribute = ref(false)
 const calcFirst = computed(() => {
 	if (props.stat.parent.level == 1) {
 		return editor.calcFirst
+	} else if (props.stat.parent.data.type === 0) {
+		return fields
 	} else if (props.stat.parent.data.text1.type === 1) {
 		return man
 	} else if (props.stat.parent.data.text1.type === 3) {
