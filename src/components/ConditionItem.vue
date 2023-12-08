@@ -114,7 +114,15 @@ const rukovoditel = ref('yes')
 			q-btn(flat round icon="mdi-trash-can-outline"  @click="$emit('kill')" size="sm" v-if="props.stat.parent != null") 
 	.one(v-if="props.stat.data.type === 1" :class="addAttr")
 		.handle
+
 		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")
+			template( v-slot:option="scope" )
+				q-item.item(v-bind="scope.itemProps")
+					q-item-section
+						q-item-label {{ scope.opt.label }}
+					q-item-section(avatar)
+						q-btn(flat dense round icon="mdi-arrow-right" color="primary" @click="action") 
+
 		q-checkbox(v-model="attribute" label="Ссылка" dense v-if="calcAttribute")
 		.row(v-if="calcRukovoditel")
 			q-radio(v-model="rukovoditel" val="yes" label="Да")
@@ -265,5 +273,8 @@ const rukovoditel = ref('yes')
 }
 .grow {
 	flex-grow: 1;
+}
+.item {
+	padding-right: 0;
 }
 </style>
