@@ -54,6 +54,9 @@ const addAttr = computed(() => {
 	if (props.stat.data.text1.type == 1 || props.stat.data.text1.type === 3) {
 		return 'attr'
 	}
+	if (props.stat.data.text1.type == 5) {
+		return 'attr1'
+	}
 	return ''
 })
 
@@ -63,10 +66,14 @@ watch(
 		if (props.stat.data.text1.type === 1 || props.stat.data.text1.type === 3) {
 			calcAttribute.value = true
 		} else calcAttribute.value = false
+		if (props.stat.data.text1.type === 5) {
+			calcRukovoditel.value = true
+		} else calcRukovoditel.value = false
 	},
 	{ deep: true }
 )
 const calcAttribute = ref(false)
+const calcRukovoditel = ref(false)
 const calcFirst = computed(() => {
 	if (props.stat.parent.level == 1) {
 		return editor.calcFirst
@@ -78,6 +85,8 @@ const calcFirst = computed(() => {
 		return org
 	}
 })
+const inp = ref('')
+const rukovoditel = ref('yes')
 </script>
 
 <template lang="pug">
@@ -107,14 +116,20 @@ const calcFirst = computed(() => {
 		.handle
 		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")
 		q-checkbox(v-model="attribute" label="Ссылка" dense v-if="calcAttribute")
-		q-select(v-model="props.stat.data.text2" :options="calcSecond" outlined label="Условие" dense bg-color="white" v-if="!attribute")
-		div(v-else)
-		q-select(v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white" v-if="!attribute" )
-			template(v-slot:prepend v-if="props.stat.data.text1.type == 2")
-				q-icon(name="mdi-calendar")
-			template(v-slot:prepend v-if="props.stat.data.text1.type == 1")
-				q-icon(name="mdi-book-open-page-variant-outline")
-		div(v-else)
+		.row(v-if="calcRukovoditel")
+			q-radio(v-model="rukovoditel" val="yes" label="Да")
+			q-radio(v-model="rukovoditel" val="no" label="Нет")
+		template(v-if="!attribute && !calcRukovoditel")
+			q-select(v-model="props.stat.data.text2" :options="calcSecond" outlined label="Условие" dense bg-color="white")
+			q-input(v-if="props.stat.data.text1.type == 4" dense v-model="inp" outlined bg-color="white" placeholder="Значение")
+			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white")
+				template(v-slot:prepend v-if="props.stat.data.text1.type == 2")
+					q-icon(name="mdi-calendar")
+				template(v-slot:prepend v-if="props.stat.data.text1.type == 1 || props.stat.data.text1.type == 3")
+					q-icon(name="mdi-book-open-page-variant-outline")
+		template(v-if="attribute || calcRukovoditel")
+			div
+			div
 		.rowbt
 			q-btn(flat round icon="mdi-reload" @click="clear" size="sm") 
 			q-btn(flat round icon="mdi-plus-circle-outline" size="sm") 
@@ -131,7 +146,7 @@ const calcFirst = computed(() => {
 							q-item-section
 								q-item-label Условие
 			q-btn(flat round icon="mdi-trash-can-outline" @click="$emit('kill')" size="sm") 
-	// q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
+	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
 </template>
 
 <style scoped lang="scss">
@@ -198,6 +213,9 @@ const calcFirst = computed(() => {
 	}
 	&.attr {
 		grid-template-columns: 1fr 120px 1fr 1fr 92px;
+	}
+	&.attr1 {
+		grid-template-columns: 2fr 200px 1fr 1fr 92px;
 	}
 }
 

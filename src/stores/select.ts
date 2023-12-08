@@ -3,7 +3,7 @@ const man = [
 	{ type: 0, kind: [], value: 'Имя', label: 'Имя' },
 	{ type: 0, kind: [], value: 'Отчество', label: 'Отчество' },
 	{ type: 2, kind: [], value: 'Дата рождения', label: 'Дата рождения' },
-	{ type: 0, kind: [], value: 'Должность', label: 'Должность' },
+	{ type: 1, kind: [], value: 'Должность', label: 'Должность' },
 	{ type: 1, kind: [], value: 'Руководитель', label: 'Руководитель' },
 	{ type: 0, kind: [], value: 'Местный телефон', label: 'Местный телефон' },
 	{ type: 0, kind: [], value: 'Домашний телефон', label: 'Домашний телефон' },
@@ -16,7 +16,7 @@ const man = [
 	{ type: 0, kind: [], value: 'Значимость', label: 'Значимость' },
 	{ type: 0, kind: [], value: 'Email', label: 'Email' },
 	{ type: 1, kind: [], value: 'Организация', label: 'Организация' },
-	{ type: 0, kind: [], value: 'Является руководителем', label: 'Является руководителем' },
+	{ type: 5, kind: [], value: 'Является руководителем', label: 'Является руководителем' },
 ]
 const org = [
 	{ type: 1, kind: [], value: 'Название', label: 'Название' },
@@ -40,13 +40,13 @@ const org = [
 	{ type: 0, kind: [], value: 'ОКВЭД', label: 'ОКВЭД' },
 ]
 const fields = [
-	{ type: 0, kind: ['vhod', 'ishod', 'task', 'tasks'], value: 'Тема', label: 'Тема' },
-	{ type: 0, kind: ['vhod', 'ishod'], value: 'Номер', label: 'Номер' },
+	{ type: 4, kind: ['vhod', 'ishod', 'task', 'tasks'], value: 'Тема', label: 'Тема' },
+	{ type: 4, kind: ['vhod', 'ishod'], value: 'Номер', label: 'Номер' },
 	{ type: 2, kind: ['vhod', 'ishod'], value: 'Дата регистрации', label: 'Дата регистрации' },
 	{ type: 1, kind: ['vhod'], value: 'Регистратор', label: 'Регистратор' },
-	{ type: 0, kind: ['vhod', 'ishod', 'task', 'tasks'], value: 'Содержание', label: 'Содержание' },
-	{ type: 3, kind: ['vhod', 'ishod'], value: 'Получатели', label: 'Получатели' },
-	{ type: 0, kind: ['vhod'], value: 'Исх.номер', label: 'Исх.номер' },
+	{ type: 4, kind: ['vhod', 'ishod', 'task', 'tasks'], value: 'Содержание', label: 'Содержание' },
+	{ type: 1, kind: ['vhod', 'ishod'], value: 'Получатели', label: 'Получатели' },
+	{ type: 4, kind: ['vhod'], value: 'Исх.номер', label: 'Исх.номер' },
 	{ type: 2, kind: ['vhod'], value: 'Дата документа', label: 'Дата документа' },
 	{ type: 3, kind: ['vhod'], value: 'Отправитель', label: 'Отправитель' },
 	{ type: 0, kind: ['vhod', 'ishod', 'task', 'tasks'], value: 'Состояние', label: 'Состояние' },
