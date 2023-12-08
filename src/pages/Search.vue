@@ -5,6 +5,7 @@ import ZaprosMain from '@/components/ZaprosMain.vue'
 import { searches } from '@/stores/tree'
 
 const splitterModel = ref(18)
+const splitterModel1 = ref(80)
 
 const hei = computed(() => {
 	return 'height: ' + (window.innerHeight - 180) + 'px;'
@@ -21,11 +22,16 @@ q-page(padding)
 					q-scroll-area.list
 						BaseTree(:treeData="searches")
 			template(v-slot:after)
-				.main
-					q-scroll-area.list
-						ZaprosMain(:splitter="splitterModel"
-							@maximize="splitterModel = 0"
-							@reset="splitterModel = 30")
+				q-splitter(v-model="splitterModel1" :limits="[0, 100]" :style="hei" )
+					template(v-slot:before)
+						.main
+							q-scroll-area.list
+								ZaprosMain(:splitter="splitterModel"
+									@maximize="splitterModel = 0"
+									@reset="splitterModel = 30")
+					template(v-slot:after)
+						.tree
+							div Fuck
 </template>
 
 <style scoped lang="scss">
@@ -41,6 +47,14 @@ q-page(padding)
 }
 
 .main {
+	border: 1px solid var(--my-border-color);
+	background: var(--bg-panel);
+	height: 100%;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	padding: 1rem;
+}
+.tree {
 	border: 1px solid var(--my-border-color);
 	background: var(--bg-panel);
 	height: 100%;
