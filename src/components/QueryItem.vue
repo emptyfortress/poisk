@@ -13,7 +13,8 @@ const treeData = reactive([
 		typ: 0,
 		drop: true,
 		children: [
-			{ text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
+			// { text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
+			// { text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
 		],
 	},
 ])
@@ -91,7 +92,7 @@ const clear = (e: Stat) => {
 				@addOp="addOperator(stat)"
 				@addCond="addCondition(stat)"
 				@kill="remove(stat)")
-			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
+			// TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>
 

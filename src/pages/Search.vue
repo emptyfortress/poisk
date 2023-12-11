@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
 import ZaprosMain from '@/components/ZaprosMain.vue'
+import FieldTree from '@/components/FieldTree.vue'
 import { searches } from '@/stores/tree'
 
 const splitterModel = ref(18)
@@ -31,7 +32,8 @@ q-page(padding)
 									@reset="splitterModel = 30")
 					template(v-slot:after)
 						.tree
-							div Fuck
+							q-scroll-area.list
+								FieldTree
 </template>
 
 <style scoped lang="scss">
@@ -59,6 +61,6 @@ q-page(padding)
 	background: var(--bg-panel);
 	height: 100%;
 	margin-left: 0.5rem;
-	padding: 1rem;
+	padding-top: 0.4rem;
 }
 </style>

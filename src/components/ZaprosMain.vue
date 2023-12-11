@@ -55,15 +55,16 @@ watch(
 				.zg {{ store.currentNode.data.text }}
 					q-popup-edit( v-model="store.currentNode.data.text" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-			div(v-else) Выберите запрос
+			div(v-else) Выберите запрос или создайте новый.
 			.btngroup
-				q-btn(outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
+				q-btn(v-if="store.currentNode?.data.type == 1" outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
+				q-btn(v-else outline size="10px" color="primary"  @click="double") Создать
 		template(v-if="store.currentNode?.data.type == 1" )
 			.descr {{ store.currentNode.data.text1 }}
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			.type
+			// .type
 				.row.items-center.q-gutter-x-md
 					.label Тип:
 					q-select(v-model="editor.type" :options="editor.typeOptions" dense outlined bg-color="white")

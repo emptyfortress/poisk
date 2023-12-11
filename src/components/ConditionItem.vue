@@ -97,22 +97,9 @@ const rukovoditel = ref('yes')
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 		.grow
-		.robt
-			q-btn(flat round icon="mdi-plus-circle-outline" size="sm") 
-				q-menu
-					q-list
-						q-item(clickable @click="$emit('addOp')" v-close-popup)
-							q-item-section(avatar)
-								q-icon(name="mdi-gate-and")
-							q-item-section
-								q-item-label Оператор
-						q-item(clickable @click="$emit('addCond')" v-close-popup)
-							q-item-section(avatar)
-								q-icon(name="mdi-crosshairs-question")
-							q-item-section
-								q-item-label Условие
-			q-btn(flat round icon="mdi-trash-can-outline"  @click="$emit('kill')" size="sm" v-if="props.stat.parent != null") 
-	.one(v-if="props.stat.data.type === 1" :class="addAttr")
+		q-btn(flat round icon="mdi-close"  @click="$emit('kill')" size="sm" v-if="props.stat.parent != null") 
+
+	// .one(v-if="props.stat.data.type === 1")
 		.handle
 
 		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")
@@ -123,11 +110,10 @@ const rukovoditel = ref('yes')
 					q-item-section(avatar)
 						q-btn(flat dense round icon="mdi-arrow-right" color="primary" @click="action") 
 
-		q-checkbox(v-model="attribute" label="Ссылка" dense v-if="calcAttribute")
 		.row(v-if="calcRukovoditel")
 			q-radio(v-model="rukovoditel" val="yes" label="Да")
 			q-radio(v-model="rukovoditel" val="no" label="Нет")
-		template(v-if="!attribute && !calcRukovoditel")
+		template(v-if="!calcRukovoditel")
 			q-select(v-model="props.stat.data.text2" :options="calcSecond" outlined label="Условие" dense bg-color="white")
 			q-input(v-if="props.stat.data.text1.type == 4" dense v-model="inp" outlined bg-color="white" placeholder="Значение")
 			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white")
@@ -135,25 +121,10 @@ const rukovoditel = ref('yes')
 					q-icon(name="mdi-calendar")
 				template(v-slot:prepend v-if="props.stat.data.text1.type == 1 || props.stat.data.text1.type == 3")
 					q-icon(name="mdi-book-open-page-variant-outline")
-		template(v-if="attribute || calcRukovoditel")
+		template(v-if="calcRukovoditel")
 			div
 			div
-		.rowbt
-			q-btn(flat round icon="mdi-reload" @click="clear" size="sm") 
-			q-btn(flat round icon="mdi-plus-circle-outline" size="sm") 
-				q-menu
-					q-list
-						q-item(clickable @click="$emit('addOp')" v-close-popup)
-							q-item-section(avatar)
-								q-icon(name="mdi-gate-and")
-							q-item-section
-								q-item-label Оператор
-						q-item(clickable @click="$emit('addCond')" v-close-popup)
-							q-item-section(avatar)
-								q-icon(name="mdi-crosshairs-question")
-							q-item-section
-								q-item-label Условие
-			q-btn(flat round icon="mdi-trash-can-outline" @click="$emit('kill')" size="sm") 
+		q-btn(flat round icon="mdi-close" @click="$emit('kill')" size="sm") 
 	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
 </template>
 
@@ -205,8 +176,8 @@ const rukovoditel = ref('yes')
 
 .one {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 92px;
-	align-items: top;
+	grid-template-columns: 1fr 1fr 1fr auto;
+	align-items: center;
 	background: var(--bg-head);
 	padding: 0.5rem;
 	padding-left: 1.3rem;
@@ -218,9 +189,6 @@ const rukovoditel = ref('yes')
 
 	&:hover {
 		border-color: $primary;
-	}
-	&.attr {
-		grid-template-columns: 1fr 120px 1fr 1fr 92px;
 	}
 	&.attr1 {
 		grid-template-columns: 2fr 200px 1fr 1fr 92px;
