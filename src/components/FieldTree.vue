@@ -20,34 +20,49 @@ const initial = (stat: any) => {
 	stat.open = stat.data.open
 	return stat
 }
+const test = (e: Event) => {
+	console.log(e)
+}
 </script>
 
 const filter = ref('')
 <template lang="pug">
 div
 	// .zg Библиотека
-	q-input(ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter").q-mx-md.q-mb-md
+	q-input.q-mx-md.q-mb-md( ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter")
 		template(v-slot:prepend)
 			q-icon(name="mdi-magnify")
 
-	Draggable(v-model="fields"
-		ref="tree"
-		:indent="30"
-		:defaultOpen="false"
-		:statHandler="initial"
-		treeLine
-		:watermark="false")
-		template(#default="{ node, stat }")
-			.node(@click="toggle(stat)" :open="node.open" :class="{bold : stat.children.length > 0}")
-				q-icon.mtl-mr(name="mdi-chevron-down" v-if="stat.children.length" :class="{ 'closed': !stat.open }").trig
-				// q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
-				WordHighlighter(:query="query") {{ node.text }}
+	q-tree(
+		:nodes="fields"
+		node-key="text"
+		label-key="text"
+		icon="mdi-chevron-right"
+		)
+		template(v-slot:default-header="prop")
+			div(draggable="true" :ondragstart="test" ) {{ prop.node.text }}
+
+	// Draggable(v-model="fields"
+	// 	ref="tree"
+	// 	:indent="30"
+	// 	:defaultOpen="false"
+	// 	:statHandler="initial"
+	// 	treeLine
+	// 	:watermark="false")
+	// 	template(#default="{ node, stat }")
+	// 		.node(@click="toggle(stat)" :open="node.open" :class="{bold : stat.children.length > 0}")
+	// 			q-icon.mtl-mr(name="mdi-chevron-down" v-if="stat.children.length" :class="{ 'closed': !stat.open }").trig
+	// 			// q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
+	// 			WordHighlighter(:query="query") {{ node.text }}
 </template>
 
 <style scoped lang="scss">
 .zg {
 	font-size: 0.9rem;
 	font-weight: 600;
+}
+.q-tree {
+	font-size: 0.9rem;
 }
 .node {
 	padding: 4px 8px;
