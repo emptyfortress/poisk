@@ -41,6 +41,7 @@ div
 	q-tree(
 		ref="tree"
 		:nodes="fields"
+		dense
 		node-key="id"
 		label-key="text"
 		:filter="query"
