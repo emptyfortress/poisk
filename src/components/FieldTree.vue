@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, watch } from 'vue'
 import '@he-tree/vue/style/default.css'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/tree'
@@ -8,6 +8,7 @@ import { useDrag } from '@/stores/drag'
 const drag = useDrag()
 const tree = ref()
 const query = ref('')
+
 const clearFilter = () => {
 	query.value = ''
 	tree.value.statsFlat.map((item: Stat) => (item.hidden = false))
@@ -17,23 +18,28 @@ const initial = (stat: any) => {
 	stat.open = stat.data.open
 	return stat
 }
-const dragstart = (e: Stat) => {
+const dragstart = (e: NodeData) => {
 	drag.setCurrentDrag(e)
 }
 const dragend = () => {
 	drag.setCurrentDrag(null)
 }
+watch(query, () => {
+	if (query.value.length > 1) {
+		tree.value.expandAll()
+	}
+})
 </script>
 
 const filter = ref('')
 <template lang="pug">
 div
-	// .zg Библиотека
 	q-input.q-mx-md.q-mb-md( ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter")
 		template(v-slot:prepend)
 			q-icon(name="mdi-magnify")
 
 	q-tree(
+		ref="tree"
 		:nodes="fields"
 		node-key="text"
 		label-key="text"
