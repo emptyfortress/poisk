@@ -36,29 +36,8 @@ const clear = () => {
 const enable = () => {
 	props.stat.data.restrict = false
 }
-const attribute = ref(props.stat.data.attribute)
 
-const emit = defineEmits(['addCollection', 'removeCollection', 'clear', 'kill', 'addCond', 'addOp'])
-
-watch(attribute, (val) => {
-	if (val == true) {
-		props.stat.droppable = true
-		emit('addCollection', { stat: props.stat, text: props.stat.data.text1 })
-	} else {
-		props.stat.droppable = false
-		emit('removeCollection')
-	}
-})
-
-const addAttr = computed(() => {
-	if (props.stat.data.text1.type == 1 || props.stat.data.text1.type === 3) {
-		return 'attr'
-	}
-	if (props.stat.data.text1.type == 5) {
-		return 'attr1'
-	}
-	return ''
-})
+const emit = defineEmits(['clear', 'kill'])
 
 watch(
 	() => props.stat.data.text1,
@@ -102,13 +81,7 @@ const rukovoditel = ref('yes')
 	.one(v-if="props.stat.data.type === 1")
 		.handle
 
-		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")
-			template( v-slot:option="scope" )
-				q-item.item(v-bind="scope.itemProps")
-					q-item-section
-						q-item-label {{ scope.opt.label }}
-					q-item-section(avatar)
-						q-btn(flat dense round icon="mdi-arrow-right" color="primary" @click="action") 
+		div {{ props.stat.data.text}}
 
 		.row(v-if="calcRukovoditel")
 			q-radio(v-model="rukovoditel" val="yes" label="Да")

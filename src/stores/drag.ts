@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 export const useDrag = defineStore({
 	id: 'drag',
 	state: () => ({
-		dragNode: null as Stat | null,
+		dragNode: null as NodeData | null,
 	}),
 	getters: {},
 	actions: {
-		setCurrentDrag(e: Stat | null) {
+		setCurrentDrag(e: NodeData | null) {
 			this.dragNode = e
 		},
 	},

@@ -11,8 +11,8 @@ interface NodeData {
 	icon?: string
 	type: number
 	typ?: boolean
-	fields: Select[]
 	drop?: boolean
+	drag?: boolean
 }
 
 interface Stat {

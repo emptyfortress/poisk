@@ -37,10 +37,12 @@ div
 		:nodes="fields"
 		node-key="text"
 		label-key="text"
+		:filter="query"
 		icon="mdi-chevron-right"
 		)
 		template(v-slot:default-header="prop")
-			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend") {{ prop.node.text }}
+			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend")
+				WordHighlighter(:query="query") {{ prop.node.text }}
 
 </template>
 
