@@ -4,6 +4,7 @@ import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/tree'
+import draggable from 'vuedraggable'
 
 const list = ref([])
 const tree = ref()
@@ -20,8 +21,11 @@ const initial = (stat: any) => {
 	stat.open = stat.data.open
 	return stat
 }
-const test = (e: Event) => {
-	console.log(e)
+const dragstart = (e: any) => {
+	console.log(e.text)
+}
+const dragend = () => {
+	console.log(11100)
 }
 </script>
 
@@ -40,20 +44,8 @@ div
 		icon="mdi-chevron-right"
 		)
 		template(v-slot:default-header="prop")
-			div(draggable="true" :ondragstart="test" ) {{ prop.node.text }}
+			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend") {{ prop.node.text }}
 
-	// Draggable(v-model="fields"
-	// 	ref="tree"
-	// 	:indent="30"
-	// 	:defaultOpen="false"
-	// 	:statHandler="initial"
-	// 	treeLine
-	// 	:watermark="false")
-	// 	template(#default="{ node, stat }")
-	// 		.node(@click="toggle(stat)" :open="node.open" :class="{bold : stat.children.length > 0}")
-	// 			q-icon.mtl-mr(name="mdi-chevron-down" v-if="stat.children.length" :class="{ 'closed': !stat.open }").trig
-	// 			// q-icon(name="mdi-folder-outline" v-if="stat.data.type === 0").fold
-	// 			WordHighlighter(:query="query") {{ node.text }}
 </template>
 
 <style scoped lang="scss">
@@ -61,47 +53,21 @@ div
 	font-size: 0.9rem;
 	font-weight: 600;
 }
-.q-tree {
-	font-size: 0.9rem;
-}
 .node {
-	padding: 4px 8px;
+	width: 100%;
+	padding: 2px 6px;
 	cursor: pointer;
 	font-size: 0.9rem;
-
-	&.selected {
-		background: #b1ddfc;
-		color: #1565c0;
-
-		&:hover {
-			background: #b1ddfc;
-		}
-	}
-
-	&:hover {
-		background: hsla(0, 0%, 91%);
-	}
+	background: var(--bg-main);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
-.quick .q-field--dense .q-field__control,
-.q-field--dense .q-field__marginal {
-	height: 28px !important;
-}
-
-.fold {
-	font-size: 1.3rem;
-	margin-right: 0.5rem;
-}
-
-.trig {
-	font-size: 1.3rem;
-	margin-right: 0.5rem;
-	transition: 0.2s ease all;
-
-	&.closed {
-		transform: rotate(-90deg);
-	}
-}
-.bold {
-	font-weight: 600;
+:deep(.q-tree__arrow) {
+	font-size: 19px;
+	color: #666;
 }
 </style>

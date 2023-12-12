@@ -99,7 +99,7 @@ const rukovoditel = ref('yes')
 		.grow
 		q-btn(flat round icon="mdi-close"  @click="$emit('kill')" size="sm" v-if="props.stat.parent != null") 
 
-	// .one(v-if="props.stat.data.type === 1")
+	.one(v-if="props.stat.data.type === 1")
 		.handle
 
 		q-select(v-model="props.stat.data.text1" :options="calcFirst" outlined label="Поле" dense bg-color="white")

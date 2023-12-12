@@ -13,7 +13,7 @@ const treeData = reactive([
 		typ: 0,
 		drop: true,
 		children: [
-			// { text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
+			{ text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
 			// { text1: '', text2: '', text3: '', type: 1, drop: false, attribute: false, children: [] },
 		],
 	},
@@ -74,6 +74,18 @@ const clear = (e: Stat) => {
 	e.data.text2 = ''
 	e.data.text3 = ''
 }
+
+const externalDataHandler = () => {
+	return {
+		text1: '',
+		text2: '',
+		text3: '',
+		type: 0,
+		drop: true,
+		selected: false,
+		children: [],
+	}
+}
 </script>
 
 <template lang="pug">
@@ -83,6 +95,8 @@ const clear = (e: Stat) => {
 		ref="tree"
 		:indent="40"
 		:eachDroppable="isDrop"
+		:onExternalDragOver="()=> true"
+		:externalDataHandler="externalDataHandler"
 		:watermark="false")
 		template(#default="{ node, stat }")
 			ConditionItem(:stat="stat"
@@ -91,8 +105,8 @@ const clear = (e: Stat) => {
 				@clear="clear(stat)"
 				@addOp="addOperator(stat)"
 				@addCond="addCondition(stat)"
-				@kill="remove(stat)")
-			// TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
+				@kill="remove(stat)" )
+			TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>
 

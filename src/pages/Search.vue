@@ -57,8 +57,8 @@ q-page(padding)
 	padding: 1rem;
 }
 .tree {
-	border: 1px solid var(--my-border-color);
-	background: var(--bg-panel);
+	// border: 1px solid var(--my-border-color);
+	// background: var(--bg-panel);
 	height: 100%;
 	margin-left: 0.5rem;
 	padding-top: 0.4rem;

@@ -241,9 +241,10 @@ const fields = [
 		open: true,
 		type: 0,
 		selected: false,
+		drag: false,
 		children: [
-			{ text: 'И', hidden: false, type: 1, selected: false },
-			{ text: 'ИЛИ', hidden: false, type: 1, selected: false },
+			{ text: 'И', hidden: false, type: 1, selected: false, drag: true },
+			{ text: 'ИЛИ', hidden: false, type: 1, selected: false, drag: true },
 		],
 	},
 	{
@@ -252,6 +253,7 @@ const fields = [
 		open: true,
 		type: 0,
 		selected: false,
+		drag: false,
 		children: [
 			{
 				text: 'Документ',
