@@ -33,7 +33,7 @@ const fields = [
 	},
 	{
 		id: uid(),
-		text: 'Тип карточки',
+		text: 'Карточки',
 		hidden: false,
 		open: true,
 		type: 1,

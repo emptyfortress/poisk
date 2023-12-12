@@ -31,7 +31,6 @@ watch(query, () => {
 })
 </script>
 
-const filter = ref('')
 <template lang="pug">
 div
 	q-input.q-mx-md.q-mb-md( ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter")
