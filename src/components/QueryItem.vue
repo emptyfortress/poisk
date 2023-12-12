@@ -50,9 +50,13 @@ const externalDataHandler = () => {
 			selected: false,
 			drag: drag.dragNode.drag,
 			drop: drag.dragNode.drop,
+			parent: drag.dragNode.parent,
 			children: [],
 		}
 	}
+}
+const test = (e: Stat) => {
+	console.log(e)
 }
 </script>
 
@@ -70,7 +74,8 @@ const externalDataHandler = () => {
 		template(#default="{ node, stat }")
 			ConditionItem(:stat="stat"
 				@clear="clear(stat)"
-				@kill="remove(stat)" )
+				@kill="remove(stat)"
+				@click="test(stat)")
 			// TreeMenu(:stat="stat" @kill="remove" @addOp="addOperator" @addCond="addCondition" @disable="disable" )
 
 </template>

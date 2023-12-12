@@ -81,13 +81,17 @@ const rukovoditel = ref('yes')
 	.one(v-if="props.stat.data.type === 1")
 		.handle
 
-		div {{ props.stat.data.text}}
+		div
+			template(v-for="item in props.stat.data.parent" :key="item")
+				span.text-weight-bold {{ item }}
+				span.q-mx-sm >
+			span.text-weight-bold {{ props.stat.data.text}}
 
 		.row(v-if="calcRukovoditel")
 			q-radio(v-model="rukovoditel" val="yes" label="Да")
 			q-radio(v-model="rukovoditel" val="no" label="Нет")
 		template(v-if="!calcRukovoditel")
-			q-select(v-model="props.stat.data.text2" :options="calcSecond" outlined label="Условие" dense bg-color="white")
+			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense )
 			q-input(v-if="props.stat.data.text1.type == 4" dense v-model="inp" outlined bg-color="white" placeholder="Значение")
 			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white")
 				template(v-slot:prepend v-if="props.stat.data.text1.type == 2")
@@ -149,7 +153,7 @@ const rukovoditel = ref('yes')
 
 .one {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr auto;
+	grid-template-columns: 2fr 1fr 1fr auto;
 	align-items: center;
 	background: var(--bg-head);
 	padding: 0.5rem;

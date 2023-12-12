@@ -1,5 +1,5 @@
 interface NodeData {
-	// id: number
+	id: string
 	text: string
 	text1: any
 	text2: string
@@ -13,6 +13,7 @@ interface NodeData {
 	typ?: boolean
 	drop?: boolean
 	drag?: boolean
+	parent?: string[]
 }
 
 interface Stat {

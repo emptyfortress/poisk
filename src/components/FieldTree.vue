@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import '@he-tree/vue/style/default.css'
 import WordHighlighter from 'vue-word-highlighter'
-import { fields } from '@/stores/tree'
+import { fields } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
 
 const drag = useDrag()
@@ -41,7 +41,7 @@ div
 	q-tree(
 		ref="tree"
 		:nodes="fields"
-		node-key="text"
+		node-key="id"
 		label-key="text"
 		:filter="query"
 		icon="mdi-chevron-right"
