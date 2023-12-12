@@ -1,5 +1,5 @@
 interface NodeData {
-	id: string
+	id?: string
 	text: string
 	text1: any
 	text2: string
@@ -14,6 +14,7 @@ interface NodeData {
 	drop?: boolean
 	drag?: boolean
 	parent?: string[]
+	fields: Select[]
 }
 
 interface Stat {
