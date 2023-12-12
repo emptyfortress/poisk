@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/tree'
-import draggable from 'vuedraggable'
+import { useDrag } from '@/stores/drag'
 
-const list = ref([])
+const drag = useDrag()
 const tree = ref()
-const toggle = (stat: any) => {
-	stat.open = !stat.open
-}
 const query = ref('')
 const clearFilter = () => {
 	query.value = ''
@@ -21,11 +17,11 @@ const initial = (stat: any) => {
 	stat.open = stat.data.open
 	return stat
 }
-const dragstart = (e: any) => {
-	console.log(e.text)
+const dragstart = (e: Stat) => {
+	drag.setCurrentDrag(e)
 }
 const dragend = () => {
-	console.log(11100)
+	drag.setCurrentDrag(null)
 }
 </script>
 

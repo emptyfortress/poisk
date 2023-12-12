@@ -97,7 +97,7 @@ const rukovoditel = ref('yes')
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 		.grow
-		q-btn(flat round icon="mdi-close"  @click="$emit('kill')" size="sm" v-if="props.stat.parent != null") 
+		q-btn(flat round icon="mdi-close"  @click="$emit('kill')" size="sm" v-if="props.stat.data.drag !== false") 
 
 	.one(v-if="props.stat.data.type === 1")
 		.handle
