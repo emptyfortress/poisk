@@ -4,6 +4,7 @@ import '@he-tree/vue/style/default.css'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
+import { vid } from '@/stores/andreev'
 
 const drag = useDrag()
 const tree = ref()
@@ -29,10 +30,15 @@ watch(query, () => {
 		tree.value.expandAll()
 	}
 })
+const main = ref('')
+const dis = (item) => {
+	item.disabled ? true : false
+}
 </script>
 
 <template lang="pug">
 div
+	q-select.q-mx-md.q-mb-md(dense v-model="main" :options="vid" option-disable="optionDisable" options-dense)
 	q-input.q-mx-md.q-mb-md( ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter")
 		template(v-slot:prepend)
 			q-icon(name="mdi-magnify")
@@ -53,10 +59,6 @@ div
 </template>
 
 <style scoped lang="scss">
-.zg {
-	font-size: 0.9rem;
-	font-weight: 600;
-}
 .node {
 	width: 100%;
 	padding: 2px 6px;
