@@ -11,7 +11,7 @@ const vid = [
 	{ label: 'Задание - На исполнение', optionDisable: false },
 	{ label: 'Задание - На ознакомление', optionDisable: false },
 	{ label: 'Задание - На согласование', optionDisable: false },
-	{ label: 'Группа заданий', optionDisable: false },
+	{ value: 'ГЗ', label: 'Группа заданий', optionDisable: false },
 ]
 
 export { vid }
