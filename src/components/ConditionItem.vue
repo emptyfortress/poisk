@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { fields, conditions, values, man, org } from '@/stores/select'
-import { useEditor } from '@/stores/editor'
+import { conditions, values } from '@/stores/select'
 
 const props = defineProps<{
 	stat: Stat
 }>()
 
-const editor = useEditor()
-
 const isMan = (el: string) => el == 'man'
 const isDate = (el: string) => el == 'date'
+
 const calcSecond = computed(() => {
-	if (props.stat.data.text1.type == 1) {
+	if (props.stat.data.man) {
 		return conditions.filter((e: any) => e.kind.some(isMan))
 	}
-	if (props.stat.data.text1.type === 2) {
+	if (props.stat.data.date) {
 		return conditions.filter((e: any) => e.kind.some(isDate))
 	}
 	return conditions
@@ -38,33 +36,6 @@ const enable = () => {
 }
 
 const emit = defineEmits(['clear', 'kill'])
-
-watch(
-	() => props.stat.data.text1,
-	() => {
-		if (props.stat.data.text1.type === 1 || props.stat.data.text1.type === 3) {
-			calcAttribute.value = true
-		} else calcAttribute.value = false
-		if (props.stat.data.text1.type === 5) {
-			calcRukovoditel.value = true
-		} else calcRukovoditel.value = false
-	},
-	{ deep: true }
-)
-const calcAttribute = ref(false)
-const calcRukovoditel = ref(false)
-
-const calcFirst = computed(() => {
-	if (props.stat.parent.level == 1) {
-		return editor.calcFirst
-	} else if (props.stat.parent.data.type === 0) {
-		return fields
-	} else if (props.stat.parent.data.text1.type === 1) {
-		return man
-	} else if (props.stat.parent.data.text1.type === 3) {
-		return org
-	}
-})
 
 const inp = ref('')
 const rukovoditel = ref('yes')
@@ -89,21 +60,21 @@ const rukovoditel = ref('yes')
 				span.q-mx-sm >
 			span.text-weight-bold {{ props.stat.data.text}}
 
-		.row(v-if="calcRukovoditel")
-			q-radio(v-model="rukovoditel" val="yes" label="Да")
-			q-radio(v-model="rukovoditel" val="no" label="Нет")
-		template(v-if="!calcRukovoditel")
+		template(v-if="props.stat.data.ruk")
+			.row(v-if="props.stat.data.ruk")
+				q-radio(v-model="rukovoditel" val="yes" label="Да")
+				q-radio(v-model="rukovoditel" val="no" label="Нет")
+				// div
+			// div
+		template(v-else )
 			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense )
 			q-input(v-if="props.stat.data.text1.type == 4" dense v-model="inp" outlined bg-color="white" placeholder="Значение")
 			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white")
-				template(v-slot:prepend v-if="props.stat.data.text1.type == 2")
+				template(v-slot:prepend v-if="props.stat.data.date")
 					q-icon(name="mdi-calendar")
-				template(v-slot:prepend v-if="props.stat.data.text1.type == 1 || props.stat.data.text1.type == 3")
+				template(v-slot:prepend v-if="props.stat.data.man")
 					q-icon(name="mdi-book-open-page-variant-outline")
-		template(v-if="calcRukovoditel")
-			div
-			div
-		q-btn(flat round icon="mdi-close" @click="$emit('kill')" size="sm") 
+		q-btn.cl(flat round icon="mdi-close" @click="$emit('kill')" size="sm") 
 	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
 </template>
 
@@ -217,5 +188,8 @@ const rukovoditel = ref('yes')
 }
 .item {
 	padding-right: 0;
+}
+.cl {
+	justify-self: flex-end;
 }
 </style>

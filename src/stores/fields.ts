@@ -33,7 +33,7 @@ const fields = [
 	},
 	{
 		id: uid(),
-		text: 'Карточки',
+		text: 'Тип карточки',
 		hidden: false,
 		open: true,
 		type: 1,
@@ -46,7 +46,7 @@ const fields = [
 				hidden: false,
 				type: 1,
 				selected: false,
-				drag: true,
+				drag: false,
 				drop: false,
 				children: [
 					{
@@ -137,7 +137,7 @@ const fields = [
 				hidden: false,
 				type: 1,
 				selected: false,
-				drag: true,
+				drag: false,
 				children: [
 					{
 						id: uid(),
@@ -156,11 +156,13 @@ const fields = [
 						type: 1,
 						selected: false,
 						drag: true,
+						date: true,
 					},
 					{
 						id: uid(),
 						parent: ['Задание'],
 						text: 'Дата контроля',
+						date: true,
 						hidden: false,
 						type: 1,
 						selected: false,
@@ -170,6 +172,7 @@ const fields = [
 						id: uid(),
 						parent: ['Задание'],
 						text: 'Дата отправки',
+						date: true,
 						hidden: false,
 						type: 1,
 						selected: false,
@@ -192,6 +195,7 @@ const fields = [
 						type: 1,
 						selected: false,
 						drag: true,
+						man: true,
 						children: [
 							{
 								type: 1,
@@ -221,13 +225,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 2,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['Задание', 'Автор'],
 								text: 'Дата рождения',
 								drag: true,
+								date: true,
 							},
 							{
 								type: 1,
@@ -237,6 +242,7 @@ const fields = [
 								parent: ['Задание', 'Автор'],
 								text: 'Должность',
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -246,6 +252,7 @@ const fields = [
 								parent: ['Задание', 'Автор'],
 								text: 'Руководитель',
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -284,13 +291,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 2,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['Задание', 'Автор'],
 								text: 'Паспорт выдан',
 								drag: true,
+								date: true,
 							},
 							{
 								type: 1,
@@ -345,15 +353,17 @@ const fields = [
 								parent: ['Задание', 'Автор'],
 								text: 'Организация',
 								drag: true,
+								man: true,
 							},
 							{
-								type: 5,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['Задание', 'Автор'],
 								text: 'Является руководителем',
 								drag: true,
+								ruk: true,
 							},
 						],
 					},
@@ -383,6 +393,7 @@ const fields = [
 						type: 1,
 						selected: false,
 						drag: true,
+						man: true,
 					},
 					{
 						id: uid(),
@@ -415,6 +426,7 @@ const fields = [
 						id: uid(),
 						parent: ['Задание'],
 						text: 'Контролер',
+						man: true,
 						hidden: false,
 						type: 1,
 						selected: false,
@@ -448,13 +460,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 2,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['Задание', 'Контролер'],
 								text: 'Дата рождения',
 								drag: true,
+								date: true,
 							},
 							{
 								type: 1,
@@ -463,6 +476,7 @@ const fields = [
 								id: uid(),
 								parent: ['Задание', 'Контролер'],
 								text: 'Должность',
+								man: true,
 								drag: true,
 							},
 							{
@@ -511,13 +525,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 2,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['Задание', 'Контролер'],
 								text: 'Паспорт выдан',
 								drag: true,
+								date: true,
 							},
 							{
 								type: 1,
@@ -574,13 +589,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 5,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['Задание', 'Контролер'],
 								text: 'Является руководителем',
 								drag: true,
+								ruk: true,
 							},
 						],
 					},
@@ -750,6 +766,7 @@ const fields = [
 						hidden: false,
 						selected: false,
 						drag: true,
+						man: true,
 						children: [
 							{
 								type: 1,
@@ -758,6 +775,7 @@ const fields = [
 								id: uid(),
 								parent: ['ГЗ', 'Автор'],
 								text: 'Фамилия',
+								man: true,
 								drag: true,
 							},
 							{
@@ -779,12 +797,13 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 2,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['ГЗ', 'Автор'],
 								text: 'Дата рождения',
+								date: true,
 								drag: true,
 							},
 							{
@@ -795,6 +814,7 @@ const fields = [
 								parent: ['ГЗ', 'Автор'],
 								text: 'Должность',
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -842,13 +862,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 2,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['ГЗ', 'Автор'],
 								text: 'Паспорт выдан',
 								drag: true,
+								date: true,
 							},
 							{
 								type: 1,
@@ -905,13 +926,14 @@ const fields = [
 								drag: true,
 							},
 							{
-								type: 5,
+								type: 1,
 								hidden: false,
 								selected: false,
 								id: uid(),
 								parent: ['ГЗ', 'Автор'],
 								text: 'Является руководителем',
 								drag: true,
+								ruk: true,
 							},
 						],
 					},
@@ -937,6 +959,7 @@ const fields = [
 						id: uid(),
 						parent: ['ГЗ'],
 						text: 'Исполнители',
+						man: true,
 						type: 1,
 						hidden: false,
 						selected: false,
@@ -968,6 +991,7 @@ const fields = [
 						hidden: false,
 						selected: false,
 						drag: true,
+						man: true,
 					},
 					{
 						id: uid(),

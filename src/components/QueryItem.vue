@@ -49,6 +49,9 @@ const externalDataHandler = () => {
 			drag: drag.dragNode.drag,
 			drop: drag.dragNode.drop,
 			parent: drag.dragNode.parent,
+			man: drag.dragNode.man,
+			date: drag.dragNode.date,
+			ruk: drag.dragNode.ruk,
 			children: [],
 		}
 	}

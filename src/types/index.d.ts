@@ -15,6 +15,8 @@ interface NodeData {
 	drag?: boolean
 	parent?: string[]
 	fields: Select[]
+	man?: boolean
+	date?: boolean
 }
 
 interface Stat {
