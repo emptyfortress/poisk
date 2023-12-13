@@ -53,6 +53,7 @@ watch(
 )
 const calcAttribute = ref(false)
 const calcRukovoditel = ref(false)
+
 const calcFirst = computed(() => {
 	if (props.stat.parent.level == 1) {
 		return editor.calcFirst
@@ -64,6 +65,7 @@ const calcFirst = computed(() => {
 		return org
 	}
 })
+
 const inp = ref('')
 const rukovoditel = ref('yes')
 </script>
@@ -118,12 +120,6 @@ const rukovoditel = ref('yes')
 	&.dis {
 		.restrict {
 			display: block;
-		}
-
-		.one,
-		.zero {
-			border: 1px solid red;
-			background: #fae4e8;
 		}
 	}
 }
