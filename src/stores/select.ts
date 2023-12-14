@@ -74,23 +74,17 @@ const fields = [
 const cols = ['Название', 'Тип', 'Вид карточки', 'Статус', 'Автор', 'Изменено']
 
 const conditions = [
-	{ type: 0, kind: ['man'], value: 'Равно', label: 'Равно' },
-	{ type: 0, kind: ['man'], value: 'Не равно', label: 'Не равно' },
-	{ type: 0, kind: ['man'], value: 'Значение задано', label: 'Значение задано' },
-	{ type: 0, kind: ['man'], value: 'Значение не задано', label: 'Значение не задано' },
-	{ type: 0, kind: ['man'], value: 'Начинается с', label: 'Начинается с' },
-	{ type: 0, kind: ['man'], value: 'Заканчивается на', label: 'Заканчивается на' },
-	{ type: 0, kind: ['man'], value: 'Содержит', label: 'Содержит' },
-	{ type: 0, kind: ['man'], value: 'Не содержит', label: 'Не содержит' },
-	{ type: 0, kind: [], value: 'Больше, чем', label: 'Больше, чем' },
-	{ type: 0, kind: [], value: 'Меньше, чем', label: 'Меньше, чем' },
-	{ type: 0, kind: [], value: 'Больше или равно', label: 'Больше или равно' },
-	{ type: 0, kind: [], value: 'Меньше или равно', label: 'Меньше или равно' },
-	{ type: 0, kind: ['date'], value: 'В указанную дату', label: 'В указанную дату' },
-	{ type: 0, kind: ['date'], value: 'Раньше, чем', label: 'Раньше, чем' },
+	{ type: 0, kind: ['man', 'all'], value: 'Равно', label: 'Равно' },
+	{ type: 0, kind: ['man', 'all'], value: 'Не равно', label: 'Не равно' },
+	{ type: 0, kind: ['man', 'all'], value: 'Значение задано', label: 'Значение задано' },
+	{ type: 0, kind: ['man', 'all'], value: 'Значение не задано', label: 'Значение не задано' },
+	{ type: 0, kind: ['date'], value: 'Равно', label: 'Равно' },
+	{ type: 0, kind: ['date'], value: 'Не равно', label: 'Не равно' },
 	{ type: 0, kind: ['date'], value: 'Позже, чем', label: 'Позже, чем' },
-	{ type: 0, kind: ['date'], value: 'В период между', label: 'В период между' },
-	{ type: 0, kind: ['date'], value: 'Исключая период', label: 'Исключая период' },
+	{ type: 0, kind: ['date'], value: 'Раньше, чем', label: 'Раньше, чем' },
+	{ type: 0, kind: ['date'], value: 'Диапазон', label: 'Диапазон' },
+	{ type: 0, kind: ['date'], value: 'Значение задано', label: 'Значение задано' },
+	{ type: 0, kind: ['date'], value: 'Значение не задано', label: 'Значение не задано' },
 ]
 
 const values = [

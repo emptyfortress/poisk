@@ -8,6 +8,7 @@ const props = defineProps<{
 
 const isMan = (el: string) => el == 'man'
 const isDate = (el: string) => el == 'date'
+const isAll = (el: string) => el == 'all'
 
 const calcSecond = computed(() => {
 	if (props.stat.data.man) {
@@ -16,7 +17,7 @@ const calcSecond = computed(() => {
 	if (props.stat.data.date) {
 		return conditions.filter((e: any) => e.kind.some(isDate))
 	}
-	return conditions
+	return conditions.filter((e: any) => e.kind.some(isAll))
 })
 const options3 = ref(values)
 

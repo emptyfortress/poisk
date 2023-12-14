@@ -1,7 +1,7 @@
 interface NodeData {
 	id?: string
 	text: string
-	text1: any
+	text1: string
 	text2: string
 	text3?: string
 	edit?: boolean

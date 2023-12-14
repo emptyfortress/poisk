@@ -45,7 +45,7 @@ const externalDataHandler = () => {
 		return {
 			text: drag.dragNode.text,
 			text1: '',
-			text2: '',
+			text2: 'Равно',
 			text3: '',
 			type: drag.dragNode.type,
 			typ: drag.dragNode.typ,
