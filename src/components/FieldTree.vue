@@ -35,7 +35,7 @@ const main = ref()
 const filterByLabel = (array: any, searchTerm: string) => {
 	return array.reduce((prev: any, curr: any) => {
 		const children = curr.children ? filterByLabel(curr.children, searchTerm) : undefined
-		const even = (elem) => elem.toLowerCase().includes(searchTerm.toLowerCase())
+		const even = (elem: any) => elem.toLowerCase().includes(searchTerm.toLowerCase())
 
 		return curr.text?.toLowerCase().includes(searchTerm.toLowerCase()) ||
 			children?.length > 0 ||
@@ -57,13 +57,6 @@ const myfields = computed(() => {
 		return filterByLabel(fields, 'ГЗ')
 	}
 	return fields
-})
-
-const filtered = computed(() => {
-	if (filter.value.length > 1) {
-		return filterByLabel(myitems.versions, filter.value)
-	}
-	return myitems.versions
 })
 </script>
 
