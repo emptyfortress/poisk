@@ -34,6 +34,23 @@ const emit = defineEmits(['kill', 'duble'])
 const inp = ref('')
 const rukovoditel = ref('yes')
 const vis = ref(true)
+
+const req = [(val: string) => (val && val.length > 0) || 'Это обязательное поле']
+const myform = ref()
+const toggleVis = () => {
+	vis.value = !vis.value
+	vis.value ? myform.value.resetValidation() : myform.value.validate()
+}
+const text = computed(() => {
+	if (
+		props.stat.data.text == 'Тема' ||
+		props.stat.data.text == 'Содержание' ||
+		props.stat.data.text == 'Номер'
+	) {
+		return true
+	}
+	return false
+})
 </script>
 
 <template lang="pug">
@@ -44,7 +61,7 @@ const vis = ref(true)
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
-	.one(v-if="props.stat.data.type === 1")
+	q-form.one(v-if="props.stat.data.type === 1" ref="myform" no-error-focus)
 		div
 			template(v-for="item in props.stat.data.parent" :key="item")
 				span.text-weight-bold {{ item }}
@@ -57,13 +74,13 @@ const vis = ref(true)
 				q-radio(v-model="rukovoditel" val="no" label="Нет")
 		template(v-else )
 			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense )
-			q-input(v-if="props.stat.data.text1.type == 4" dense v-model="inp" outlined bg-color="white" placeholder="Значение")
-			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white")
+			q-input(v-if="text" dense v-model="inp" outlined bg-color="white" placeholder="Значение" lazy-rules="ondemand" :rules="req" hide-bottom-space)
+			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white" lazy-rules="ondemand" :rules="req" hide-bottom-space)
 				template(v-slot:prepend v-if="props.stat.data.date")
 					q-icon(name="mdi-calendar")
 				template(v-slot:prepend v-if="props.stat.data.man")
 					q-icon(name="mdi-book-open-page-variant-outline")
-		q-btn.eye(flat round @click="vis = !vis" size="md")
+		q-btn.eye(flat round @click="toggleVis" size="md")
 			q-icon(name="mdi-eye" v-if="vis") 
 			q-icon(name="mdi-eye-off" v-else) 
 
@@ -169,5 +186,8 @@ const vis = ref(true)
 	&.or {
 		background-position: bottom left;
 	}
+}
+:deep(.q-field--error .q-field__bottom) {
+	display: none;
 }
 </style>
