@@ -31,6 +31,10 @@ const tree = ref()
 const remove = (e: Stat) => {
 	tree.value.remove(e)
 }
+const duble = (e: Stat) => {
+	const temp = { ...e.data }
+	tree.value.add(temp, e.parent)
+}
 const clear = (e: Stat) => {
 	e.data.text2 = ''
 	e.data.text3 = ''
@@ -89,6 +93,7 @@ const calcLength = computed(() => {
 			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
 			ConditionItem(:stat="stat"
 				@clear="clear(stat)"
+				@duble="duble(stat)"
 				@kill="remove(stat)")
 
 </template>
@@ -113,7 +118,8 @@ const calcLength = computed(() => {
 }
 
 :deep(.drag-placeholder) {
-	height: 60px;
+	height: 58px;
+	margin-bottom: 0.3rem;
 }
 .trig {
 	font-size: 1.3rem;

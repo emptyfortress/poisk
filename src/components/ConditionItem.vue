@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { conditions, values } from '@/stores/select'
 
 const props = defineProps<{
@@ -27,18 +27,12 @@ const next = (e: Stat) => {
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
-// const clear = () => {
-// 	emit('clear')
-// }
 
-const enable = () => {
-	props.stat.data.restrict = false
-}
-
-const emit = defineEmits(['clear', 'kill'])
+const emit = defineEmits(['kill', 'duble'])
 
 const inp = ref('')
 const rukovoditel = ref('yes')
+const vis = ref(true)
 </script>
 
 <template lang="pug">
@@ -48,12 +42,8 @@ const rukovoditel = ref('yes')
 		.icon(:class="{ or: props.stat.data.typ === true }" @click.stop="next(props.stat)")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
-		.grow
-		q-btn(flat round icon="mdi-close"  @click="$emit('kill')" size="sm" v-if="props.stat.data.drag !== false") 
 
 	.one(v-if="props.stat.data.type === 1")
-		.handle
-
 		div
 			template(v-for="item in props.stat.data.parent" :key="item")
 				span.text-weight-bold {{ item }}
@@ -64,8 +54,6 @@ const rukovoditel = ref('yes')
 			.row(v-if="props.stat.data.ruk")
 				q-radio(v-model="rukovoditel" val="yes" label="Да")
 				q-radio(v-model="rukovoditel" val="no" label="Нет")
-				// div
-			// div
 		template(v-else )
 			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense )
 			q-input(v-if="props.stat.data.text1.type == 4" dense v-model="inp" outlined bg-color="white" placeholder="Значение")
@@ -74,8 +62,13 @@ const rukovoditel = ref('yes')
 					q-icon(name="mdi-calendar")
 				template(v-slot:prepend v-if="props.stat.data.man")
 					q-icon(name="mdi-book-open-page-variant-outline")
-		q-btn.cl(flat round icon="mdi-close" @click="$emit('kill')" size="sm") 
-	q-icon.restrict(name="mdi-minus-circle" color="red" size="sm" @click="enable")
+		q-btn.eye(flat round @click="vis = !vis" size="md")
+			q-icon(name="mdi-eye" v-if="vis") 
+			q-icon(name="mdi-eye-off" v-else) 
+
+	.but
+		q-btn.close(flat round icon="mdi-close" @click="$emit('kill')" size="sm")
+		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")
 </template>
 
 <style scoped lang="scss">
@@ -88,8 +81,26 @@ const rukovoditel = ref('yes')
 		margin-right: 1rem;
 	}
 
-	&.dis {
-		.restrict {
+	.eye {
+		position: absolute;
+		left: -1.8rem;
+		top: 0.5rem;
+	}
+	.dub {
+		position: absolute;
+		right: 0.1rem;
+		top: 2rem;
+	}
+	.close {
+		position: absolute;
+		right: 0.1rem;
+		top: 0.2rem;
+	}
+	.but {
+		display: none;
+	}
+	&:hover {
+		.but {
 			display: block;
 		}
 	}
@@ -112,6 +123,7 @@ const rukovoditel = ref('yes')
 	background: var(--bg-head);
 	border: 1px solid #ccc;
 	border-radius: 4px;
+	height: 58px;
 
 	&:hover {
 		border-color: $primary;
@@ -120,7 +132,7 @@ const rukovoditel = ref('yes')
 
 .one {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr auto;
+	grid-template-columns: 2fr 1fr 1fr 25px;
 	align-items: center;
 	background: var(--bg-head);
 	padding: 0.5rem;
@@ -130,12 +142,8 @@ const rukovoditel = ref('yes')
 	margin-bottom: 4px;
 	gap: 0.5rem;
 	position: relative;
-
 	&:hover {
 		border-color: $primary;
-	}
-	&.attr1 {
-		grid-template-columns: 2fr 200px 1fr 1fr 92px;
 	}
 }
 
@@ -160,36 +168,5 @@ const rukovoditel = ref('yes')
 	&.or {
 		background-position: bottom left;
 	}
-}
-
-.handle {
-	position: absolute;
-	width: 0.7rem;
-	height: 100%;
-	left: 0;
-	top: 0;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAClJREFUGFclysENwEAQg0Cm/6Idbe6DEDbZpFWKaie7tqDd+sj/eR7rA9inDgnK6GXhAAAAAElFTkSuQmCC)
-		repeat;
-}
-.rowbt {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	.q-btn {
-		height: 30px;
-	}
-}
-:deep(.q-item__section--avatar) {
-	min-width: 0;
-}
-.grow {
-	flex-grow: 1;
-}
-.item {
-	padding-right: 0;
-}
-.cl {
-	justify-self: flex-end;
 }
 </style>
