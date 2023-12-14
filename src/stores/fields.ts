@@ -174,7 +174,7 @@ const fields = [
 							{
 								id: uid(),
 								parent: ['Документ', 'Входящий'],
-								text: 'Зaдание',
+								text: 'Заданиe',
 								type: 1,
 								hidden: false,
 								selected: false,
