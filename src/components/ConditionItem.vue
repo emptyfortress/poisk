@@ -121,7 +121,7 @@ const rukovoditel = ref('yes')
 					q-item-section
 						q-item-label {{ scope.opt.label }}
 					q-item-section(avatar)
-						q-btn(flat dense round icon="mdi-arrow-right" color="primary" @click="action") 
+						q-btn(flat dense round icon="mdi-arrow-right" color="primary" ) 
 
 		q-checkbox(v-model="attribute" label="Ссылка" dense v-if="calcAttribute")
 		.row(v-if="calcRukovoditel")
