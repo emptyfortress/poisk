@@ -17,6 +17,7 @@ interface NodeData {
 	fields: Select[]
 	man?: boolean
 	date?: boolean
+	ruk?: boolean
 }
 
 interface Stat {

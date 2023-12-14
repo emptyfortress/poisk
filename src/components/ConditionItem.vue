@@ -27,9 +27,9 @@ const next = (e: Stat) => {
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
-const clear = () => {
-	emit('clear')
-}
+// const clear = () => {
+// 	emit('clear')
+// }
 
 const enable = () => {
 	props.stat.data.restrict = false
