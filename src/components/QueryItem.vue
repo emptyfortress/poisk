@@ -30,7 +30,7 @@ const tree = ref()
 
 const remove = (e: Stat) => {
 	tree.value.remove(e)
-	if (tree.value.statsFlat.filter((item) => item.data.type == 1).length == 0) {
+	if (tree.value.statsFlat.filter((item: Stat) => item.data.type == 1).length == 0) {
 		drag.setTreeKey(null)
 	}
 }
