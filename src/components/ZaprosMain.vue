@@ -4,6 +4,7 @@ import { useStore } from '@/stores/store'
 import QueryItem from '@/components/QueryItem.vue'
 import { useEditor } from '@/stores/editor'
 import PreviewDialog from '@/components/PreviewDialog.vue'
+// import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
 
 const props = defineProps({
 	splitter: Number,
@@ -26,6 +27,7 @@ const double = () => {
 	store.toggleDub()
 }
 const preview = ref(false)
+const previewForm = ref(false)
 const loading = ref(false)
 
 const showPreview = () => {
@@ -34,6 +36,9 @@ const showPreview = () => {
 	setTimeout(() => {
 		loading.value = false
 	}, 3000)
+}
+const togglePreviewForm = () => {
+	previewForm.value = !previewForm.value
 }
 
 watch(
@@ -64,19 +69,7 @@ watch(
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			// .type
-				.row.items-center.q-gutter-x-md
-					.label Тип:
-					q-select(v-model="editor.type" :options="editor.typeOptions" dense outlined bg-color="white")
-				.row.items-center.q-gutter-x-md
-					.label Вид:
-					q-select(v-model="editor.vid" :options="editor.calcVid" dense outlined bg-color="white")
-						template( v-slot:option="scope" )
-							q-item( v-bind="scope.itemProps" :disable="scope.opt.type == 0")
-								q-item-section
-									q-item-label(:class="{ dis : scope.opt.type == 0}") {{ scope.opt.label }}
-
-			QueryItem()
+			QueryItem(:preview="previewForm" @closePreview="togglePreviewForm")
 
 	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
@@ -86,10 +79,12 @@ watch(
 						q-item.pink(clickable @click="remove" v-close-popup )
 							q-item-section Удалить
 			div
+				q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="togglePreviewForm") 
 				q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 				q-btn(unelevated color="primary" label="Сохранить" icon="mdi-content-save") 
 
-	PreviewDialog(v-model="preview" :loading="loading")
+	PreviewDialog(v-model="preview" :loading="loading" )
+	// PreviewFormDialog(v-model="previewForm" :tree="")
 </template>
 
 <style scoped lang="scss">

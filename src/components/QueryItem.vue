@@ -3,6 +3,15 @@ import { ref, computed, reactive } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import ConditionItem from '@/components/ConditionItem.vue'
 import { useDrag } from '@/stores/drag'
+import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
+
+const props = defineProps({
+	preview: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
+})
 
 const drag = useDrag()
 const treeData = reactive([
@@ -74,6 +83,12 @@ const calcLength = computed(() => {
 	}
 	return false
 })
+const emit = defineEmits(['closePreview'])
+
+// const previewForm = ref(false)
+// const showPreviewForm = () => {
+// 	previewForm.value = true
+// }
 </script>
 
 <template lang="pug">
@@ -98,7 +113,8 @@ const calcLength = computed(() => {
 				@clear="clear(stat)"
 				@duble="duble(stat)"
 				@kill="remove(stat)")
-
+		
+	PreviewFormDialog( v-model="props.preview" :tree="treeData" @close="emit('closePreview')")
 </template>
 
 <style scoped lang="scss">
