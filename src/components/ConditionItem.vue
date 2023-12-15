@@ -60,6 +60,12 @@ const text = computed(() => {
 const kill = () => {
 	emit('kill')
 }
+const showLast = computed(() => {
+	if (props.stat.data.text2 == 'Значение задано' || props.stat.data.text2 == 'Значение не задано') {
+		return false
+	}
+	return true
+})
 </script>
 
 <template lang="pug">
@@ -78,17 +84,18 @@ const kill = () => {
 			span.text-weight-bold {{ props.stat.data.text}}
 
 		template(v-if="props.stat.data.ruk")
-			.row(v-if="props.stat.data.ruk")
+			.row
 				q-radio(v-model="rukovoditel" val="yes" label="Да")
 				q-radio(v-model="rukovoditel" val="no" label="Нет")
-		template(v-else )
-			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense )
-			q-input(v-if="text" dense v-model="inp" outlined bg-color="white" placeholder="Значение" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
-			q-select(v-else v-model="props.stat.data.text3" :options="options3" outlined label="Значение" dense bg-color="white" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
-				template(v-slot:prepend v-if="props.stat.data.date")
-					q-icon(name="mdi-calendar")
-				template(v-slot:prepend v-if="props.stat.data.man")
-					q-icon(name="mdi-book-open-page-variant-outline")
+		template(v-else)
+			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense emit-value)
+			template(v-if="showLast")
+				q-input(v-if="text" dense v-model="inp" outlined bg-color="white" placeholder="Значение" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
+				q-select(v-else v-model="props.stat.data.text3" :options="options3" outlined label="Значение" dense bg-color="white" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
+					template(v-slot:prepend v-if="props.stat.data.date")
+						q-icon(name="mdi-calendar")
+					template(v-slot:prepend v-if="props.stat.data.man")
+						q-icon(name="mdi-book-open-page-variant-outline")
 		q-btn.eye(flat round @click="toggleVis" size="md")
 			q-icon(name="mdi-eye" v-if="vis") 
 			q-icon(name="mdi-eye-off" v-else) 
