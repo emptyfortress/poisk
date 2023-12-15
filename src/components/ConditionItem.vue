@@ -35,7 +35,13 @@ const inp = ref('')
 const rukovoditel = ref('yes')
 const vis = ref(true)
 
-const req = [(val: string) => (val && val.length > 0) || 'Это обязательное поле']
+const req = computed(() => {
+	if (vis.value == false) {
+		return [(val: string) => (val && val.length > 0) || 'Это обязательное поле']
+	}
+	return [() => true]
+})
+
 const myform = ref()
 const toggleVis = () => {
 	vis.value = !vis.value
@@ -74,8 +80,8 @@ const text = computed(() => {
 				q-radio(v-model="rukovoditel" val="no" label="Нет")
 		template(v-else )
 			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense )
-			q-input(v-if="text" dense v-model="inp" outlined bg-color="white" placeholder="Значение" lazy-rules="ondemand" :rules="req" hide-bottom-space)
-			q-select(v-else v-model="props.stat.data.text3" :options="options3"  outlined label="Значение" dense bg-color="white" lazy-rules="ondemand" :rules="req" hide-bottom-space)
+			q-input(v-if="text" dense v-model="inp" outlined bg-color="white" placeholder="Значение" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
+			q-select(v-else v-model="props.stat.data.text3" :options="options3" outlined label="Значение" dense bg-color="white" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
 				template(v-slot:prepend v-if="props.stat.data.date")
 					q-icon(name="mdi-calendar")
 				template(v-slot:prepend v-if="props.stat.data.man")
