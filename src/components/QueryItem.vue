@@ -30,6 +30,9 @@ const tree = ref()
 
 const remove = (e: Stat) => {
 	tree.value.remove(e)
+	if (tree.value.statsFlat.filter((item) => item.data.type == 1).length == 0) {
+		drag.setTreeKey(null)
+	}
 }
 const duble = (e: Stat) => {
 	const temp = { ...e.data }

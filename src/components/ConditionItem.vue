@@ -57,6 +57,9 @@ const text = computed(() => {
 	}
 	return false
 })
+const kill = () => {
+	emit('kill')
+}
 </script>
 
 <template lang="pug">
@@ -91,7 +94,7 @@ const text = computed(() => {
 			q-icon(name="mdi-eye-off" v-else) 
 
 	.but
-		q-btn.close(flat round icon="mdi-close" @click="$emit('kill')" size="sm")
+		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
 		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")
 </template>
 

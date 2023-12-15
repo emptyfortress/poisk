@@ -477,7 +477,7 @@ const fields = [
 					{
 						id: uid(),
 						parent: ['Задание'],
-						text: 'Документ',
+						text: 'Докумeнт',
 						hidden: false,
 						type: 1,
 						selected: false,
@@ -1047,7 +1047,7 @@ const fields = [
 					{
 						id: uid(),
 						parent: ['ГЗ'],
-						text: 'Документ',
+						text: 'Докумeнт',
 						type: 1,
 						hidden: false,
 						selected: false,
