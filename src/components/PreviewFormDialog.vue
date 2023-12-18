@@ -2,26 +2,97 @@
 import { ref, computed } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { useStore } from '@/stores/store'
+import { values } from '@/stores/select'
 
 const modelValue = defineModel()
-const props = defineProps<{
-	tree: Stat[]
-}>()
+// const props = defineProps<{
+// 	tree: any[] | undefined
+// }>()
 
 const emit = defineEmits(['close'])
 const store = useStore()
+const item = ref('20.12.2023 - 25.12.2023')
+const item1 = ref('3 квартал')
+const item2 = ref('2 квартал')
+const condit = 'Равно'
+const or1 = ref('Петров')
+const or2 = ref('Петров')
+const or3 = ref('Подготовка')
+const options = ['Равно', 'Не равно', 'Содержит', 'Не содержит']
+const one = ref('Содержит')
+const two = ref('3 квартал')
+const three = ref('Не содержит')
+const four = ref('2 квартал')
 </script>
 
 <template lang="pug">
-q-dialog(v-model="modelValue")
-	q-card(style="width: 900px; max-width: 80vw;")
-		q-card-section.row.items-center.q-pb-none
-			.text-h6 {{ store.currentNode?.data.text }}
-			q-space
-			q-btn( icon="mdi-close" flat round dense @click="emit('close')")
+q-dialog(v-model="modelValue" persistent)
+	q-card(style="width: 700px;")
+		q-form
+			q-card-section.row.items-center.q-pb-none
+				.text-h6 {{ store.currentNode?.data.text }} Тут название поиска
+				q-space
+				q-btn( icon="mdi-close" flat round dense @click="emit('close')")
+			q-card-section.bread Задание > На исполнение
+			q-card-section
+				.grid
+					div Дата завершения:
+					q-select(v-model="item" :options="values" label="В диапазоне" dense filled emit-value)
+						template(v-slot:prepend)
+							q-icon(name="mdi-calendar")
+					div Тема
+					q-input(v-model="item1" dense filled label='Содержит')
+					div Тема
+					q-input(v-model="item2" dense filled label="Не содержит")
 
-		q-card-section
-			p {{ props.tree }}
+				fieldset
+					legend ИЛИ
+					.grid
+						div Подготовил:
+						q-input(v-model="or1" dense filled bg-color="white" label="Равно")
+						div Подготовил:
+						q-input(v-model="or2" dense filled bg-color="white" label="Равно")
+						div Состояние:
+						q-input(v-model="or3" dense filled bg-color="white" label="Равно")
+
+				.grid3
+					div Тема
+					q-select(v-model="one" dense filled :options="options")
+					q-input(v-model="two" dense filled)
+					div Тема
+					q-select(v-model="three" dense filled :options="options")
+					q-input(v-model="four" dense filled)
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+fieldset {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	background: #eee;
+	border: none;
+	legend {
+		background: white;
+		padding: 0 8px;
+	}
+}
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	justify-items: start;
+	align-items: center;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
+.grid3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	justify-items: start;
+	align-items: center;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+}
+.q-input,
+.q-select {
+	width: 100%;
+}
+</style>

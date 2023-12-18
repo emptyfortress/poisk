@@ -13,11 +13,12 @@ interface NodeData {
 	typ?: boolean
 	drop?: boolean
 	drag?: boolean
-	parent?: string[]
+	parents?: string[]
 	fields: Select[]
 	man?: boolean
 	date?: boolean
 	ruk?: boolean
+	vis?: boolean
 }
 
 interface Stat {

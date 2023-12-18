@@ -29,7 +29,7 @@ const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 
-const emit = defineEmits(['kill', 'duble'])
+const emit = defineEmits(['kill', 'duble', 'toggleVis'])
 
 const inp = ref('')
 const rukovoditel = ref('yes')
@@ -44,8 +44,8 @@ const req = computed(() => {
 
 const myform = ref()
 const toggleVis = () => {
-	vis.value = !vis.value
-	vis.value ? myform.value.resetValidation() : myform.value.validate()
+	emit('toggleVis')
+	props.stat.data.vis ? myform.value.resetValidation() : myform.value.validate()
 }
 const text = computed(() => {
 	if (
@@ -78,7 +78,7 @@ const showLast = computed(() => {
 
 	q-form.one(v-if="props.stat.data.type === 1" ref="myform" no-error-focus)
 		div
-			template(v-for="item in props.stat.data.parent" :key="item")
+			template(v-for="item in props.stat.data.parents" :key="item")
 				span.text-weight-bold {{ item }}
 				span.q-mx-sm >
 			span.text-weight-bold {{ props.stat.data.text}}
@@ -97,7 +97,7 @@ const showLast = computed(() => {
 					template(v-slot:prepend v-if="props.stat.data.man")
 						q-icon(name="mdi-book-open-page-variant-outline")
 		q-btn.eye(flat round @click="toggleVis" size="md")
-			q-icon(name="mdi-eye" v-if="vis") 
+			q-icon(name="mdi-eye" v-if="props.stat.data.vis") 
 			q-icon(name="mdi-eye-off" v-else) 
 
 	.but

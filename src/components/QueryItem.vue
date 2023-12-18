@@ -64,10 +64,11 @@ const externalDataHandler = () => {
 			selected: false,
 			drag: drag.dragNode.drag,
 			drop: drag.dragNode.drop,
-			parent: drag.dragNode.parent,
+			parents: drag.dragNode.parents,
 			man: drag.dragNode.man,
 			date: drag.dragNode.date,
 			ruk: drag.dragNode.ruk,
+			vis: true,
 			children: [],
 		}
 	}
@@ -85,15 +86,14 @@ const calcLength = computed(() => {
 })
 const emit = defineEmits(['closePreview'])
 
-// const previewForm = ref(false)
-// const showPreviewForm = () => {
-// 	previewForm.value = true
-// }
+const toggle = (e: Stat) => {
+	e.data.vis = !e.data.vis
+}
 </script>
 
 <template lang="pug">
 .con
-	.zero.q-pl-lg
+	.zero.q-pl-lg.dis(@click="flat")
 		.icon(:class="{ or: typ === true }" @click.stop="next")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
@@ -107,14 +107,15 @@ const emit = defineEmits(['closePreview'])
 		:onExternalDragOver="()=> true"
 		:externalDataHandler="externalDataHandler"
 		:watermark="false")
-		template(#default="{ node, stat }")
+		template(#default="{ stat }")
 			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
 			ConditionItem(:stat="stat"
 				@clear="clear(stat)"
 				@duble="duble(stat)"
-				@kill="remove(stat)")
-		
-	PreviewFormDialog( v-model="props.preview" :tree="treeData" @close="emit('closePreview')")
+				@toggleVis="toggle(stat)"
+				@kill="remove(stat)" )
+
+	PreviewFormDialog(v-model="props.preview" @close="emit('closePreview')")
 </template>
 
 <style scoped lang="scss">

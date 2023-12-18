@@ -11,7 +11,7 @@ const filterByLabel = (array: any, searchTerm: string) => {
 
 		return curr.text?.toLowerCase().includes(searchTerm.toLowerCase()) ||
 			children?.length > 0 ||
-			curr.parent?.some(even) ||
+			curr.parents?.some(even) ||
 			curr.type == 0
 			? [...prev, { ...curr, children }]
 			: prev
@@ -30,8 +30,8 @@ const dragstart = (e: NodeData) => {
 	drag.setCurrentDrag(e)
 }
 const dragend = () => {
-	if (!!drag.dragNode && !!drag.dragNode.parent && drag.treeKey !== drag.dragNode.parent[1]) {
-		drag.setTreeKey(drag.dragNode.parent[1])
+	if (!!drag.dragNode && !!drag.dragNode.parents && drag.treeKey !== drag.dragNode.parents[1]) {
+		drag.setTreeKey(drag.dragNode.parents[1])
 	}
 	drag.setCurrentDrag(null)
 }
