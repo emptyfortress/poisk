@@ -37,7 +37,7 @@ q-page(padding)
 							q-scroll-area.list
 								FieldTree
 
-	PreviewFormDialog(v-model="tr" @close="emit('closePreview')" )
+	// PreviewFormDialog(v-model="tr" @close="emit('closePreview')" )
 </template>
 
 <style scoped lang="scss">

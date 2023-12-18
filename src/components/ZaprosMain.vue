@@ -69,7 +69,7 @@ watch(
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			QueryItem(:preview="previewForm" @closePreview="togglePreviewForm")
+			QueryItem(:preview="previewForm" @closePreview="togglePreviewForm" @find="showPreview")
 
 	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
@@ -80,8 +80,8 @@ watch(
 							q-item-section Удалить
 			div
 				q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="togglePreviewForm") 
-				q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 				q-btn(unelevated color="primary" label="Сохранить" icon="mdi-content-save") 
+				// q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 
 	PreviewDialog(v-model="preview" :loading="loading" )
 	// PreviewFormDialog(v-model="previewForm" :tree="")

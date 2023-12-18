@@ -84,7 +84,7 @@ const calcLength = computed(() => {
 	}
 	return false
 })
-const emit = defineEmits(['closePreview'])
+const emit = defineEmits(['closePreview', 'find'])
 
 const toggle = (e: Stat) => {
 	e.data.vis = !e.data.vis
@@ -93,7 +93,7 @@ const toggle = (e: Stat) => {
 
 <template lang="pug">
 .con
-	.zero.q-pl-lg.dis(@click="flat")
+	.zero.q-pl-lg.dis
 		.icon(:class="{ or: typ === true }" @click.stop="next")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
@@ -115,7 +115,7 @@ const toggle = (e: Stat) => {
 				@toggleVis="toggle(stat)"
 				@kill="remove(stat)" )
 
-	PreviewFormDialog(v-model="props.preview" @close="emit('closePreview')")
+	PreviewFormDialog(v-model="props.preview" @close="emit('closePreview')" @find="emit('find')" )
 </template>
 
 <style scoped lang="scss">
