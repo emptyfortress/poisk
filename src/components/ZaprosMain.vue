@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import { useStore } from '@/stores/store'
 import QueryItem from '@/components/QueryItem.vue'
 import { useEditor } from '@/stores/editor'
+import { useDrag } from '@/stores/drag'
 import PreviewDialog from '@/components/PreviewDialog.vue'
 // import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
 
@@ -14,6 +15,7 @@ const emit = defineEmits(['maximize', 'reset'])
 
 const store = useStore()
 const editor = useEditor()
+const drag = useDrag()
 
 const switchSidebar = () => {
 	if (props.splitter !== 0) {
@@ -38,6 +40,7 @@ const showPreview = () => {
 	}, 3000)
 }
 const togglePreviewForm = () => {
+	drag.toggleFlag()
 	previewForm.value = !previewForm.value
 }
 

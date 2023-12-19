@@ -5,6 +5,7 @@ export const useDrag = defineStore({
 	state: () => ({
 		dragNode: null as NodeData | null,
 		treeKey: null as string | null,
+		flag: false,
 	}),
 	getters: {},
 	actions: {
@@ -13,6 +14,9 @@ export const useDrag = defineStore({
 		},
 		setTreeKey(e: string | null) {
 			this.treeKey = e
+		},
+		toggleFlag() {
+			this.flag = !this.flag
 		},
 	},
 })

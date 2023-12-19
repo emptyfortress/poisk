@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, watch } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import ConditionItem from '@/components/ConditionItem.vue'
 import { useDrag } from '@/stores/drag'
@@ -16,10 +16,11 @@ const props = defineProps({
 const drag = useDrag()
 const treeData = reactive([
 	{
-		text1: '',
-		text2: '',
-		text3: '',
+		// text1: '',
+		// text2: '',
+		// text3: '',
 		type: 10,
+		typ: false,
 		drop: false,
 		drag: false,
 		children: [],
@@ -44,12 +45,10 @@ const remove = (e: Stat) => {
 	}
 }
 const duble = (e: Stat) => {
+	// console.log(e.data)
 	const temp = { ...e.data }
+	// console.log(temp)
 	tree.value.add(temp, e.parent)
-}
-const clear = (e: Stat) => {
-	e.data.text2 = ''
-	e.data.text3 = ''
 }
 
 const externalDataHandler = () => {
@@ -76,7 +75,7 @@ const externalDataHandler = () => {
 // additional code for top node
 const typ = ref(false)
 const next = () => {
-	typ.value = !typ.value
+	all[0].typ = !all[0].typ
 }
 const calcLength = computed(() => {
 	if (tree.value && tree.value.statsFlat.length == 1) {
@@ -89,12 +88,34 @@ const emit = defineEmits(['closePreview', 'find'])
 const toggle = (e: Stat) => {
 	e.data.vis = !e.data.vis
 }
+
+let all = reactive([
+	{
+		type: 0,
+		typ: false,
+		children: [],
+	},
+])
+
+watch(
+	() => drag.flag,
+	() => {
+		if (drag.flag == true) {
+			let temp = tree.value.getData()
+			all[0].children = temp
+		}
+	}
+)
+
+const check = () => {
+	console.log(tree.value.getData())
+}
 </script>
 
 <template lang="pug">
 .con
-	.zero.q-pl-lg.dis
-		.icon(:class="{ or: typ === true }" @click.stop="next")
+	.zero.q-pl-lg(@click="check")
+		.icon(:class="{ or: all[0].typ === true }" @click.stop="next")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
 
@@ -110,12 +131,11 @@ const toggle = (e: Stat) => {
 		template(#default="{ stat }")
 			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
 			ConditionItem(:stat="stat"
-				@clear="clear(stat)"
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
 				@kill="remove(stat)" )
 
-	PreviewFormDialog(v-model="props.preview" @close="emit('closePreview')" @find="emit('find')" )
+	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')" )
 </template>
 
 <style scoped lang="scss">
