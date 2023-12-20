@@ -155,24 +155,20 @@ const showLast = computed(() => {
 	background: transparent;
 	padding: 0.5rem;
 	margin-bottom: 4px;
-	background: var(--bg-head);
-	border: 1px solid #ccc;
+	// background: var(--bg-node);
 	border-radius: 4px;
 	height: 58px;
-
-	&:hover {
-		border-color: $primary;
-	}
+	width: 300px;
 }
 
 .one {
 	display: grid;
 	grid-template-columns: 2fr 1fr 1fr 25px;
 	align-items: center;
-	background: var(--bg-head);
+	background: var(--bg-node);
 	padding: 0.5rem;
 	padding-left: 1.3rem;
-	border: 1px solid #ccc;
+	border: 1px solid hsl(90 10% 87% / 1);
 	border-radius: 4px;
 	margin-bottom: 4px;
 	gap: 0.5rem;

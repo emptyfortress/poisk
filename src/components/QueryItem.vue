@@ -110,11 +110,15 @@ watch(
 const check = () => {
 	console.log(tree.value.getData())
 }
+const hideFirst = computed(() => {
+	let all = tree.value?.statsFlat.length
+	return all < 3 ? 'tran' : ''
+})
 </script>
 
 <template lang="pug">
 .con
-	.zero.q-pl-lg(@click="check")
+	.zero.q-pl-lg(@click="check" :class="hideFirst" )
 		.icon(:class="{ or: all[0].typ === true }" @click.stop="next")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
@@ -148,6 +152,10 @@ const check = () => {
 	background: transparent;
 	padding: 0.5rem;
 	margin-bottom: 4px;
+	height: 58px;
+	&.tran {
+		opacity: 0;
+	}
 	// background: var(--bg-head);
 	// border: 1px solid #ccc;
 	// border-radius: 4px;
@@ -191,5 +199,6 @@ const check = () => {
 	border: 1px solid #ccc;
 	padding: 1rem;
 	border-radius: 4px;
+	margin-left: -3rem;
 }
 </style>
