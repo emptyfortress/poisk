@@ -72,7 +72,9 @@ const showLast = computed(() => {
 <template lang="pug">
 .node(:class="{ dis: props.stat.data.restrict === true }")
 	.zero(v-if="props.stat.data.type === 0")
-		q-icon(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }").trig
+		q-icon.trig(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+		q-icon.trig(name="mdi-alert-outline" color="negative" v-else size="xs")
+			q-tooltip Оператор не содержит условий
 		.icon(:class="{ or: props.stat.data.typ === true }" @click.stop="next(props.stat)")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
@@ -153,12 +155,13 @@ const showLast = computed(() => {
 	display: flex;
 	align-items: center;
 	background: transparent;
-	padding: 0.5rem;
+	// padding: 0.5rem;
 	margin-bottom: 4px;
 	// background: var(--bg-node);
-	border-radius: 4px;
+	// border-radius: 4px;
 	height: 58px;
-	width: 300px;
+	// width: 300px;
+	position: relative;
 }
 
 .one {
@@ -179,8 +182,11 @@ const showLast = computed(() => {
 }
 
 .trig {
+	position: absolute;
+	top: 1.2rem;
+	left: -1.5rem;
 	font-size: 1.3rem;
-	margin-right: 0.5rem;
+	// margin-right: 0.5rem;
 	transition: 0.2s ease all;
 
 	&.closed {

@@ -108,12 +108,11 @@ watch(
 )
 
 const check = () => {
-	console.log(tree.value.getData())
+	// console.log(tree.value.getData())
 }
 const hideFirst = computed(() => {
-	return treeData.length < 3 ? 'tran' : ''
-	// let all = tree.value?.statsFlat.length
-	// return all < 3 ? 'tran' : ''
+	let all = tree.value?.statsFlat.length
+	return all < 3 ? 'tran' : ''
 })
 </script>
 
@@ -127,7 +126,7 @@ const hideFirst = computed(() => {
 	Draggable.pad(
 		v-model="treeData"
 		ref="tree"
-		:indent="50"
+		:indent="40"
 		:eachDroppable="isDrop"
 		:eachDraggable="isDrag"
 		:onExternalDragOver="()=> true"
@@ -166,7 +165,7 @@ const hideFirst = computed(() => {
 	// }
 }
 .pad {
-	margin-left: 50px;
+	margin-left: 40px;
 }
 
 :deep(.drag-placeholder) {
