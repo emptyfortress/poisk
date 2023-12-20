@@ -111,8 +111,9 @@ const check = () => {
 	console.log(tree.value.getData())
 }
 const hideFirst = computed(() => {
-	let all = tree.value?.statsFlat.length
-	return all < 3 ? 'tran' : ''
+	return treeData.length < 3 ? 'tran' : ''
+	// let all = tree.value?.statsFlat.length
+	// return all < 3 ? 'tran' : ''
 })
 </script>
 
