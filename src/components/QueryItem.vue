@@ -119,15 +119,15 @@ const check = () => {
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
 
-	Draggable.q-ml-lg(
+	Draggable.pad(
 		v-model="treeData"
 		ref="tree"
-		:indent="40"
+		:indent="50"
 		:eachDroppable="isDrop"
 		:eachDraggable="isDrag"
 		:onExternalDragOver="()=> true"
 		:externalDataHandler="externalDataHandler"
-		:watermark="false")
+		:watermark="false" )
 		template(#default="{ stat }")
 			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
 			ConditionItem(:stat="stat"
@@ -148,13 +148,16 @@ const check = () => {
 	background: transparent;
 	padding: 0.5rem;
 	margin-bottom: 4px;
-	background: var(--bg-head);
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	// background: var(--bg-head);
+	// border: 1px solid #ccc;
+	// border-radius: 4px;
 
-	&:hover {
-		border-color: $primary;
-	}
+	// &:hover {
+	// 	border-color: $primary;
+	// }
+}
+.pad {
+	margin-left: 50px;
 }
 
 :deep(.drag-placeholder) {
