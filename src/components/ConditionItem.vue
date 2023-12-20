@@ -45,6 +45,7 @@ const req = computed(() => {
 const myform = ref()
 const toggleVis = () => {
 	emit('toggleVis')
+	vis.value = !vis.value
 	props.stat.data.vis ? myform.value.resetValidation() : myform.value.validate()
 }
 const text = computed(() => {
