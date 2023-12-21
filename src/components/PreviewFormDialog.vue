@@ -72,7 +72,7 @@ q-dialog(v-model="modelValue" persistent)
 	
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
-						template(v-if="item.type == 1")
+						template(v-if="item.type == 1 && item.vis == true")
 							div(:class="{dis : !active[index]}") {{ item.text }}
 							q-select(v-if="item.date || item.man" v-model="item.text3" :options="values" :label="item.text2" dense filled :disable="!active[index]")
 								template(v-slot:prepend v-if="item.date")
