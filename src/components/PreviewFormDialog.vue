@@ -49,18 +49,17 @@ const action = () => {
 	emit('close')
 	emit('find')
 }
-const text = computed(() => {
-	if (!!props.stat.data.man || !!props.stat.data.date) {
-		return false
-	} else return true
-})
-const active = ref(new Array(myFlatTree.length).fill(true))
+// const text = computed(() => {
+// 	if (!!props.stat.data.man || !!props.stat.data.date) {
+// 		return false
+// 	} else return true
+// })
+const active = ref(new Array(30).fill(true))
 </script>
 
 <template lang="pug">
 q-dialog(v-model="modelValue" persistent)
 	q-card(style="width: 700px; max-width: 80vw; cursor: default;")
-		// pre {{  props.tree }}
 		q-form
 			q-card-section.row.items-center.q-pb-none
 				.text-h6 {{ store.currentNode?.data.text }}
@@ -69,20 +68,20 @@ q-dialog(v-model="modelValue" persistent)
 			q-card-section.bread
 				.descr {{ store.currentNode?.data.text1 }}
 			q-card-section
-				pre {{ myFlatTree }}
+				// pre {{ myFlatTree }}
 	
 				.grid
-					template(v-for="item in myFlatTree" :key="item.id")
+					template(v-for="( item, index ) in myFlatTree" :key="item.id")
 						template(v-if="item.type == 1")
-							div(:class="{dis : !active[0]}") {{ item.text }}
-							q-select(v-if="item.date || item.man" v-model="item.text3" :options="values" :label="item.text2" dense filled :disable="!active[0]")
+							div(:class="{dis : !active[index]}") {{ item.text }}
+							q-select(v-if="item.date || item.man" v-model="item.text3" :options="values" :label="item.text2" dense filled :disable="!active[index]")
 								template(v-slot:prepend v-if="item.date")
 									q-icon(name="mdi-calendar")
 								template(v-slot:prepend v-if="item.man")
 									q-icon(name="mdi-book-open-page-variant-outline")
 
-							q-input(v-else dense v-model="item.inp" outlined bg-color="white" :label="item.text2" hide-bottom-space :disable="!active[0]")
-							q-toggle(v-model="active[0]" dense)
+							q-input(v-else dense v-model="item.inp" outlined bg-color="white" :label="item.text2" hide-bottom-space :disable="!active[index]")
+							q-toggle(v-model="active[index]" dense)
 
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="emit('close')") 
