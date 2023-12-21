@@ -88,6 +88,8 @@ const conditions = [
 	{ type: 0, kind: ['all'], value: 'Содержит', label: 'Содержит' },
 	{ type: 0, kind: ['all'], value: 'Не содержит', label: 'Не содержит' },
 	{ type: 0, kind: ['all'], value: 'Не содержит', label: 'Не содержит' },
+	{ type: 0, kind: ['all'], value: 'Начинается с', label: 'Начинается с' },
+	{ type: 0, kind: ['all'], value: 'Оканчивается на', label: 'Оканчивается на' },
 ]
 
 const values = [
