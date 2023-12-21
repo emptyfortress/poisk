@@ -54,6 +54,21 @@ const rukovoditel = ref('yes')
 const empty = computed(() => {
 	return myFlatTree.value.filter((el: any) => el.vis !== false).length == 0
 })
+const isRadio = (item: any) => {
+	if (item.ruk == true || item.text2 == 'Значение задано' || item.text2 == 'Значение на задано') {
+		return true
+	} else return false
+}
+const isInput = (item: any) => {
+	if (item.man == true || item.date == true) {
+		return false
+	} else return true
+}
+const isSelector = (item: any) => {
+	if (item.man == true || item.date == true) {
+		return true
+	} else return false
+}
 </script>
 
 <template lang="pug">
@@ -72,18 +87,20 @@ q-dialog(v-model="modelValue" persistent)
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
 						template(v-if="item.type == 1 && item.vis == true")
-							div(:class="{dis : !active[index]}") {{ item.text }}
-							.row(v-if="item.ruk")
-								q-radio(v-model="rukovoditel" val="yes" label="Да")
-								q-radio(v-model="rukovoditel" val="no" label="Нет")
+							.mainlabel(:class="{dis : !active[index]}")
+								span {{ item.text }}
+								span.addition(v-if="item.text2 !== 'Равно'") {{ item.text2 }}
+							.row(v-if="isRadio(item)")
+								q-radio(v-model="rukovoditel" val="yes" label="Да" :disable="!active[index]")
+								q-radio(v-model="rukovoditel" val="no" label="Нет" :disable="!active[index]")
 
-							q-select(v-if="item.date || item.man" v-model="item.text3" :options="values" :label="item.text2" dense filled :disable="!active[index]")
-								template(v-slot:prepend v-if="item.date")
+							q-select(v-if="isSelector(item) && !isRadio(item)" v-model="item.text3" :options="values" dense filled :disable="!active[index]")
+								template(v-slot:prepend v-if="item.date" )
 									q-icon(name="mdi-calendar")
 								template(v-slot:prepend v-if="item.man")
 									q-icon(name="mdi-book-open-page-variant-outline")
 
-							q-input(v-if="!item.ruk && !item.date && !item.man" dense v-model="item.inp" filled :label="item.text2" hide-bottom-space :disable="!active[index]")
+							q-input(v-if="isInput(item) && !isRadio(item)" dense v-model="item.inp" filled hide-bottom-space :disable="!active[index]")
 							q-toggle(v-model="active[index]" dense)
 
 				template(v-if="empty")
@@ -99,7 +116,7 @@ q-dialog(v-model="modelValue" persistent)
 <style scoped lang="scss">
 .grid {
 	display: grid;
-	grid-template-columns: 1fr 2fr 36px;
+	grid-template-columns: 1fr 1fr 36px;
 	justify-items: start;
 	align-items: center;
 	column-gap: 1rem;
@@ -120,5 +137,21 @@ q-dialog(v-model="modelValue" persistent)
 }
 .dis {
 	opacity: 0.4;
+}
+.mainlabel::after {
+	content: ':';
+}
+.addition {
+	text-transform: lowercase;
+	margin-left: 0.5rem;
+	&::before {
+		content: '(';
+	}
+	&::after {
+		content: ')';
+	}
+}
+.descr {
+	border-bottom: 1px solid #ccc;
 }
 </style>
