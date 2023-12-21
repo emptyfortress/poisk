@@ -2,7 +2,7 @@ import { uid } from 'quasar'
 
 const fields = [
 	{
-		id: uid(),
+		id: 'oper',
 		text: 'Операторы',
 		hidden: false,
 		open: true,
@@ -32,7 +32,7 @@ const fields = [
 		],
 	},
 	{
-		id: uid(),
+		id: 'type',
 		text: 'Тип карточки',
 		hidden: false,
 		open: true,
@@ -233,7 +233,7 @@ const fields = [
 				],
 			},
 			{
-				id: uid(),
+				id: 'task',
 				text: 'Задание',
 				hidden: false,
 				type: 1,

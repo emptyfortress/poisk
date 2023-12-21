@@ -47,6 +47,7 @@ const myfields = computed(() => {
 	}
 	return fields
 })
+const expanded = ref(['oper', 'type', 'task'])
 </script>
 
 <template lang="pug">
@@ -61,8 +62,8 @@ div
 		node-key="id"
 		label-key="text"
 		:filter="query"
-		default-expand-all
-		icon="mdi-chevron-right")
+		v-model:expanded="expanded"
+		icon="mdi-chevron-right" )
 		template(v-slot:default-header="prop")
 			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}")
 				WordHighlighter(:query="query") {{ prop.node.text }}
