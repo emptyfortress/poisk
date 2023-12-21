@@ -52,7 +52,7 @@ const action = () => {
 const active = ref(new Array(30).fill(true))
 const rukovoditel = ref('yes')
 const empty = computed(() => {
-	return myFlatTree.value.filter((el) => el.vis !== false).length == 0
+	return myFlatTree.value.filter((el: any) => el.vis !== false).length == 0
 })
 </script>
 
