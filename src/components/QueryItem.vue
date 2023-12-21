@@ -66,6 +66,7 @@ const externalDataHandler = () => {
 			parents: drag.dragNode.parents,
 			man: drag.dragNode.man,
 			date: drag.dragNode.date,
+			inp: '',
 			ruk: drag.dragNode.ruk,
 			vis: true,
 			children: [],
@@ -108,7 +109,7 @@ watch(
 )
 
 const check = () => {
-	// console.log(tree.value.getData())
+	console.log(tree.value.getData())
 }
 const hideFirst = computed(() => {
 	let all = tree.value?.statsFlat.length
@@ -139,7 +140,7 @@ const hideFirst = computed(() => {
 				@toggleVis="toggle(stat)"
 				@kill="remove(stat)" )
 
-	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')" )
+	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>
 
 <style scoped lang="scss">

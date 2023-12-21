@@ -49,14 +49,9 @@ const toggleVis = () => {
 	props.stat.data.vis ? myform.value.resetValidation() : myform.value.validate()
 }
 const text = computed(() => {
-	if (
-		props.stat.data.text == 'Тема' ||
-		props.stat.data.text == 'Содержание' ||
-		props.stat.data.text == 'Номер'
-	) {
-		return true
-	}
-	return false
+	if (!!props.stat.data.man || !!props.stat.data.date) {
+		return false
+	} else return true
 })
 const kill = () => {
 	emit('kill')
@@ -93,7 +88,7 @@ const showLast = computed(() => {
 		template(v-else)
 			q-select(v-model="props.stat.data.text2" :options="calcSecond" label="Условие" dense emit-value)
 			template(v-if="showLast")
-				q-input(v-if="text" dense v-model="inp" outlined bg-color="white" placeholder="Значение" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
+				q-input(v-if="text" dense v-model="props.stat.data.inp" outlined bg-color="white" placeholder="Значение" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
 				q-select(v-else v-model="props.stat.data.text3" :options="options3" outlined label="Значение" dense bg-color="white" lazy-rules :rules="req" hide-bottom-space @blur="myform.validate()")
 					template(v-slot:prepend v-if="props.stat.data.date")
 						q-icon(name="mdi-calendar")

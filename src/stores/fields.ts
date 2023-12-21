@@ -93,6 +93,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								drag: true,
+								inp: true,
 							},
 							{
 								id: uid(),
@@ -102,6 +103,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								drag: true,
+								inp: true,
 							},
 							{
 								id: uid(),
@@ -131,6 +133,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								drag: true,
+								inp: true,
 							},
 							{
 								id: uid(),
@@ -245,6 +248,7 @@ const fields = [
 						type: 1,
 						selected: false,
 						drag: true,
+						inp: true,
 					},
 					{
 						id: uid(),
@@ -387,6 +391,7 @@ const fields = [
 								parents: ['', 'Задание', 'Автор'],
 								text: 'Номер паспорта',
 								drag: true,
+								inp: true,
 							},
 							{
 								type: 1,
@@ -473,6 +478,7 @@ const fields = [
 						type: 1,
 						selected: false,
 						drag: true,
+						inp: true,
 					},
 					{
 						id: uid(),
@@ -621,6 +627,7 @@ const fields = [
 								parents: ['', 'Задание', 'Контролер'],
 								text: 'Номер паспорта',
 								drag: true,
+								inp: true,
 							},
 							{
 								type: 1,
@@ -838,6 +845,7 @@ const fields = [
 						hidden: false,
 						selected: false,
 						drag: true,
+						inp: true,
 					},
 					{
 						id: uid(),
@@ -959,6 +967,7 @@ const fields = [
 								parents: ['', 'ГЗ', 'Автор'],
 								text: 'Номер паспорта',
 								drag: true,
+								inp: true,
 							},
 							{
 								type: 1,
@@ -1044,6 +1053,7 @@ const fields = [
 						hidden: false,
 						selected: false,
 						drag: true,
+						inp: true,
 					},
 					{
 						id: uid(),
@@ -1183,6 +1193,7 @@ const fields = [
 								parents: ['', 'ГЗ', 'Контролер'],
 								text: 'Номер паспорта',
 								drag: true,
+								inp: true,
 							},
 							{
 								type: 1,

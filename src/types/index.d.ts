@@ -4,6 +4,7 @@ interface NodeData {
 	text1: string
 	text2: string
 	text3?: string
+	inp?: string
 	edit?: boolean
 	attribute?: boolean
 	selected?: boolean
@@ -19,6 +20,7 @@ interface NodeData {
 	date?: boolean
 	ruk?: boolean
 	vis?: boolean
+	inp?: boolean
 }
 
 interface Stat {

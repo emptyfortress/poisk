@@ -3,90 +3,87 @@ import { ref, computed } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { useStore } from '@/stores/store'
 import { values } from '@/stores/select'
+import { uid } from 'quasar'
 
 const modelValue = defineModel()
 const props = defineProps<{
-	tree: any[] | undefined
+	tree: any[]
 }>()
 
 const emit = defineEmits(['close', 'find'])
 const store = useStore()
-const item1 = ref('20.12.2023 - 25.12.2023')
-const item2 = ref('3 квартал')
-const item3 = ref('2 квартал')
-const condit = 'Равно'
-const or1 = ref('Склад')
-const or2 = ref('Петров')
-const or3 = ref('Просрочено')
-const options = ['Равно', 'Не равно', 'Содержит', 'Не содержит']
-const one = ref('Содержит')
-const two = ref('3 квартал')
-const three = ref('Не содержит')
-const four = ref('2 квартал')
-const rukovoditel = ref('yes')
+
+const getMembers = (members: any): any => {
+	let children: any = []
+	const flattenMembers = members.map((m: any) => {
+		if (m.children && m.children.length) {
+			children = [...children, ...m.children]
+		}
+		return m
+	})
+
+	return flattenMembers.concat(children.length ? getMembers(children) : children)
+}
+
+const myFlatTree = computed(() => {
+	return getMembers(props.tree)
+		.filter((el: any) => el.type == 1 || el.type == 0)
+		.map((item: any) => {
+			return {
+				id: uid(),
+				type: item.type,
+				typ: item.typ,
+				text: item.text,
+				text1: item.text1,
+				text2: item.text2,
+				text3: item.text3,
+				inp: item.inp,
+				man: item.man,
+				date: item.date,
+				ruk: item.ruk,
+				vis: item.vis,
+			}
+		})
+})
 const action = () => {
 	emit('close')
 	emit('find')
 }
-const active1 = ref(true)
-const active2 = ref(true)
-const active3 = ref(true)
-const active4 = ref(true)
-const active5 = ref(true)
-const active6 = ref(true)
-const active7 = ref(true)
-const active8 = ref(true)
+const text = computed(() => {
+	if (!!props.stat.data.man || !!props.stat.data.date) {
+		return false
+	} else return true
+})
+const active = ref(new Array(myFlatTree.length).fill(true))
 </script>
 
 <template lang="pug">
 q-dialog(v-model="modelValue" persistent)
 	q-card(style="width: 700px; max-width: 80vw; cursor: default;")
+		// pre {{  props.tree }}
 		q-form
 			q-card-section.row.items-center.q-pb-none
-				.text-h6 Просроченные задания по отделу
-				// .text-h6 {{ store.currentNode?.data.text }}
+				.text-h6 {{ store.currentNode?.data.text }}
 				q-space
 				q-btn( icon="mdi-close" flat round dense @click="emit('close')")
-			q-card-section.bread Задание > На исполнение
+			q-card-section.bread
+				.descr {{ store.currentNode?.data.text1 }}
 			q-card-section
+				pre {{ myFlatTree }}
+	
 				.grid
-					div(:class="{dis : !active1}") Дата завершения:
-					q-select(v-model="item1" :options="values" label="Диапазон" dense filled :disable="!active1")
-						template(v-slot:prepend)
-							q-icon(name="mdi-calendar")
-					q-toggle(v-model="active1" dense)
-					div(:class="{dis : !active2}") Тема
-					q-input(v-model="item2" dense filled label='Содержит' :disable="!active2")
-					q-toggle(v-model="active2" dense)
-					div(:class="{dis : !active3}") Тема
-					q-input(v-model="item3" dense filled label="Не содержит" :disable="!active3")
-					q-toggle(v-model="active3" dense)
+					template(v-for="item in myFlatTree" :key="item.id")
+						template(v-if="item.type == 1")
+							div(:class="{dis : !active[0]}") {{ item.text }}
+							q-select(v-if="item.date || item.man" v-model="item.text3" :options="values" :label="item.text2" dense filled :disable="!active[0]")
+								template(v-slot:prepend v-if="item.date")
+									q-icon(name="mdi-calendar")
+								template(v-slot:prepend v-if="item.man")
+									q-icon(name="mdi-book-open-page-variant-outline")
 
-				.grid3
-					div(:class="{dis : !active4}") Тема
-					q-select(v-model="one" dense filled :options="options" :disable="!active4")
-					q-input(v-model="two" dense filled :disable="!active4")
-					q-toggle(v-model="active4" dense)
-					div(:class="{dis : !active5}") Тема
-					q-select(v-model="three" dense filled :options="options" :disable="!active5")
-					q-input(v-model="four" dense filled :disable="!active5")
-					q-toggle(v-model="active5" dense)
+							q-input(v-else dense v-model="item.inp" outlined bg-color="white" :label="item.text2" hide-bottom-space :disable="!active[0]")
+							q-toggle(v-model="active[0]" dense)
 
-				.trr И выполняется одно из следующих условий:
-				.grid.or
-					div(:class="{dis : !active6}") Автор:
-					q-input(v-model="or1" dense filled bg-color="white" label="Равно" :disable="!active6")
-					q-toggle(v-model="active6" dense)
-					// div Автор:
-					// q-input(v-model="or2" dense filled bg-color="white" label="Равно")
-					div(:class="{dis : !active7}") Состояние:
-					q-input(v-model="or3" dense filled bg-color="white" label="Равно" :disable="!active7")
-					q-toggle(v-model="active7" dense)
-					div(:class="{dis : !active8}") Завершено позже срока
-					.row
-						q-radio(v-model="rukovoditel" val="yes" label="Да" :disable="!active8")
-						q-radio(v-model="rukovoditel" val="no" label="Нет" :disable="!active8")
-					q-toggle(v-model="active8" dense)
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="emit('close')") 
 				q-btn(unelevated color="primary" label="Искать" @click="action") 
@@ -94,27 +91,6 @@ q-dialog(v-model="modelValue" persistent)
 </template>
 
 <style scoped lang="scss">
-fieldset {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-	background: #eee;
-	border: none;
-	legend {
-		background: white;
-		padding: 0 8px;
-	}
-}
-.trr {
-	margin-top: 1rem;
-	font-size: 0.8rem;
-}
-.or {
-	margin-bottom: 1rem;
-	background: #eee;
-	padding: 1rem;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
 .grid {
 	display: grid;
 	grid-template-columns: 1fr 2fr 36px;
