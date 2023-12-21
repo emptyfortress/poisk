@@ -49,12 +49,11 @@ const action = () => {
 	emit('close')
 	emit('find')
 }
-// const text = computed(() => {
-// 	if (!!props.stat.data.man || !!props.stat.data.date) {
-// 		return false
-// 	} else return true
-// })
 const active = ref(new Array(30).fill(true))
+const rukovoditel = ref('yes')
+const empty = computed(() => {
+	return myFlatTree.value.filter((el) => el.vis !== false).length == 0
+})
 </script>
 
 <template lang="pug">
@@ -74,15 +73,23 @@ q-dialog(v-model="modelValue" persistent)
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
 						template(v-if="item.type == 1 && item.vis == true")
 							div(:class="{dis : !active[index]}") {{ item.text }}
+							.row(v-if="item.ruk")
+								q-radio(v-model="rukovoditel" val="yes" label="Да")
+								q-radio(v-model="rukovoditel" val="no" label="Нет")
+
 							q-select(v-if="item.date || item.man" v-model="item.text3" :options="values" :label="item.text2" dense filled :disable="!active[index]")
 								template(v-slot:prepend v-if="item.date")
 									q-icon(name="mdi-calendar")
 								template(v-slot:prepend v-if="item.man")
 									q-icon(name="mdi-book-open-page-variant-outline")
 
-							q-input(v-else dense v-model="item.inp" outlined bg-color="white" :label="item.text2" hide-bottom-space :disable="!active[index]")
+							q-input(v-if="!item.ruk && !item.date && !item.man" dense v-model="item.inp" filled :label="item.text2" hide-bottom-space :disable="!active[index]")
 							q-toggle(v-model="active[index]" dense)
 
+				template(v-if="empty")
+					.text-subtitle1
+						q-icon.q-mr-md(name="mdi-alert-outline" size="md" color="negative")
+						span Поиск не настроен или все условия скрыты.
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="emit('close')") 
 				q-btn(unelevated color="primary" label="Искать" @click="action") 

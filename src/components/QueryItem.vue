@@ -45,9 +45,7 @@ const remove = (e: Stat) => {
 	}
 }
 const duble = (e: Stat) => {
-	// console.log(e.data)
 	const temp = { ...e.data }
-	// console.log(temp)
 	tree.value.add(temp, e.parent)
 }
 
@@ -94,6 +92,7 @@ let all = reactive([
 	{
 		type: 0,
 		typ: false,
+		vis: false,
 		children: [],
 	},
 ])

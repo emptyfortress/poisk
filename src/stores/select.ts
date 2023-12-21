@@ -85,6 +85,9 @@ const conditions = [
 	{ type: 0, kind: ['date'], value: 'Диапазон', label: 'Диапазон' },
 	{ type: 0, kind: ['date'], value: 'Значение задано', label: 'Значение задано' },
 	{ type: 0, kind: ['date'], value: 'Значение не задано', label: 'Значение не задано' },
+	{ type: 0, kind: ['all'], value: 'Содержит', label: 'Содержит' },
+	{ type: 0, kind: ['all'], value: 'Не содержит', label: 'Не содержит' },
+	{ type: 0, kind: ['all'], value: 'Не содержит', label: 'Не содержит' },
 ]
 
 const values = [
