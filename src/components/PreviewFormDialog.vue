@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import type { QTableColumn } from 'quasar'
 import { useStore } from '@/stores/store'
-import { values } from '@/stores/select'
 import { uid } from 'quasar'
+import PreviewItem from '@/components/PreviewItem.vue'
 
 const modelValue = defineModel()
 const props = defineProps<{
@@ -31,6 +30,7 @@ const myFlatTree = computed(() => {
 		.map((item: any) => {
 			return {
 				id: uid(),
+				parents: item.parents,
 				type: item.type,
 				typ: item.typ,
 				text: item.text,
@@ -45,30 +45,14 @@ const myFlatTree = computed(() => {
 			}
 		})
 })
+
 const action = () => {
 	emit('close')
 	emit('find')
 }
-const active = ref(new Array(30).fill(true))
-const rukovoditel = ref('yes')
 const empty = computed(() => {
 	return myFlatTree.value.filter((el: any) => el.vis !== false).length == 0
 })
-const isRadio = (item: any) => {
-	if (item.ruk == true || item.text2 == 'Значение задано' || item.text2 == 'Значение на задано') {
-		return true
-	} else return false
-}
-const isInput = (item: any) => {
-	if (item.man == true || item.date == true) {
-		return false
-	} else return true
-}
-const isSelector = (item: any) => {
-	if (item.man == true || item.date == true) {
-		return true
-	} else return false
-}
 </script>
 
 <template lang="pug">
@@ -82,26 +66,11 @@ q-dialog(v-model="modelValue" persistent)
 			q-card-section.bread
 				.descr {{ store.currentNode?.data.text1 }}
 			q-card-section
-				// pre {{ myFlatTree }}
+				pre {{ myFlatTree }}
 	
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
-						template(v-if="item.type == 1 && item.vis == true")
-							.mainlabel(:class="{dis : !active[index]}")
-								span {{ item.text }}
-								span.addition(v-if="item.text2 !== 'Равно'") {{ item.text2 }}
-							.row(v-if="isRadio(item)")
-								q-radio(v-model="rukovoditel" val="yes" label="Да" :disable="!active[index]")
-								q-radio(v-model="rukovoditel" val="no" label="Нет" :disable="!active[index]")
-
-							q-select(v-if="isSelector(item) && !isRadio(item)" v-model="item.text3" :options="values" dense filled :disable="!active[index]")
-								template(v-slot:prepend v-if="item.date" )
-									q-icon(name="mdi-calendar")
-								template(v-slot:prepend v-if="item.man")
-									q-icon(name="mdi-book-open-page-variant-outline")
-
-							q-input(v-if="isInput(item) && !isRadio(item)" dense v-model="item.inp" filled hide-bottom-space :disable="!active[index]")
-							q-toggle(v-model="active[index]" dense)
+						PreviewItem(:item="item" :index="index")
 
 				template(v-if="empty")
 					.text-subtitle1
@@ -121,35 +90,6 @@ q-dialog(v-model="modelValue" persistent)
 	align-items: center;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
-}
-.grid3 {
-	margin-top: 0.5rem;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 36px;
-	justify-items: start;
-	align-items: center;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
-.q-input,
-.q-select {
-	width: 100%;
-}
-.dis {
-	opacity: 0.4;
-}
-.mainlabel::after {
-	content: ':';
-}
-.addition {
-	text-transform: lowercase;
-	margin-left: 0.5rem;
-	&::before {
-		content: '(';
-	}
-	&::after {
-		content: ')';
-	}
 }
 .descr {
 	border-bottom: 1px solid #ccc;
