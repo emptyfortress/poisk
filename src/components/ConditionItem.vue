@@ -62,6 +62,9 @@ const showLast = computed(() => {
 	}
 	return true
 })
+const par = computed(() => {
+	return props.stat.data.parents?.filter((el) => el !== '')
+})
 </script>
 
 <template lang="pug">
@@ -76,7 +79,7 @@ const showLast = computed(() => {
 
 	q-form.one(v-if="props.stat.data.type === 1" ref="myform" no-error-focus)
 		div
-			template(v-for="item in props.stat.data.parents" :key="item")
+			template(v-for="item in par" :key="item")
 				span.text-weight-bold {{ item }}
 				span.q-mx-sm >
 			span.text-weight-bold {{ props.stat.data.text}}

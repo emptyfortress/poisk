@@ -101,24 +101,24 @@ watch(
 	() => drag.flag,
 	() => {
 		if (drag.flag == true) {
-			let temp = tree.value.getData()
-			all[0].children = temp
+			// let temp = tree.value.getData()
+			all[0].children = tree.value.getData()
 		}
 	}
 )
 
-const check = () => {
-	console.log(tree.value.getData())
+const check = (e: Stat) => {
+	console.log(e)
 }
 const hideFirst = computed(() => {
-	let all = tree.value?.statsFlat.length
-	return all < 3 ? 'tran' : ''
+	let len = tree.value?.statsFlat.length
+	return len < 3 ? 'tran' : ''
 })
 </script>
 
 <template lang="pug">
 .con
-	.zero.q-pl-lg(@click="check" :class="hideFirst" )
+	.zero.q-pl-lg(:class="hideFirst" )
 		.icon(:class="{ or: all[0].typ === true }" @click.stop="next")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
@@ -137,6 +137,7 @@ const hideFirst = computed(() => {
 			ConditionItem(:stat="stat"
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
+				@click="check(stat)"
 				@kill="remove(stat)" )
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")

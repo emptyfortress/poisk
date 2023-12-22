@@ -44,12 +44,19 @@ const isSelector = computed(() => {
 })
 const active = ref(new Array(30).fill(true))
 const rukovoditel = ref('yes')
+
+const par = computed(() => {
+	if (props.item.parents.length > 2) {
+		return props.item.parents.at(-1)
+	}
+	return null
+})
 </script>
 
 <template lang="pug">
 template(v-if="props.item.type == 1 && props.item.vis == true")
 	.mainlabel(:class="{dis : !active[props.index]}")
-		span fuck 
+		span.par(v-if="par") {{ par }}
 		span {{ props.item.text }}
 		span.addition(v-if="props.item.text2 !== 'Равно'") {{ props.item.text2 }}
 	.row(v-if="isRadio")
@@ -85,6 +92,11 @@ template(v-if="props.item.type == 1 && props.item.vis == true")
 	}
 	&::after {
 		content: ')';
+	}
+}
+.par {
+	&::after {
+		content: ' > ';
 	}
 }
 </style>
