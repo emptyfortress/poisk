@@ -6,7 +6,7 @@ type PreviewItem = {
 	id: string
 	parents: string[]
 	type: number
-	typ: number
+	typ: boolean
 	text: string
 	text1: string
 	text2: string
@@ -51,9 +51,19 @@ const par = computed(() => {
 	}
 	return null
 })
+
+const orCondition = computed(() => {
+	if (props.item.type == 0 && props.item.typ == true) {
+		return true
+	}
+	return false
+})
 </script>
 
 <template lang="pug">
+.or(v-if="orCondition" )
+	q-icon.q-mr-sm(name="mdi-gate-or" color="primary" size="sm")
+	span Выполняется одно (любое) из следующих условий:
 template(v-if="props.item.type == 1 && props.item.vis == true")
 	.mainlabel(:class="{dis : !active[props.index]}")
 		span.par(v-if="par") {{ par }}
@@ -98,5 +108,15 @@ template(v-if="props.item.type == 1 && props.item.vis == true")
 	&::after {
 		content: ' > ';
 	}
+}
+.or {
+	background: #dcf1ff;
+	padding: 0.3rem 1rem;
+	margin-top: 0.5rem;
+	font-size: 0.9rem;
+	border-bottom: 1px solid $primary;
+	grid-column: 1/-1;
+	width: 100%;
+	color: #005d98;
 }
 </style>

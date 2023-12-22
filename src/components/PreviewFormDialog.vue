@@ -68,11 +68,7 @@ q-dialog(v-model="modelValue" persistent)
 				q-btn( icon="mdi-close" flat round dense @click="emit('close')")
 			q-card-section.bread
 				.descr {{ store.currentNode?.data.text1 }}
-			q-card-section
-				// pre {{ myFlatTree }}
-				.or(v-if="orCondition" )
-					q-icon.q-mr-sm(name="mdi-gate-or" color="primary" size="sm")
-					span Выполняется одно (любое) из следующих условий:
+			q-card-section.q-pt-none
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
 						PreviewItem(:item="item" :index="index")
@@ -99,12 +95,5 @@ q-dialog(v-model="modelValue" persistent)
 }
 .descr {
 	border-bottom: 1px solid #ccc;
-}
-.or {
-	background: #eee;
-	padding: 0.3rem 1rem;
-	margin-bottom: 1rem;
-	font-size: 0.9rem;
-	border-bottom: 1px solid $primary;
 }
 </style>
