@@ -66,7 +66,7 @@ q-dialog(v-model="modelValue" persistent)
 			q-card-section.bread
 				.descr {{ store.currentNode?.data.text1 }}
 			q-card-section
-				pre {{ myFlatTree }}
+				// pre {{ myFlatTree }}
 	
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
