@@ -53,6 +53,9 @@ const action = () => {
 const empty = computed(() => {
 	return myFlatTree.value.filter((el: any) => el.vis !== false).length == 0
 })
+const orCondition = computed(() => {
+	return myFlatTree.value[0].typ
+})
 </script>
 
 <template lang="pug">
@@ -67,7 +70,9 @@ q-dialog(v-model="modelValue" persistent)
 				.descr {{ store.currentNode?.data.text1 }}
 			q-card-section
 				// pre {{ myFlatTree }}
-	
+				.or(v-if="orCondition" )
+					q-icon.q-mr-sm(name="mdi-gate-or" color="primary" size="sm")
+					span Выполняется одно (любое) из следующих условий:
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")
 						PreviewItem(:item="item" :index="index")
@@ -76,9 +81,10 @@ q-dialog(v-model="modelValue" persistent)
 					.text-subtitle1
 						q-icon.q-mr-md(name="mdi-alert-outline" size="md" color="negative")
 						span Поиск не настроен или все условия скрыты.
-			q-card-actions(align="right")
-				q-btn(flat color="primary" label="Отмена" @click="emit('close')") 
-				q-btn(unelevated color="primary" label="Искать" @click="action") 
+			q-card-section
+				q-card-actions(align="right")
+					q-btn(flat color="primary" label="Отмена" @click="emit('close')") 
+					q-btn(unelevated color="primary" label="Искать" @click="action") 
 
 </template>
 
@@ -93,5 +99,12 @@ q-dialog(v-model="modelValue" persistent)
 }
 .descr {
 	border-bottom: 1px solid #ccc;
+}
+.or {
+	background: #eee;
+	padding: 0.3rem 1rem;
+	margin-bottom: 1rem;
+	font-size: 0.9rem;
+	border-bottom: 1px solid $primary;
 }
 </style>
