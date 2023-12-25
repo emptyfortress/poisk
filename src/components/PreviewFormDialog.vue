@@ -53,9 +53,6 @@ const action = () => {
 const empty = computed(() => {
 	return myFlatTree.value.filter((el: any) => el.vis !== false).length == 0
 })
-const orCondition = computed(() => {
-	return myFlatTree.value[0].typ
-})
 </script>
 
 <template lang="pug">

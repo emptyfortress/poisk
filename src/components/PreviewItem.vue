@@ -52,16 +52,16 @@ const par = computed(() => {
 	return null
 })
 
-const orCondition = computed(() => {
-	if (props.item.type == 0 && props.item.typ == true) {
-		return true
-	}
-	return false
-})
+// const orCondition = computed(() => {
+// 	if (props.item.type == 0 && props.item.typ == true) {
+// 		return true
+// 	}
+// 	return false
+// })
 </script>
 
 <template lang="pug">
-.or(v-if="orCondition" )
+// .or(v-if="orCondition" )
 	q-icon.q-mr-sm(name="mdi-gate-or" color="primary" size="sm")
 	span Выполняется одно (любое) из следующих условий:
 template(v-if="props.item.type == 1 && props.item.vis == true")
