@@ -93,8 +93,6 @@ const field = computed(() => {
 			item-key="id"
 			class="list-group"
 			ghost-class="ghost"
-			@dragstart="start"
-			@dragend="end"
 			group="data")
 
 			template(#item="{ element }" )
