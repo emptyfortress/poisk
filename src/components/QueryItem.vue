@@ -101,8 +101,8 @@ watch(
 	() => drag.flag,
 	() => {
 		if (drag.flag == true) {
-			// let temp = tree.value.getData()
 			all[0].children = tree.value.getData()
+			// let temp = tree.value.getData()
 		}
 	}
 )

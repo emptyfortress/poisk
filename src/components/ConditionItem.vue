@@ -70,9 +70,9 @@ const par = computed(() => {
 <template lang="pug">
 .node(:class="{ dis: props.stat.data.restrict === true }")
 	.zero(v-if="props.stat.data.type === 0")
-		q-icon.trig(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+		q-icon.trig(name="mdi-chevron-down" v-if="stat.children.length > 1" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 		q-icon.trig(name="mdi-alert-outline" color="negative" v-else size="xs")
-			q-tooltip Оператор не содержит условий
+			q-tooltip Оператор должен содержать не менее 2 условий
 		.icon(:class="{ or: props.stat.data.typ === true }" @click.stop="next(props.stat)")
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
