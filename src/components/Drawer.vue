@@ -31,6 +31,12 @@ const pages = [
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout',
 	},
+	{
+		id: 4,
+		title: 'new Представления',
+		icon: 'mdi-briefcase-edit-outline',
+		url: '/layout1',
+	},
 ]
 const tmp = {
 	open: true,
