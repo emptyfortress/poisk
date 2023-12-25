@@ -4,6 +4,13 @@ import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
 
+const props = defineProps({
+	layout: {
+		type: Boolean,
+		default: false,
+	},
+})
+
 const filterByLabel = (array: any, searchTerm: string) => {
 	return array.reduce((prev: any, curr: any) => {
 		const children = curr.children ? filterByLabel(curr.children, searchTerm) : undefined
@@ -17,6 +24,10 @@ const filterByLabel = (array: any, searchTerm: string) => {
 			: prev
 	}, [])
 }
+
+const data = computed(() => {
+	return props.layout ? fields.filter((el) => el.type !== 0) : fields
+})
 
 const drag = useDrag()
 const tree = ref()
@@ -43,9 +54,9 @@ watch(query, () => {
 
 const myfields = computed(() => {
 	if (!!drag.treeKey) {
-		return filterByLabel(fields, drag.treeKey)
+		return filterByLabel(data.value, drag.treeKey)
 	}
-	return fields
+	return data.value
 })
 const expanded = ref(['oper', 'type', 'task'])
 </script>

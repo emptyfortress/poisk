@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import BaseTree from '@/components/BaseTree.vue'
-import ZaprosMain from '@/components/ZaprosMain.vue'
+import ZaprosMain1 from '@/components/ZaprosMain1.vue'
 import FieldTree from '@/components/FieldTree.vue'
 import { views } from '@/stores/tree'
-import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
+// import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
 
 const splitterModel = ref(18)
 const splitterModel1 = ref(80)
@@ -29,13 +29,13 @@ q-page(padding)
 					template(v-slot:before)
 						.main
 							q-scroll-area.list
-								ZaprosMain(:splitter="splitterModel"
+								ZaprosMain1(:splitter="splitterModel"
 									@maximize="splitterModel = 0"
 									@reset="splitterModel = 30")
 					template(v-slot:after)
 						.tree
 							q-scroll-area.list
-								FieldTree
+								FieldTree(layout)
 
 	// PreviewFormDialog(v-model="tr" @close="emit('closePreview')" )
 </template>
