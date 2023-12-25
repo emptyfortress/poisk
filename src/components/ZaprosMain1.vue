@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useStore } from '@/stores/store'
-import QueryItem from '@/components/QueryItem.vue'
+import QueryItem1 from '@/components/QueryItem1.vue'
 import { useEditor } from '@/stores/editor'
 import { useDrag } from '@/stores/drag'
-import PreviewDialog from '@/components/PreviewDialog.vue'
+// import PreviewDialog from '@/components/PreviewDialog.vue'
 // import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
 
 const props = defineProps({
@@ -72,7 +72,7 @@ watch(
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
 					q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
 
-			QueryItem(:preview="previewForm" @closePreview="togglePreviewForm" @find="showPreview")
+			QueryItem1(:preview="previewForm" @closePreview="togglePreviewForm" @find="showPreview")
 
 	.q-mt-lg
 		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
@@ -86,7 +86,7 @@ watch(
 				q-btn(unelevated color="primary" label="Сохранить" icon="mdi-content-save") 
 				// q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 
-	PreviewDialog(v-model="preview" :loading="loading" )
+	// PreviewDialog(v-model="preview" :loading="loading" )
 	// PreviewFormDialog(v-model="previewForm" :tree="")
 </template>
 

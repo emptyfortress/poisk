@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
-import draggable from "vuedraggable"
+import draggable from 'vuedraggable'
 import { datasource, datasource1 } from '@/stores/select'
 import formItem from '@/components/formItem.vue'
 import formItem1 from '@/components/formItem1.vue'
@@ -9,37 +9,38 @@ import { useStore } from '@/stores/store'
 
 const store = useStore()
 const source = ref('Источник 1')
-const sourceOptions = [
-	'Источник 1',
-	'Источник 2',
-]
+const sourceOptions = ['Источник 1', 'Источник 2']
 
 const query = ref('')
-const clearFilter = (() => {
+const clearFilter = () => {
 	query.value = ''
-})
-
+}
 
 const ds = computed(() => {
 	return datasource.filter((array_el: any) => {
-		return store.currentNode?.data.fields.filter((anotherOne_el: Select) => {
-			return anotherOne_el.id == array_el.id
-		}).length == 0
+		return (
+			store.currentNode?.data.fields.filter((anotherOne_el: Select) => {
+				return anotherOne_el.id == array_el.id
+			}).length == 0
+		)
 	})
 })
 
 const list = computed(() => {
 	if (query.value.length > 0 && source.value === 'Источник 1') {
-		return ds.value.filter((item: any) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+		return ds.value.filter((item: any) =>
+			item.label.toLowerCase().includes(query.value.toLowerCase())
+		)
 	} else if (query.value.length > 0 && source.value === 'Источник 2') {
-		return datasource1.filter((item: any) => item.label.toLowerCase().includes(query.value.toLowerCase()))
+		return datasource1.filter((item: any) =>
+			item.label.toLowerCase().includes(query.value.toLowerCase())
+		)
 	} else if (query.value.length === 0 && source.value === 'Источник 1') {
 		return ds.value
 	} else if (query.value.length === 0 && source.value === 'Источник 2') {
 		return datasource1
 	}
 })
-
 
 const route = useRoute()
 const height = computed(() => {
@@ -92,6 +93,8 @@ const field = computed(() => {
 			item-key="id"
 			class="list-group"
 			ghost-class="ghost"
+			@dragstart="start"
+			@dragend="end"
 			group="data")
 
 			template(#item="{ element }" )
@@ -123,7 +126,7 @@ const field = computed(() => {
 
 	&::before {
 		content: 'Пусто. Перетащите сюда для выбора';
-		font-size: .8rem;
+		font-size: 0.8rem;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -143,9 +146,9 @@ const field = computed(() => {
 }
 
 .filt {
-	font-size: .9rem;
+	font-size: 0.9rem;
 	font-weight: 600;
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 }
 
 .drag {
@@ -162,14 +165,14 @@ const field = computed(() => {
 	margin-bottom: -1px;
 	position: relative;
 	border: 1px solid #dedede;
-	font-size: .9rem;
+	font-size: 0.9rem;
 
 	&.big {
 		// display: flex;
 		display: grid;
 		grid-template-columns: 180px 1fr auto;
 		align-items: center;
-		gap: .5rem;
+		gap: 0.5rem;
 		// background: transparent;
 		// padding: 1rem 1rem 1rem 1.5rem;
 	}
@@ -181,7 +184,8 @@ const field = computed(() => {
 	left: 0;
 	width: 15px;
 	height: 100%;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAChJREFUGFc1ikEOwDAAguD/j2ax7fSiBMUgE1xlOY/uemCaTRjrV/kAE0wHDsCeQbcAAAAASUVORK5CYII=) repeat;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAAChJREFUGFc1ikEOwDAAguD/j2ax7fSiBMUgE1xlOY/uemCaTRjrV/kAE0wHDsCeQbcAAAAASUVORK5CYII=)
+		repeat;
 }
 
 .ghost {
