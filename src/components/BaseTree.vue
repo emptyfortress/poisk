@@ -3,21 +3,21 @@ import { ref, watch, watchEffect, onMounted } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useStore } from '@/stores/store'
-import WordHighlighter from "vue-word-highlighter"
+import WordHighlighter from 'vue-word-highlighter'
 import DirMenu from '@/components/DirMenu.vue'
 
 const props = defineProps<{
-	treeData: TreeNode[],
+	treeData: TreeNode[]
 	load?: boolean
 }>()
 
 const store = useStore()
 const query = ref('')
 
-const clearFilter = (() => {
+const clearFilter = () => {
 	query.value = ''
-	tree.value.statsFlat.map((item: Stat) => item.hidden = false)
-})
+	tree.value.statsFlat.map((item: Stat) => (item.hidden = false))
+}
 
 watch(query, (newValue) => {
 	if (newValue !== '') {
@@ -31,7 +31,6 @@ watch(query, (newValue) => {
 			}
 		})
 	} else clearFilter()
-
 })
 watchEffect(() => {
 	if (store.del === true) {
@@ -44,7 +43,7 @@ watchEffect(() => {
 			text: store.currentNode!.data.text + '-copy',
 			text1: store.currentNode!.data.text1,
 			hidden: false,
-			type: 1
+			type: 1,
 		}
 		tree.value.add(temp, store.currentNode!.parent)
 		let one = tree.value.getStat(temp)
@@ -54,54 +53,54 @@ watchEffect(() => {
 })
 
 const tree = ref()
-const select = ((n: Stat) => {
+const select = (n: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	n.data.selected = true
 	store.setCurrentNode(n)
-})
+}
 
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
 
-const add = ((e: Stat) => {
+const add = (e: Stat) => {
 	if (e.data.type === 0) {
-		tree.value.add({ text: 'New item', hidden: false, type: 1 }, e)
+		tree.value.add({ text: 'New item', text1: 'Здесь описание', hidden: false, type: 1 }, e)
 	} else {
-		tree.value.add({ text: 'New item', hidden: false, type: 1 }, e.parent)
+		tree.value.add({ text: 'New item', text1: 'Здесь описание', hidden: false, type: 1 }, e.parent)
 	}
-})
-const addFolder = ((e: Stat) => {
+}
+const addFolder = (e: Stat) => {
 	if (e.data.type === 0) {
 		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e)
 	} else {
 		tree.value.add({ text: 'New folder', hidden: false, type: 0 }, e.parent)
 	}
-})
-const remove = ((e: Stat) => {
+}
+const remove = (e: Stat) => {
 	tree.value.remove(e)
 	if (e === store.currentNode) {
 		store.setCurrentNode(null)
 	}
-})
-const duble = ((e: Stat) => {
+}
+const duble = (e: Stat) => {
 	let temp = {
 		text: e.data.text + '-copy',
 		text1: e.data.text1,
 		hidden: false,
-		type: 1
+		type: 1,
 	}
 	tree.value.add(temp, e.parent)
 	select(tree.value.getStat(temp))
-})
+}
 
-const edit = ((e: Stat) => {
+const edit = (e: Stat) => {
 	e.data.edit = true
-})
-const setText = ((e: Stat, ev: any) => {
+}
+const setText = (e: Stat, ev: any) => {
 	e.data.text = ev.target.value
 	e.data.edit = false
-})
+}
 
 const isDrop = (e: any) => {
 	if (e.data.type == 0) return true
@@ -115,9 +114,26 @@ const adding = {
 	selected: false,
 	type: 1,
 	fields: [
-		{ id: 1, check: true, sort: true, filter: true, type: 2, label: 'Тип', options: ['Документ', 'Задание', 'Группа заданий', 'Любой'], val: 'Документ', notset: false },
 		{
-			id: 2, check: true, sort: true, filter: true, type: 2, label: 'Вид карточки', val: 'Любой', options: [
+			id: 1,
+			check: true,
+			sort: true,
+			filter: true,
+			type: 2,
+			label: 'Тип',
+			options: ['Документ', 'Задание', 'Группа заданий', 'Любой'],
+			val: 'Документ',
+			notset: false,
+		},
+		{
+			id: 2,
+			check: true,
+			sort: true,
+			filter: true,
+			type: 2,
+			label: 'Вид карточки',
+			val: 'Любой',
+			options: [
 				'Любой',
 				'Заявка',
 				'Договор',
@@ -128,9 +144,10 @@ const adding = {
 				'Заявление',
 				'Письмо',
 				'Черновик',
-			], notset: false,
+			],
+			notset: false,
 		},
-	]
+	],
 }
 
 const initial = (stat: any) => {
@@ -144,7 +161,6 @@ onMounted(() => {
 		select(tree.value.getStat(adding))
 	}
 })
-
 </script>
 
 <template lang="pug">
