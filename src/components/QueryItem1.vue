@@ -17,28 +17,35 @@ const tree = ref()
 const end = (ev: Event) => {
 	ev.preventDefault()
 }
-const fuck = (ev: Event) => {
+const insert = () => {
+	console.log(drag.dragNode)
 	if (drag.dragNode) {
 		list.value.push(drag.dragNode)
 	}
+}
+const remove = (el: any) => {
+	list.value.splice(el, 1)
+	// list.value = list.value.filter((item) => item == el)
 }
 </script>
 
 <template lang="pug">
 .con
-	q-scroll-area(style="height: 100px; max-width: 100%;" )
+	q-scroll-area(style="height: 200px; max-width: 100%;" )
 		draggable(v-model="list"
 			item-key="id"
 			tag="ul"
 			class="list-group"
 			ghost-class="ghost"
 			:ondragover="end"
-			:ondrop="fuck"
+			:ondrop="insert"
 			group="data")
 
-			template(#item="{ element }" )
-				li.list-group-item {{ element.text }}
-
+			template(#item="{ element, index }")
+				li.list-group-item
+					.head {{ element.text }}
+						q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
+					.sample sample data
 // PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>
 
@@ -49,16 +56,38 @@ const fuck = (ev: Event) => {
 }
 .list-group {
 	display: flex;
+	align-items: stretch;
 	background: rgba(0, 0, 0, 0.07);
 	gap: 1px;
 	flex-wrap: nowrap;
 }
 .list-group-item {
-	color: var(--text-color);
-	background: white;
-	padding: 1rem 2rem;
-	display: block;
 	font-size: 0.9rem;
+	.head {
+		color: var(--text-color);
+		background: white;
+		padding: 1rem 2rem;
+		display: block;
+		position: relative;
+		cursor: move;
+		.close {
+			position: absolute;
+			top: 1px;
+			right: 1px;
+			visibility: hidden;
+		}
+		&:hover .close {
+			visibility: visible;
+		}
+	}
+}
+.sample {
+	width: 100%;
+	height: 42px;
+	background: white;
+	margin-top: 1px;
+	line-height: 42px;
+	text-align: center;
 }
 ul,
 li {
