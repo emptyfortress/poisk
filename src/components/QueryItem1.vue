@@ -44,6 +44,10 @@ const tabs = ref('style')
 			template(#item="{ element, index }")
 				li.list-group-item {{ element.text }}
 					q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
+		q-separator
+		.gr
+			.sam(v-for="item in list") data
+
 
 	q-tabs(v-model="tabs" active-color="primary" v-if="list.length" )
 		q-tab(name="style" label="Внешний вид")
@@ -61,6 +65,19 @@ const tabs = ref('style')
 	grid-template-columns: repeat(v-bind(col), 1fr);
 	background: rgba(0, 0, 0, 0.07);
 	gap: 1px;
+}
+.gr {
+	display: grid;
+	grid-template-columns: repeat(v-bind(col), 1fr);
+	background: rgba(0, 0, 0, 0.07);
+	gap: 1px;
+}
+.sam {
+	font-size: 0.9rem;
+	background: white;
+	color: var(--text-color);
+	padding: 0.7rem 1rem;
+	line-height: 1.2;
 }
 .list-group-item {
 	font-size: 0.9rem;
@@ -106,5 +123,8 @@ ul:empty:after {
 	line-height: 75px;
 	border-radius: 4px;
 	font-size: 0.9rem;
+}
+.q-tabs {
+	border-bottom: 1px solid #ccc;
 }
 </style>
