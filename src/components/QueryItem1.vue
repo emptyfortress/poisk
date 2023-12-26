@@ -22,8 +22,11 @@ const insert = () => {
 }
 const remove = (el: any) => {
 	list.value.splice(el, 1)
-	// list.value = list.value.filter((item) => item == el)
 }
+const col = computed(() => {
+	return list.value.length
+})
+const tabs = ref('style')
 </script>
 
 <template lang="pug">
@@ -39,39 +42,34 @@ const remove = (el: any) => {
 			group="data")
 
 			template(#item="{ element, index }")
-				li.list-group-item
-					.head {{ element.text }}
+				li.list-group-item {{ element.text }}
 					q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
-					// .sample sample
+
+	q-tabs(v-model="tabs" active-color="primary" v-if="list.length" )
+		q-tab(name="style" label="Внешний вид")
+		q-tab(name="sort" label="Сортировка")
+		q-tab(name="group" label="Группировка")
+		q-tab(name="select" label="Выделение")
 </template>
 
 <style scoped lang="scss">
 .con {
 	margin: 1rem;
-	// width: 100%;
 }
 .list-group {
-	display: flex;
-	// align-items: stretch;
-	// display: grid;
-	// grid-template-columns: auto;
-	// grid-auto-flow: rows;
+	display: grid;
+	grid-template-columns: repeat(v-bind(col), 1fr);
 	background: rgba(0, 0, 0, 0.07);
 	gap: 1px;
-	flex-wrap: nowrap;
-	height: 100%;
 }
 .list-group-item {
 	font-size: 0.9rem;
-	display: grid;
-	height: 75px;
-	grid-template-rows: 42px 32px;
-	// background: white;
-	align-items: center;
-	gap: 1px;
-	position: relative;
+	background: white;
 	cursor: move;
-	// white-space: nowrap;
+	color: var(--text-color);
+	padding: 0.7rem 1rem;
+	line-height: 1.2;
+	position: relative;
 	.close {
 		position: absolute;
 		top: 1px;
@@ -82,21 +80,9 @@ const remove = (el: any) => {
 		visibility: visible;
 	}
 }
-.head {
-	color: var(--text-color);
-	padding: 0.5rem 1rem;
-	background: white;
-	// padding-left: 1rem;
-	// padding-right: 1rem;
-	// height: 100%;
-	// background: pink;
-}
 .sample {
 	padding: 0.5rem 1rem;
 	background: white;
-	// padding-left: 1rem;
-	// padding-right: 1rem;
-	// text-align: center;
 }
 ul,
 li {
@@ -105,7 +91,8 @@ li {
 	list-style: none;
 }
 .ghost {
-	height: 75px;
+	padding: 0.5rem 1rem;
+	// height: 75px;
 	opacity: 0.5;
 	background: #ccc;
 }

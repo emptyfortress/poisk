@@ -28,10 +28,9 @@ q-page(padding)
 				q-splitter(v-model="splitterModel1" :limits="[0, 100]" :style="hei" )
 					template(v-slot:before)
 						.main
-							q-scroll-area.list
-								ZaprosMain1(:splitter="splitterModel"
-									@maximize="splitterModel = 0"
-									@reset="splitterModel = 30")
+							ZaprosMain1.list(:splitter="splitterModel"
+								@maximize="splitterModel = 0"
+								@reset="splitterModel = 30")
 					template(v-slot:after)
 						.tree
 							q-scroll-area.list
@@ -56,7 +55,7 @@ q-page(padding)
 	height: 100%;
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
-	padding: 1rem;
+	// padding: 1rem;
 }
 .tree {
 	height: 100%;

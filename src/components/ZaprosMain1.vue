@@ -74,16 +74,15 @@ watch(
 
 			QueryItem1(:preview="previewForm" @closePreview="togglePreviewForm" @find="showPreview")
 
-	.q-mt-lg
-		.row.justify-between(v-if="store.currentNode?.data.type == 1" )
-			q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
-				q-menu(anchor="bottom right" self="top right")
-					q-list
-						q-item.pink(clickable @click="remove" v-close-popup )
-							q-item-section Удалить
-			div
-				q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="togglePreviewForm") 
-				q-btn(unelevated color="primary" label="Сохранить" icon="mdi-content-save") 
+	.row.justify-between(v-if="store.currentNode?.data.type == 1" )
+		q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
+			q-menu(anchor="bottom right" self="top right")
+				q-list
+					q-item.pink(clickable @click="remove" v-close-popup )
+						q-item-section Удалить
+		div
+			q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="togglePreviewForm") 
+			q-btn(unelevated color="primary" label="Сохранить" icon="mdi-content-save") 
 				// q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 
 	// PreviewDialog(v-model="preview" :loading="loading" )
@@ -92,7 +91,9 @@ watch(
 
 <style scoped lang="scss">
 .layout {
-	height: 100%;
+	padding: 1rem;
+	// background: pink;
+	height: calc(100vh - 180px);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
