@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, reactive, watch } from 'vue'
-// import { Draggable } from '@he-tree/vue'
 import draggable from 'vuedraggable'
-// import ConditionItem from '@/components/ConditionItem.vue'
 import { useDrag } from '@/stores/drag'
-// import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
 
 const drag = useDrag()
 
@@ -31,7 +28,7 @@ const remove = (el: any) => {
 
 <template lang="pug">
 .con
-	q-scroll-area(style="height: 200px; max-width: 100%;" )
+	q-scroll-area(style="height: 150px; max-width: 100%;" )
 		draggable(v-model="list"
 			item-key="id"
 			tag="ul"
@@ -44,9 +41,8 @@ const remove = (el: any) => {
 			template(#item="{ element, index }")
 				li.list-group-item
 					.head {{ element.text }}
-						q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
-					.sample sample data
-// PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
+					q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
+					// .sample sample
 </template>
 
 <style scoped lang="scss">
@@ -56,38 +52,51 @@ const remove = (el: any) => {
 }
 .list-group {
 	display: flex;
-	align-items: stretch;
+	// align-items: stretch;
+	// display: grid;
+	// grid-template-columns: auto;
+	// grid-auto-flow: rows;
 	background: rgba(0, 0, 0, 0.07);
 	gap: 1px;
 	flex-wrap: nowrap;
+	height: 100%;
 }
 .list-group-item {
 	font-size: 0.9rem;
-	.head {
-		color: var(--text-color);
-		background: white;
-		padding: 1rem 2rem;
-		display: block;
-		position: relative;
-		cursor: move;
-		.close {
-			position: absolute;
-			top: 1px;
-			right: 1px;
-			visibility: hidden;
-		}
-		&:hover .close {
-			visibility: visible;
-		}
+	display: grid;
+	height: 75px;
+	grid-template-rows: 42px 32px;
+	// background: white;
+	align-items: center;
+	gap: 1px;
+	position: relative;
+	cursor: move;
+	// white-space: nowrap;
+	.close {
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		visibility: hidden;
+	}
+	&:hover .close {
+		visibility: visible;
 	}
 }
-.sample {
-	width: 100%;
-	height: 42px;
+.head {
+	color: var(--text-color);
+	padding: 0.5rem 1rem;
 	background: white;
-	margin-top: 1px;
-	line-height: 42px;
-	text-align: center;
+	// padding-left: 1rem;
+	// padding-right: 1rem;
+	// height: 100%;
+	// background: pink;
+}
+.sample {
+	padding: 0.5rem 1rem;
+	background: white;
+	// padding-left: 1rem;
+	// padding-right: 1rem;
+	// text-align: center;
 }
 ul,
 li {
@@ -96,17 +105,18 @@ li {
 	list-style: none;
 }
 .ghost {
-	height: 50px;
+	height: 75px;
 	opacity: 0.5;
 	background: #ccc;
 }
 ul:empty:after {
 	display: block;
-	content: 'Пусто. Перетащите сюда узел из дерева справа для настройки колонок';
+	content: 'Пусто. Настройте колонки, перетащив их из дерева справа.';
 	width: 100%;
 	text-align: center;
 	color: rgba(0, 0, 0, 0.5);
-	padding: 1rem;
+	height: 75px;
+	line-height: 75px;
 	border-radius: 4px;
 	font-size: 0.9rem;
 }
