@@ -12,7 +12,7 @@ const remove = (ind: number) => {
 
 <template lang="pug">
 section.q-mt-lg
-	.text-body2 Возможность и порядок сортировки:
+	.text-body2 Группировать данные по колонкам:
 	draggable(:list="list1"
 		item-key="id"
 		tag="ul"
@@ -25,8 +25,8 @@ section.q-mt-lg
 					q-icon.q-mr-md(v-if="index == 0" name="mdi-check-bold" color="primary" size="sm")
 						q-tooltip Сортировка по умолчанию
 					span {{ element.text }}
-				q-btn(v-if="element.selected" unelevated icon="mdi-sort-ascending" label="по возрастанию" @click="element.selected = !element.selected" dense size="sm") 
-				q-btn(v-else unelevated icon="mdi-sort-descending" label="по убыванию"  @click="element.selected = !element.selected"  dense size="sm") 
+				// q-btn(v-if="element.selected" unelevated icon="mdi-sort-ascending" label="по возрастанию" @click="element.selected = !element.selected" dense size="sm") 
+				// q-btn(v-else unelevated icon="mdi-sort-descending" label="по убыванию"  @click="element.selected = !element.selected"  dense size="sm") 
 				q-btn.close( flat round icon="mdi-close" @click="remove(index)" size="sm" dense)
 </template>
 
@@ -39,7 +39,7 @@ li {
 }
 ul:empty:after {
 	display: block;
-	content: 'Пусто. Настройте сортировку, перетащив сюда колонки из превью сверху.';
+	content: 'Пусто. Настройте группировку, перетащив сюда колонки из превью сверху.';
 	width: 100%;
 	text-align: center;
 	color: rgba(0, 0, 0, 0.5);
@@ -58,7 +58,7 @@ ul:empty:after {
 	line-height: 1.2;
 	border-bottom: 1px solid #dedede;
 	display: grid;
-	grid-template-columns: 1fr 200px 30px;
+	grid-template-columns: 1fr 30px;
 	justify-items: start;
 	align-items: center;
 	column-gap: 1rem;

@@ -4,18 +4,9 @@ import draggable from 'vuedraggable'
 import { useDrag } from '@/stores/drag'
 import StylePanel from '@/components/StylePanel.vue'
 import SortPanel from '@/components/SortPanel.vue'
+import GroupPanel from '@/components/GroupPanel.vue'
 import { useView } from '@/stores/views'
 
-// type ColNode = {
-// 	id?: string
-// 	parents?: String[]
-// 	text: string
-// 	hidden?: boolean
-// 	type: number
-// 	selected?: boolean
-// 	drag?: boolean
-// 	inp?: string
-// }
 const drag = useDrag()
 const view = useView()
 const headsize = computed(() => {
@@ -79,7 +70,8 @@ const tabs = ref('sort')
 			q-tab-panel(name="style1") data
 			q-tab-panel(name="sort")
 				SortPanel
-			q-tab-panel(name="group") group
+			q-tab-panel(name="group")
+				GroupPanel()
 			q-tab-panel(name="select") select
 			q-tab-panel(name="graph") graph
 </template>
