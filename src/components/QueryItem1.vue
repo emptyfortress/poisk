@@ -44,7 +44,7 @@ const tabs = ref('style')
 
 <template lang="pug">
 .con
-	q-scroll-area(style="height: 85px; max-width: 100%;" )
+	q-scroll-area
 		draggable(v-model="list"
 			item-key="id"
 			tag="ul"
@@ -159,5 +159,9 @@ ul:empty:after {
 	line-height: 75px;
 	border-radius: 4px;
 	font-size: 0.9rem;
+}
+:deep(.q-scrollarea) {
+	height: 130px;
+	max-width: 100%;
 }
 </style>

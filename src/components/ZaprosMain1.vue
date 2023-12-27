@@ -93,7 +93,7 @@ watch(
 .layout {
 	padding: 1rem;
 	// background: pink;
-	height: calc(100vh - 180px);
+	// height: calc(100vh - 180px);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
