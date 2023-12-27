@@ -3,18 +3,19 @@ import { ref, computed, reactive, watch } from 'vue'
 import draggable from 'vuedraggable'
 import { useDrag } from '@/stores/drag'
 import StylePanel from '@/components/StylePanel.vue'
+import SortPanel from '@/components/SortPanel.vue'
 import { useView } from '@/stores/views'
 
-type ColNode = {
-	id?: string
-	parents?: String[]
-	text: string
-	hidden?: boolean
-	type: number
-	selected?: boolean
-	drag?: boolean
-	inp?: string
-}
+// type ColNode = {
+// 	id?: string
+// 	parents?: String[]
+// 	text: string
+// 	hidden?: boolean
+// 	type: number
+// 	selected?: boolean
+// 	drag?: boolean
+// 	inp?: string
+// }
 const drag = useDrag()
 const view = useView()
 const headsize = computed(() => {
@@ -39,20 +40,21 @@ const remove = (el: any) => {
 const col = computed(() => {
 	return list.value.length
 })
-const tabs = ref('style')
+const tabs = ref('sort')
 </script>
 
 <template lang="pug">
 .con
 	q-scroll-area
-		draggable(v-model="list"
+		draggable(:list="list"
 			item-key="id"
 			tag="ul"
 			class="list-group"
 			ghost-class="ghost"
 			:ondragover="end"
 			:ondrop="insert"
-			group="data")
+			:group="{ name: 'data', pull: 'clone', put: false }"
+			)
 			template(#item="{ element, index }")
 				li.list-group-item {{ element.text }}
 					q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
@@ -75,7 +77,8 @@ const tabs = ref('style')
 			q-tab-panel(name="style")
 				StylePanel
 			q-tab-panel(name="style1") data
-			q-tab-panel(name="sort") sort
+			q-tab-panel(name="sort")
+				SortPanel
 			q-tab-panel(name="group") group
 			q-tab-panel(name="select") select
 			q-tab-panel(name="graph") graph

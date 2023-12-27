@@ -1,3 +1,14 @@
+type ColNode = {
+	id?: string
+	parents?: String[]
+	text: string
+	hidden?: boolean
+	type: number
+	selected?: boolean
+	drag?: boolean
+	inp?: string
+}
+
 interface NodeData {
 	id?: string
 	text: string
