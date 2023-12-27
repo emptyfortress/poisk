@@ -3,6 +3,7 @@ import { ref, computed, reactive, watch } from 'vue'
 import draggable from 'vuedraggable'
 import { useDrag } from '@/stores/drag'
 import StylePanel from '@/components/StylePanel.vue'
+import { useView } from '@/stores/views'
 
 type ColNode = {
 	id?: string
@@ -15,6 +16,10 @@ type ColNode = {
 	inp?: string
 }
 const drag = useDrag()
+const view = useView()
+const headsize = computed(() => {
+	return view.head.size + 'rem'
+})
 
 const list = ref<ColNode[]>([])
 
@@ -48,7 +53,6 @@ const tabs = ref('style')
 			:ondragover="end"
 			:ondrop="insert"
 			group="data")
-
 			template(#item="{ element, index }")
 				li.list-group-item {{ element.text }}
 					q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
@@ -108,13 +112,16 @@ const tabs = ref('style')
 	min-width: 127px;
 }
 .list-group-item {
-	font-size: 0.9rem;
-	background: white;
+	font-size: v-bind(headsize);
+	background: v-bind('view.head.bgColor');
 	cursor: move;
-	color: var(--text-color);
+	color: v-bind('view.head.fontColor');
 	padding: 0.7rem 1rem;
 	line-height: 1.2;
 	position: relative;
+	text-align: v-bind('view.head.align');
+	font-weight: v-bind('view.head.weight');
+	font-style: v-bind('view.head.style');
 	min-width: 127px;
 	.close {
 		position: absolute;

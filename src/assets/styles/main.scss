@@ -129,4 +129,7 @@ fieldset {
 	border: 3px double #b4c7ca;
 	padding: 1rem;
 	width: 99%;
+	&.dis {
+		opacity: 0.6;
+	}
 }
