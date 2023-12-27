@@ -75,7 +75,7 @@ watch(
 			QueryItem1(:preview="previewForm" @closePreview="togglePreviewForm" @find="showPreview")
 
 	.row.justify-between(v-if="store.currentNode?.data.type == 1" )
-		q-btn(flat color="primary" label="Удалить поиск" icon="mdi-trash-can-outline") 
+		q-btn(flat color="primary" label="Удалить представление" icon="mdi-trash-can-outline") 
 			q-menu(anchor="bottom right" self="top right")
 				q-list
 					q-item.pink(clickable @click="remove" v-close-popup )

@@ -14,7 +14,7 @@ const props = defineProps({
 })
 
 const drag = useDrag()
-const treeData = reactive([
+let treeData = reactive([
 	{
 		// text1: '',
 		// text2: '',

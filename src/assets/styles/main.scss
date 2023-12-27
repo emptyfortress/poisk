@@ -120,3 +120,13 @@ body {
 .q-splitter__separator:active {
 	border-top: 2px dotted black;
 }
+legend {
+	padding: 0 5px;
+	font-size: 0.9rem;
+}
+fieldset {
+	// margin-top: 1rem;
+	border: 3px double #b4c7ca;
+	padding: 1rem;
+	width: 99%;
+}

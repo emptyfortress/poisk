@@ -2,13 +2,21 @@
 import { ref, computed, reactive, watch } from 'vue'
 import draggable from 'vuedraggable'
 import { useDrag } from '@/stores/drag'
+import StylePanel from '@/components/StylePanel.vue'
 
+type ColNode = {
+	id?: string
+	parents?: String[]
+	text: string
+	hidden?: boolean
+	type: number
+	selected?: boolean
+	drag?: boolean
+	inp?: string
+}
 const drag = useDrag()
 
-const list = ref([
-	// { id: 0, text: 'one' },
-	// { id: 1, text: 'one lakjsdl' },
-])
+const list = ref<ColNode[]>([])
 
 const tree = ref()
 const end = (ev: Event) => {
@@ -31,7 +39,7 @@ const tabs = ref('style')
 
 <template lang="pug">
 .con
-	q-scroll-area(style="height: 150px; max-width: 100%;" )
+	q-scroll-area(style="height: 85px; max-width: 100%;" )
 		draggable(v-model="list"
 			item-key="id"
 			tag="ul"
@@ -49,11 +57,24 @@ const tabs = ref('style')
 			.sam(v-for="item in list") data
 
 
-	q-tabs(v-model="tabs" active-color="primary" v-if="list.length" )
-		q-tab(name="style" label="Внешний вид")
-		q-tab(name="sort" label="Сортировка")
-		q-tab(name="group" label="Группировка")
-		q-tab(name="select" label="Выделение")
+	template( v-if="list.length" )
+		q-tabs(v-model="tabs" active-color="primary")
+			q-tab(name="style" label="Шапка")
+			q-tab(name="style1" label="Данные")
+			q-tab(name="sort" label="Сортировка")
+			q-tab(name="group" label="Группировка")
+			q-tab(name="select" label="Выделение")
+			q-tab(name="graph" label="График")
+
+		q-separator
+		q-tab-panels(v-model="tabs" animated)
+			q-tab-panel(name="style")
+				StylePanel
+			q-tab-panel(name="style1") data
+			q-tab-panel(name="sort") sort
+			q-tab-panel(name="group") group
+			q-tab-panel(name="select") select
+			q-tab-panel(name="graph") graph
 </template>
 
 <style scoped lang="scss">
@@ -65,6 +86,12 @@ const tabs = ref('style')
 	grid-template-columns: repeat(v-bind(col), 1fr);
 	background: rgba(0, 0, 0, 0.07);
 	gap: 1px;
+}
+.q-tab-panels {
+	background: transparent;
+}
+.q-tab-panel {
+	padding: 0;
 }
 .gr {
 	display: grid;
@@ -78,6 +105,7 @@ const tabs = ref('style')
 	color: var(--text-color);
 	padding: 0.7rem 1rem;
 	line-height: 1.2;
+	min-width: 127px;
 }
 .list-group-item {
 	font-size: 0.9rem;
@@ -87,6 +115,7 @@ const tabs = ref('style')
 	padding: 0.7rem 1rem;
 	line-height: 1.2;
 	position: relative;
+	min-width: 127px;
 	.close {
 		position: absolute;
 		top: 1px;
@@ -123,8 +152,5 @@ ul:empty:after {
 	line-height: 75px;
 	border-radius: 4px;
 	font-size: 0.9rem;
-}
-.q-tabs {
-	border-bottom: 1px solid #ccc;
 }
 </style>
