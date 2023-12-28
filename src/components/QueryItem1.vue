@@ -31,7 +31,7 @@ const remove = (el: any) => {
 const col = computed(() => {
 	return list.value.length
 })
-const tabs = ref('sort')
+const tabs = ref('style')
 </script>
 
 <template lang="pug">
