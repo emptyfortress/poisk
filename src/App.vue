@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import Drawer from '@/components/Drawer.vue'
 
-const leftDrawer = ref(false)
+const leftDrawer = ref(true)
 
 const toggleLeftDrawer = () => {
 	leftDrawer.value = !leftDrawer.value

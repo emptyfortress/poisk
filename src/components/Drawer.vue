@@ -39,7 +39,7 @@ const pages = [
 	},
 	{
 		id: 5,
-		title: 'Supernew views',
+		title: 'Представления 2',
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout2',
 	},

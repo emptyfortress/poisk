@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import SetupPreviewDialog from '@/components/SetupPreviewDialog.vue'
 
-const dialog = ref(true)
+const dialog = ref(false)
 </script>
 
 <template lang="pug">
