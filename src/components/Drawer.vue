@@ -37,6 +37,12 @@ const pages = [
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout1',
 	},
+	{
+		id: 5,
+		title: 'Supernew views',
+		icon: 'mdi-briefcase-edit-outline',
+		url: '/layout2',
+	},
 ]
 const tmp = {
 	open: true,
