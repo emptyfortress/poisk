@@ -10,6 +10,7 @@ const modelValue = defineModel()
 const close = () => {
 	modelValue.value = false
 }
+const vis = ref(false)
 
 const list = ref([...datasource])
 </script>
@@ -37,7 +38,8 @@ q-dialog(v-model="modelValue" persistent)
 								template(#item="{ element }")
 									.list-group-item
 										.dragg
-										label {{ element.label }}
+										q-checkbox(v-model="element.check" dense :label="element.label")
+										// label {{ element.label }}
 						div
 							.text-weight-bold Доступные поля:
 							FieldTree(layout)
