@@ -40,7 +40,7 @@ q-dialog(v-model="modelValue" persistent)
 										label {{ element.label }}
 						div
 							.text-weight-bold Доступные поля:
-							FieldTree
+							FieldTree(layout)
 			q-card-section
 				q-card-actions(align="right")
 					q-btn(flat color="primary" label="Отмена" @click="close") 
