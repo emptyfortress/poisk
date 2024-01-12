@@ -49,6 +49,12 @@ export const router = createRouter({
 			component: () => import('@/pages/Layout2.vue'),
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
+		{
+			path: '/layout3',
+			name: 'layout3',
+			component: () => import('@/pages/Layout3.vue'),
+			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
+		},
 	],
 })
 

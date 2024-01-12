@@ -39,7 +39,6 @@ q-dialog(v-model="modelValue" persistent)
 									.list-group-item
 										.dragg
 										q-checkbox(v-model="element.check" dense :label="element.label")
-										// label {{ element.label }}
 						div
 							.text-weight-bold Доступные поля:
 							FieldTree(layout)
@@ -83,8 +82,6 @@ q-dialog(v-model="modelValue" persistent)
 	display: grid;
 	grid-template-columns: 230px 1fr;
 	gap: 2rem;
-	// max-height: 450px;
-	// background: pink;
 }
 
 .list-group-item {
