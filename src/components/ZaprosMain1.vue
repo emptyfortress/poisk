@@ -92,8 +92,6 @@ watch(
 <style scoped lang="scss">
 .layout {
 	padding: 1rem;
-	// background: pink;
-	// height: calc(100vh - 180px);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

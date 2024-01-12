@@ -15,12 +15,12 @@ const headsize = computed(() => {
 
 const list = ref<ColNode[]>([])
 
-const tree = ref()
+// const tree = ref()
 const end = (ev: Event) => {
 	ev.preventDefault()
 }
 const insert = () => {
-	console.log(drag.dragNode)
+	// console.log(drag.dragNode)
 	if (drag.dragNode) {
 		list.value.push(drag.dragNode)
 	}
@@ -49,10 +49,9 @@ const tabs = ref('style')
 			template(#item="{ element, index }")
 				li.list-group-item {{ element.text }}
 					q-btn.close(flat round icon="mdi-close" @click="remove(index)" size="xs" dense) 
-		q-separator
 		.gr
-			.sam(v-for="item in list") data
-
+			.sam(v-for="item in list") -- data --
+			.sam(v-for="item in list") -- data --
 
 	template( v-if="list.length" )
 		q-tabs(v-model="tabs" active-color="primary")
@@ -81,10 +80,15 @@ const tabs = ref('style')
 	margin: 1rem;
 }
 .list-group {
+	// box-sizing: border-box;
 	display: grid;
 	grid-template-columns: repeat(v-bind(col), 1fr);
-	background: rgba(0, 0, 0, 0.07);
-	gap: 1px;
+	border: 1px solid #e0e0e0;
+	border-bottom: none;
+	// background: rgba(0, 0, 0, 0.07);
+	background: white;
+	padding: 1px;
+	gap: 2px;
 }
 .q-tab-panels {
 	background: transparent;
@@ -95,16 +99,18 @@ const tabs = ref('style')
 .gr {
 	display: grid;
 	grid-template-columns: repeat(v-bind(col), 1fr);
-	background: rgba(0, 0, 0, 0.07);
+	background: white;
 	gap: 1px;
 }
 .sam {
-	font-size: 0.9rem;
+	font-size: 1rem;
 	background: white;
-	color: var(--text-color);
+	// color: var(--text-color);
+	color: #000;
 	padding: 0.7rem 1rem;
 	line-height: 1.2;
 	min-width: 127px;
+	border-bottom: 1px solid #e0e0e0;
 }
 .list-group-item {
 	font-size: v-bind(headsize);
@@ -117,6 +123,7 @@ const tabs = ref('style')
 	text-align: v-bind('view.head.align');
 	font-weight: v-bind('view.head.weight');
 	font-style: v-bind('view.head.style');
+	border: 1px solid #e0e0e0;
 	min-width: 127px;
 	.close {
 		position: absolute;
@@ -127,10 +134,6 @@ const tabs = ref('style')
 	&:hover .close {
 		visibility: visible;
 	}
-}
-.sample {
-	padding: 0.5rem 1rem;
-	background: white;
 }
 ul,
 li {
@@ -156,7 +159,7 @@ ul:empty:after {
 	font-size: 0.9rem;
 }
 :deep(.q-scrollarea) {
-	height: 130px;
+	height: 140px;
 	max-width: 100%;
 }
 </style>
