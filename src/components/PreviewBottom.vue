@@ -19,6 +19,8 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 		q-card-section.row.items-center
 			.text-h6 Настройка представления "Я - автор"
 			q-space
+			q-btn(flat color="primary" label="Применить" @click="close") 
+			q-btn.q-mr-lg(unelevated color="primary" label="Сохранить" @click="close") 
 			q-btn(icon="mdi-close" flat round dense v-close-popup)
 		q-separator
 
@@ -39,10 +41,10 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 					div
 						.text-weight-bold Доступные поля:
 						FieldTree(layout)
-		q-card-section
-			q-card-actions(align="right")
-				q-btn(flat color="primary" label="Отмена" @click="close") 
-				q-btn(unelevated color="primary" label="Применить" @click="close") 
+		// q-card-section
+		// 	q-card-actions(align="right")
+		// 		q-btn(flat color="primary" label="Отмена" @click="close") 
+		// 		q-btn(unelevated color="primary" label="Применить" @click="close") 
 </template>
 
 <style scoped lang="scss">
