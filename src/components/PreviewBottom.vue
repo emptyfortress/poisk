@@ -44,7 +44,6 @@ q-dialog(v-model="modelValue" persistent no-shake allow-focus-outside seamless p
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" @click="close") 
 				q-btn(unelevated color="primary" label="Применить" @click="close") 
-
 </template>
 
 <style scoped lang="scss">
