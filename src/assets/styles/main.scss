@@ -125,11 +125,13 @@ legend {
 	font-size: 0.9rem;
 }
 fieldset {
-	// margin-top: 1rem;
 	border: 3px double #b4c7ca;
 	padding: 1rem;
 	width: 99%;
 	&.dis {
 		opacity: 0.6;
 	}
+}
+.bott .q-dialog__inner--minimized {
+	// padding: 0;
 }

@@ -8,9 +8,9 @@ const dialog = ref(false)
 <template lang="pug">
 q-page(padding)
 	.container
-		.zag.q-mb-lg Я - автор
-		q-btn(unelevated color="primary" icon="mdi-tune-vertical-variant" label="Настроить" @click="dialog = !dialog") 
-
+		.row.justify-between.items-center
+			.zag.q-mb-lg Я - автор
+			q-btn(unelevated color="primary" icon="mdi-tune-vertical-variant" label="Настроить" @click="dialog = !dialog" size="sm") 
 
 		PreviewBottom(v-model="dialog")
 </template>

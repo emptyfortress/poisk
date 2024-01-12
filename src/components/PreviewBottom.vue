@@ -5,7 +5,7 @@ import { datasource, options } from '@/stores/twolist'
 import FieldTree from '@/components/FieldTree.vue'
 
 const modelValue = defineModel()
-const pred = ref('Я - автор')
+// const pred = ref('Я - автор')
 const close = () => {
 	modelValue.value = false
 }
@@ -14,17 +14,16 @@ const list = ref([...datasource])
 </script>
 
 <template lang="pug">
-q-dialog(v-model="modelValue" persistent no-shake allow-focus-outside seamless position="bottom")
+q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seamless full-width position="bottom")
 	q-card(style="min-width: 800px;")
 		q-card-section.row.items-center
-			.text-h6 Настройка таблицы
+			.text-h6 Настройка представления "Я - автор"
 			q-space
 			q-btn(icon="mdi-close" flat round dense v-close-popup)
 		q-separator
 
 		q-card-section
 			q-scroll-area(style="height: 50vh;")
-				q-select(v-model="pred" :options="options" label="Название" dense)
 				.main
 					div
 						.text-weight-bold Колонки:
@@ -51,10 +50,12 @@ q-dialog(v-model="modelValue" persistent no-shake allow-focus-outside seamless p
 	width: 260px;
 }
 .main {
+	width: 700px;
+	margin: 0 auto;
 	margin-top: 2rem;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	justify-items: start;
+	grid-template-columns: repeat(2, auto);
+	justify-items: center;
 	align-items: stretch;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
