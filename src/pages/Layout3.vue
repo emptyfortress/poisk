@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import PreviewBottom from '@/components/PreviewBottom.vue'
 
-const dialog = ref(true)
+const dialog = ref(false)
 </script>
 
 <template lang="pug">

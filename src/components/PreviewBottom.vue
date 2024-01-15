@@ -9,7 +9,7 @@ const close = () => {
 	modelValue.value = false
 }
 
-const tabs = ref('draw')
+const tabs = ref('cols')
 </script>
 
 <template lang="pug">
