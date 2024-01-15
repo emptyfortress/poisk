@@ -24,7 +24,7 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 		q-tabs(v-model="tabs" active-color="primary")
 			q-tab(name="cols" label="Колонки")
 			q-tab(name="style" label="Темы")
-			q-tab(name="draw" label="Выделение")
+			q-tab(name="draw" label="Цвет")
 
 		q-separator
 		q-tab-panels(v-model="tabs" animated)
