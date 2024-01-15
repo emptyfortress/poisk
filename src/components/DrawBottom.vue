@@ -3,7 +3,14 @@ import { ref } from 'vue'
 import { uid } from 'quasar'
 import draggable from 'vuedraggable'
 
-const list = ref([])
+type Color = {
+	id: string
+	name: string
+	filt: string
+	val: string
+}
+
+const list = ref<Color[]>([])
 const option1 = ['Просроченные задания', 'Я - автор', 'Высокая важность', 'Мой запрос']
 const option2 = [
 	{ label: 'Тревожный', color: 'red' },
