@@ -9,13 +9,20 @@ const list = ref([
 </script>
 
 <template lang="pug">
-draggable(:list="list" class="list-group" group="a" item-key="name")
-	template(#item="{ element }")
-		.list-group-item {{ element.name }}
+.main
+	draggable(:list="list" class="list-group" group="a" item-key="name")
+		template(#item="{ element }")
+			.list-group-item {{ element.name }}
 
-	template(#header)
-		.list-group-item
-			q-btn(unelevated color="primary" label="Отмена" @click="action") 
+		template(#header)
+			.list-group-item
+				q-btn(unelevated color="primary" label="Отмена" @click="action") 
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.main {
+	width: 400px;
+	margin: 0 auto;
+	background: pink;
+}
+</style>
