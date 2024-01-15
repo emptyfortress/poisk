@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ColsBottom from '@/components/ColsBottom.vue'
+import ThemeBottom from '@/components/ThemeBottom.vue'
+import DrawBottom from '@/components/DrawBottom.vue'
 
 const modelValue = defineModel()
 const close = () => {
 	modelValue.value = false
 }
 
-const tabs = ref('cols')
+const tabs = ref('style')
 </script>
 
 <template lang="pug">
 q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seamless full-width position="bottom")
-	q-card(style="min-width: 800px; min-height:  0vh;")
+	q-card(style="min-width: 800px; min-height: 618px;")
 		q-card-section.row.items-center
 			.text-h6 Настройка представления "Я - автор"
 			q-space
@@ -29,7 +31,9 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 			q-tab-panel(name="cols")
 				ColsBottom()
 			q-tab-panel(name="style")
+				ThemeBottom()
 			q-tab-panel(name="draw")
+				DrawBottom()
 </template>
 
 <style scoped lang="scss"></style>
