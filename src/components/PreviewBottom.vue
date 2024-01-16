@@ -5,11 +5,17 @@ import ThemeBottom from '@/components/ThemeBottom.vue'
 import DrawBottom from '@/components/DrawBottom.vue'
 
 const modelValue = defineModel()
+
+const emit = defineEmits(['apply'])
+
 const close = () => {
 	modelValue.value = false
 }
 
 const tabs = ref('cols')
+const apply = () => {
+	emit('apply')
+}
 </script>
 
 <template lang="pug">
@@ -18,7 +24,7 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 		q-card-section.row.items-center
 			.text-h6 Настройка представления "Я - автор"
 			q-space
-			q-btn(flat color="primary" label="Применить" @click="close") 
+			q-btn(flat color="primary" label="Применить" @click="apply") 
 			q-btn.q-mr-lg(unelevated color="primary" label="Сохранить" @click="close") 
 			q-btn(icon="mdi-close" flat round dense v-close-popup)
 		q-tabs(v-model="tabs" active-color="primary")
