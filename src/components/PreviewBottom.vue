@@ -19,20 +19,19 @@ const apply = () => {
 </script>
 
 <template lang="pug">
-q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seamless full-width position="bottom")
-	q-card(style="min-width: 800px; min-height: 618px;")
-		q-card-section.row.items-center
-			.text-h6 Настройка представления "Я - автор"
-			q-space
-			q-btn(flat color="primary" label="Применить" @click="apply") 
-			q-btn.q-mr-lg(unelevated color="primary" label="Сохранить" @click="close") 
-			q-btn(icon="mdi-close" flat round dense v-close-popup)
-		q-tabs(v-model="tabs" active-color="primary")
-			q-tab(name="cols" label="Колонки")
-			q-tab(name="style" label="Темы")
-			q-tab(name="draw" label="Цвет")
+q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seamless position="bottom")
+	q-card(style="min-width: 800px; min-height: 50vh;")
+		.top
+			.text-h6 Настройка представления
+			q-tabs(v-model="tabs" active-color="secondary" dense)
+				q-tab(name="cols" label="Колонки")
+				q-tab(name="style" label="Темы")
+				q-tab(name="draw" label="Цвет")
+			// q-btn(flat color="primary" label="Применить" @click="apply") 
+			// q-btn.q-mr-lg(flat color="primary" label="Сохранить как") 
+			// q-btn.q-mr-lg(unelevated color="primary" label="Сохранить") 
+			q-btn.q-ml-lg(icon="mdi-close" flat round dense v-close-popup)
 
-		q-separator
 		q-tab-panels(v-model="tabs" animated)
 			q-tab-panel(name="cols")
 				ColsBottom()
@@ -42,4 +41,23 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 				DrawBottom()
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card {
+	background: #1d1d1d;
+	color: white;
+}
+.q-tabs {
+}
+.q-tab-panels {
+	background: transparent;
+}
+.top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5rem 1rem;
+	padding-bottom: 0;
+	// border-bottom: 1px solid red;
+	background: #dcdcdc;
+}
+</style>
