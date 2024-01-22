@@ -42,12 +42,6 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 </template>
 
 <style scoped lang="scss">
-.card {
-	background: #1d1d1d;
-	color: white;
-}
-.q-tabs {
-}
 .q-tab-panels {
 	background: transparent;
 }

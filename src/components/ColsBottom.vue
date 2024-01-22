@@ -28,7 +28,6 @@ q-scroll-area(style="height: 40vh;")
 
 <style scoped lang="scss">
 .main {
-	// width: 700px;
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: auto 1fr auto 1fr;
