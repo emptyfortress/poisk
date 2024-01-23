@@ -34,32 +34,31 @@ const remove = (ind: number) => {
 </script>
 
 <template lang="pug">
-q-scroll-area(style="height: 40vh;")
-	.main
-		div
-			.text-weight-bold Доступные поля:
-			FieldTree(layout)
-		div
-			.text-weight-bold Колонки:
-			draggable(:list="list"
-				item-key="id"
-				tag="ul"
-				class="list-group"
-				ghost-class="ghost"
-				:ondragover="end"
-				:ondrop="insert"
-				group="data")
+.main
+	q-scroll-area(style="height: 40vh;")
+		.text-weight-bold Доступные поля:
+		FieldTree(layout)
+	q-scroll-area(style="height: 40vh;")
+		.text-weight-bold Колонки:
+		draggable(:list="list"
+			item-key="id"
+			tag="ul"
+			class="list-group"
+			ghost-class="ghost"
+			:ondragover="end"
+			:ondrop="insert"
+			group="data")
 
-				template(#item="{ element, index }")
-					li.list-group-item
-						.dragg
-						q-checkbox.q-mr-lg(v-model="element.check" dense :label="element.label")
-						q-btn.right(flat round icon="mdi-close" dense size="xs" @click="remove(index)") 
-		.sort
-			.text-weight-bold Сортировка:
-			div Тип &uarr;
-			.text-weight-bold Группировка:
-			div Вид карточки<br>Статус
+			template(#item="{ element, index }")
+				li.list-group-item
+					.dragg
+					q-checkbox.q-mr-lg(v-model="element.check" dense :label="element.label")
+					q-btn.right(flat round icon="mdi-close" dense size="xs" @click="remove(index)") 
+	.sort
+		.text-weight-bold Сортировка:
+		div Тип &uarr;
+		.text-weight-bold Группировка:
+		div Вид карточки<br>Статус
 </template>
 
 <style scoped lang="scss">
