@@ -10,29 +10,35 @@ const list = ref([...datasource])
 <template lang="pug">
 q-scroll-area(style="height: 40vh;")
 	.main
-		.text-weight-bold Колонки:
-		draggable(:list="list"
-			item-key="id"
-			class="list-group"
-			ghost-class="ghost"
-			group="data")
-			template(#item="{ element }")
-				.list-group-item
-					.dragg
-					q-checkbox.q-mr-lg(v-model="element.check" dense :label="element.label")
-					q-btn.right(flat round icon="mdi-close" dense size="xs") 
-
-		.text-weight-bold Доступные поля:
-		FieldTree(layout )
+		div
+			.text-weight-bold Доступные поля:
+			FieldTree(layout)
+		div
+			.text-weight-bold Колонки:
+			draggable(:list="list"
+				item-key="id"
+				class="list-group"
+				ghost-class="ghost"
+				group="data")
+				template(#item="{ element }")
+					.list-group-item
+						.dragg
+						q-checkbox.q-mr-lg(v-model="element.check" dense :label="element.label")
+						q-btn.right(flat round icon="mdi-close" dense size="xs") 
+		.sort
+			.text-weight-bold Сортировка:
+			div Тип &uarr;
+			.text-weight-bold Группировка:
+			div Вид карточки<br>Статус
 </template>
 
 <style scoped lang="scss">
 .main {
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: auto 1fr auto 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	justify-items: start;
-	align-items: stretch;
+	align-items: start;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 	font-size: 0.9rem;
@@ -77,7 +83,11 @@ q-scroll-area(style="height: 40vh;")
 .ghost {
 	opacity: 0.5;
 }
-.right {
-	// justify-self: flex-end;
+.sort {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	justify-items: start;
+	align-items: start;
+	gap: 1rem;
 }
 </style>

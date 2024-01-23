@@ -5,7 +5,6 @@ import ThemeBottom from '@/components/ThemeBottom.vue'
 import DrawBottom from '@/components/DrawBottom.vue'
 
 const modelValue = defineModel()
-
 const emit = defineEmits(['apply'])
 
 const close = () => {
@@ -20,18 +19,18 @@ const apply = () => {
 
 <template lang="pug">
 q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seamless position="bottom")
-	q-card(style="min-width: 800px; min-height: 50vh;")
+	q-card(style="min-width: 900px; min-height: 53vh;")
 		.top
 			.text-h6 Настройка представления
-			q-tabs(v-model="tabs" active-color="secondary" dense)
-				q-tab(name="cols" label="Колонки")
-				q-tab(name="style" label="Темы")
-				q-tab(name="draw" label="Цвет")
-			// q-btn(flat color="primary" label="Применить" @click="apply") 
-			// q-btn.q-mr-lg(flat color="primary" label="Сохранить как") 
-			// q-btn.q-mr-lg(unelevated color="primary" label="Сохранить") 
-			q-btn.q-ml-lg(icon="mdi-close" flat round dense v-close-popup)
+			div
+				q-btn(flat color="primary" label="Применить" @click="apply" size="sm")
+				q-btn.q-mr-lg(unelevated color="primary" label="Сохранить" size="sm")
+				q-btn.q-ml-lg(icon="mdi-close" flat round dense v-close-popup)
 
+		q-tabs(v-model="tabs" active-color="secondary" dense)
+			q-tab(name="cols" label="Колонки")
+			q-tab(name="style" label="Темы")
+			q-tab(name="draw" label="Цвет")
 		q-tab-panels(v-model="tabs" animated)
 			q-tab-panel(name="cols")
 				ColsBottom()
@@ -50,8 +49,8 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.5rem 1rem;
-	padding-bottom: 0;
-	// border-bottom: 1px solid red;
+}
+.q-tabs {
 	background: #dcdcdc;
 }
 </style>
