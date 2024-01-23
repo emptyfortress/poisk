@@ -2,12 +2,17 @@
 import { ref } from 'vue'
 import { uid } from 'quasar'
 import draggable from 'vuedraggable'
-import { datasource, options } from '@/stores/twolist'
 import FieldTree from '@/components/FieldTree.vue'
 import { useDrag } from '@/stores/drag'
 
+type Item = {
+	id: string
+	check: boolean
+	sort: boolean
+	label: string
+}
 const drag = useDrag()
-const list = ref([])
+const list = ref<Item[]>([])
 
 const end = (ev: Event) => {
 	ev.preventDefault()
