@@ -58,6 +58,7 @@ const orCondition = computed(() => {
 	}
 	return false
 })
+const text = ref(props.item.text)
 </script>
 
 <template lang="pug">
@@ -67,8 +68,10 @@ const orCondition = computed(() => {
 template(v-if="props.item.type == 1 && props.item.vis == true")
 	.mainlabel(:class="{dis : !active[props.index]}")
 		span.par(v-if="par") {{ par }}
-		span {{ props.item.text }}
+		span {{ text }}
 		span.addition(v-if="props.item.text2 !== 'Равно'") {{ props.item.text2 }}
+		q-popup-edit(v-model="text" auto-save v-slot="scope")
+			q-input(v-model="scope.value" dense autofocus @keyup.enter="scope.set")
 	.row(v-if="isRadio")
 		q-radio(v-model="rukovoditel" val="yes" label="Да" :disable="!active[props.index]")
 		q-radio(v-model="rukovoditel" val="no" label="Нет" :disable="!active[props.index]")

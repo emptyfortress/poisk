@@ -79,6 +79,10 @@ const colOption = [
 	'Является руководителем',
 ]
 const color = ref('#fff')
+const cl = ref('')
+const set = (e: string) => {
+	cl.value = e
+}
 </script>
 
 <template lang="pug">
@@ -105,9 +109,15 @@ const color = ref('#fff')
 				q-select(dense outlined bg-color="white" v-model="element.col" label="Колонка" :options="colOption")
 				q-select(dense outlined bg-color="white" v-model="element.condition" label="Условие" :options="condOption")
 				q-input(dense outlined bg-color="white" v-model="element.val" label="Значение")
-				.color
-					q-popup-proxy(cover transition-show="scale" transition-hide="scale" )
-						q-color(v-model="color")
+				.square(:class="cl")
+					q-menu
+						q-list
+							q-item(clickable v-for="item in option2" :key="item.color" @click="set(item.color)" v-close-popup)
+								q-item-section(side)
+									.square(:class="item.color")
+								q-item-section {{ item.label }}
+					// q-popup-proxy(cover transition-show="scale" transition-hide="scale" )
+					// 	q-color(v-model="color")
 				q-btn(flat round icon="mdi-close" dense @click="del(index)" size="sm") 
 
 		template(#header)
@@ -154,6 +164,7 @@ const color = ref('#fff')
 	width: 20px;
 	height: 20px;
 	border: 1px solid black;
+	background: #fff;
 	&.red {
 		background: darkred;
 	}

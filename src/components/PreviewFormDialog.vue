@@ -53,6 +53,8 @@ const action = () => {
 const empty = computed(() => {
 	return myFlatTree.value.filter((el: any) => el.vis !== false).length == 0
 })
+const zag = ref(store.currentNode?.data.text)
+const descr = ref(store.currentNode?.data.text1)
 </script>
 
 <template lang="pug">
@@ -60,11 +62,15 @@ q-dialog(v-model="modelValue" persistent)
 	q-card(style="width: 700px; max-width: 80vw; cursor: default;")
 		q-form
 			q-card-section.row.items-center.q-pb-none
-				.text-h6 {{ store.currentNode?.data.text }}
+				.text-h6 {{ zag }}
+					q-popup-edit(v-model="zag" auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus @keyup.enter="scope.set")
 				q-space
 				q-btn( icon="mdi-close" flat round dense @click="emit('close')")
 			q-card-section.bread
-				.descr {{ store.currentNode?.data.text1 }}
+				.descr {{ descr }}
+					q-popup-edit(v-model="descr" auto-save v-slot="scope")
+						q-input(v-model="scope.value" dense autofocus @keyup.enter="scope.set")
 			q-card-section.q-pt-none
 				.grid
 					template(v-for="( item, index ) in myFlatTree" :key="item.id")

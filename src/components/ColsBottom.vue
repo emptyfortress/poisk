@@ -31,13 +31,15 @@ const insert = () => {
 const remove = (ind: number) => {
 	list.value.splice(ind, 1)
 }
+const sort = ref(false)
+const group = ref(false)
 </script>
 
 <template lang="pug">
 .main
 	q-scroll-area(style="height: 40vh;")
 		.text-weight-bold Доступные поля:
-		FieldTree(layout)
+		FieldTree(layout )
 	q-scroll-area(style="height: 40vh;")
 		.text-weight-bold Колонки:
 		draggable(:list="list"
@@ -59,6 +61,9 @@ const remove = (ind: number) => {
 		div Тип &uarr;
 		.text-weight-bold Группировка:
 		div Вид карточки<br>Статус
+		br
+		q-checkbox(v-model="sort" dense label="Учитывать сортировку при сохранении")
+		q-checkbox(v-model="group" dense label="Учитывать группировку при сохранении")
 </template>
 
 <style scoped lang="scss">
@@ -109,6 +114,10 @@ const remove = (ind: number) => {
 	justify-items: start;
 	align-items: start;
 	gap: 1rem;
+	.q-checkbox {
+		grid-column: 1/-1;
+		align-items: start;
+	}
 }
 ul,
 li {
