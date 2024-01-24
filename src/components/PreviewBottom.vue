@@ -23,8 +23,8 @@ q-dialog.bott(v-model="modelValue" persistent no-shake allow-focus-outside seaml
 		.top
 			.text-h6 Настройка представления
 			div
-				q-btn(flat color="primary" label="Применить" @click="apply" size="sm")
-				q-btn.q-mr-lg(unelevated color="primary" label="Сохранить" size="sm")
+				q-btn(unelevated color="primary" label="Применить" @click="apply" size="sm")
+				// q-btn.q-mr-lg(unelevated color="primary" label="Сохранить" size="sm")
 				q-btn.q-ml-lg(icon="mdi-close" flat round dense v-close-popup)
 
 		q-tabs(v-model="tabs" active-color="secondary" dense)
