@@ -9,6 +9,7 @@ import DirMenu from '@/components/DirMenu.vue'
 const props = defineProps<{
 	treeData: TreeNode[]
 	load?: boolean
+	reset?: boolean
 }>()
 
 const store = useStore()
@@ -151,8 +152,12 @@ const adding = {
 }
 
 const initial = (stat: any) => {
-	stat.data.selected = false
-	return stat
+	if (props.reset == true) {
+		return stat
+	} else {
+		stat.data.selected = false
+		return stat
+	}
 }
 
 onMounted(() => {

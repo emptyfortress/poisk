@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@he-tree/vue": "^2.4.2",
 		"@quasar/extras": "^1.15.10",
+		"@vueuse/core": "^10.7.2",
 		"@xstate/vue": "^2.0.0",
 		"apexcharts": "^3.41.0",
 		"pinia": "^2.1.4",

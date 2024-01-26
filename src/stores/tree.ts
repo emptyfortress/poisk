@@ -157,8 +157,8 @@ const views = [
 				],
 			},
 			{
-				text: 'Задания',
-				selected: false,
+				text: 'Представление 1',
+				selected: true,
 				hidden: false,
 				type: 1,
 				text1: 'Описание',
