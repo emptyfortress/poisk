@@ -11,31 +11,24 @@ const showSetup = ref(false)
 
 <template lang="pug">
 .cont
-	.row.justify-between.items-center
+	.row.justify-between.items-center.q-pa-md
 		.zag.q-mb-lg Просроченные задания
 		q-btn(unelevated color="primary" icon="mdi-tune-vertical-variant" label="Настроить" @click="showSetup = !showSetup" size="sm")
 
 	q-splitter(v-model="splitterModel" :limits="[0, Infinity]" :style="hei" horizontal v-if="showSetup")
 		template(v-slot:before)
-			q-card
-				q-card-section
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
-					p fuck
+			.q-pa-md
+				q-card
+					q-card-section
+						p fuck
+						p fuck
+						p fuck
+						p fuck
+						p fuck
+						p fuck
+						p fuck
+						p fuck
+						p fuck
 		template(v-slot:after v-if="showSetup") fooo
 
 	template(v-else)
