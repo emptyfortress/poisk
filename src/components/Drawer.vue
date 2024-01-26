@@ -55,6 +55,12 @@ const pages = [
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout4',
 	},
+	{
+		id: 8,
+		title: 'Drag window',
+		icon: 'mdi-briefcase-edit-outline',
+		url: '/layout5',
+	},
 ]
 const tmp = {
 	open: true,
