@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 const splitterModel = ref(50)
 
 const hei = computed(() => {
-	return 'height: ' + (window.innerHeight - 180) + 'px;'
+	return 'height: ' + (window.innerHeight - 130) + 'px;'
 })
 const showSetup = ref(false)
 </script>
@@ -58,6 +58,12 @@ const showSetup = ref(false)
 				p fuck
 				p fuck
 				p fuck
+				p fuck
+				p fuck
+				p fuck
+				p fuck
+				p fuck
+				p fuck
 
 		// template(v-if="preview")
 		// 	ul.list-group
@@ -78,7 +84,7 @@ const showSetup = ref(false)
 	background: yellow;
 }
 .cont {
-	// height: calc(100vh - 160px);
+	height: calc(100vh - 90px);
 	background: pink;
 	// padding: 0;
 }

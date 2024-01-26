@@ -39,19 +39,19 @@ const pages = [
 	},
 	{
 		id: 5,
-		title: 'Представления 2',
+		title: 'Modal window',
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout2',
 	},
 	{
 		id: 6,
-		title: 'Представления 3',
+		title: 'Bottom window',
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout3',
 	},
 	{
 		id: 7,
-		title: 'Представления 4',
+		title: 'Dev Tools',
 		icon: 'mdi-briefcase-edit-outline',
 		url: '/layout4',
 	},
