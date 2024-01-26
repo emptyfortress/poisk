@@ -11,6 +11,9 @@ type Item = {
 	sort: boolean
 	label: string
 }
+const props = defineProps({
+	revert: Boolean,
+})
 const drag = useDrag()
 const list = ref<Item[]>([])
 
@@ -36,11 +39,11 @@ const group = ref(false)
 </script>
 
 <template lang="pug">
-.main
-	q-scroll-area(style="height: 40vh;")
+.main()
+	q-scroll-area(style="height: 40vh;" :class="{revert: props.revert}")
 		.text-weight-bold Доступные поля:
 		FieldTree(layout )
-	q-scroll-area(style="height: 40vh;")
+	q-scroll-area(style="height: 40vh;"  :class="{revert1: props.revert}")
 		.text-weight-bold Колонки:
 		draggable(:list="list"
 			item-key="id"
@@ -56,7 +59,7 @@ const group = ref(false)
 					.dragg
 					q-checkbox.q-mr-lg(v-model="element.check" dense :label="element.label")
 					q-btn.right(flat round icon="mdi-close" dense size="xs" @click="remove(index)") 
-	.sort
+	.sort(:class="{revert2: props.revert}")
 		.text-weight-bold Сортировка:
 		div Тип &uarr;
 		.text-weight-bold Группировка:
@@ -75,6 +78,18 @@ const group = ref(false)
 	column-gap: 2rem;
 	row-gap: 0.5rem;
 	font-size: 0.9rem;
+}
+.revert {
+	grid-column: 3/4;
+	grid-row: 1/2;
+}
+.revert1 {
+	grid-column: 2/3;
+	grid-row: 1/2;
+}
+.revert2 {
+	grid-column: 1/2;
+	grid-row: 1/2;
 }
 .list-group {
 	display: flex;
