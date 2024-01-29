@@ -19,7 +19,6 @@ transition(name="slide-top")
 		:prevent-default="true"
 		v-if="modelValue"
 		:initial-value="initial"
-		prevent-default="true"
 		style="position: fixed;"
 		:handle="handle")
 		q-card-section.sec(ref="handle")
