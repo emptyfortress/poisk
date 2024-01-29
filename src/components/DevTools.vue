@@ -5,7 +5,10 @@ import ColumnSetup from '@/components/ColumnSetup.vue'
 import { views } from '@/stores/tree'
 
 const props = defineProps({
-	height: Number,
+	height: {
+		type: Number,
+		default: 100,
+	},
 })
 const splitterModel = ref(20)
 const style = computed(() => {
