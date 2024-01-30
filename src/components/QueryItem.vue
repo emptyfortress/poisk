@@ -107,6 +107,10 @@ watch(
 	}
 )
 
+const focus = (e: Stat) => {
+	e.data.focus = !e.data.focus
+	console.log(e.data)
+}
 const check = (e: Stat) => {
 	console.log(e)
 }
@@ -134,11 +138,13 @@ const hideFirst = computed(() => {
 		:watermark="false" )
 		template(#default="{ stat }")
 			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
-			ConditionItem(:stat="stat"
+			ConditionItem(
+				:stat="stat"
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
-				@click="check(stat)"
-				@kill="remove(stat)" )
+				@click.exact="check(stat)"
+				@click.shift="focus(stat)"
+				@kill="remove(stat)")
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>

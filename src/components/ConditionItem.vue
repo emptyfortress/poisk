@@ -68,7 +68,7 @@ const par = computed(() => {
 </script>
 
 <template lang="pug">
-.node(:class="{ dis: props.stat.data.restrict === true }")
+.node(:class="{ focus: props.stat.data.focus === true }")
 	.zero(v-if="props.stat.data.type === 0")
 		q-icon.trig(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 		q-icon.trig(name="mdi-alert-outline" color="negative" v-else size="xs")
@@ -110,6 +110,10 @@ const par = computed(() => {
 .node {
 	cursor: pointer;
 	position: relative;
+	transition: 0.2s ease transform;
+	&.focus {
+		transform: scale(1.05);
+	}
 
 	img {
 		width: 42px;

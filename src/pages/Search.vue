@@ -4,7 +4,6 @@ import BaseTree from '@/components/BaseTree.vue'
 import ZaprosMain from '@/components/ZaprosMain.vue'
 import FieldTree from '@/components/FieldTree.vue'
 import { searches } from '@/stores/tree'
-import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
 
 const splitterModel = ref(18)
 const splitterModel1 = ref(80)
@@ -35,9 +34,8 @@ q-page(padding)
 					template(v-slot:after)
 						.tree
 							q-scroll-area.list
-								FieldTree
+								FieldTree()
 
-	// PreviewFormDialog(v-model="tr" @close="emit('closePreview')" )
 </template>
 
 <style scoped lang="scss">

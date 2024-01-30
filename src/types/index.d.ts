@@ -32,6 +32,7 @@ interface NodeData {
 	ruk?: boolean
 	vis?: boolean
 	inp?: boolean
+	focus?: boolean
 }
 
 interface Stat {
