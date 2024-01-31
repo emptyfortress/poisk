@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, nextTick } from 'vue'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
@@ -20,6 +20,18 @@ const filterByLabel = (array: any, searchTerm: string) => {
 			children?.length > 0 ||
 			curr.parents?.some(even) ||
 			curr.type == 0
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
+const filterByKind = (array: any, searchTerm: number) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByKind(curr.children, searchTerm) : undefined
+		const even = (elem: any) => {
+			elem == searchTerm ? true : false
+		}
+
+		return curr.kind == searchTerm || children?.length > 0 || curr.parents?.some(even)
 			? [...prev, { ...curr, children }]
 			: prev
 	}, [])
@@ -51,10 +63,26 @@ watch(query, () => {
 		tree.value.expandAll()
 	}
 })
+watch(query, () => {
+	if (query.value.length > 1) {
+		tree.value.expandAll()
+	}
+})
+watch(
+	() => drag.focus,
+	() => {
+		setTimeout(() => {
+			tree.value.expandAll()
+		}, 100)
+	}
+)
 
 const myfields = computed(() => {
-	if (!!drag.treeKey) {
+	if (!!drag.treeKey && drag.focus == false) {
 		return filterByLabel(data.value, drag.treeKey)
+	}
+	if (!!drag.treeKey && drag.focus == true) {
+		return filterByKind(data.value, drag.kind)
 	}
 	return data.value
 })

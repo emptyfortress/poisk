@@ -10,7 +10,7 @@ type ColNode = {
 }
 
 interface NodeData {
-	id?: string
+	id: string
 	text: string
 	text1: string
 	text2: string
@@ -33,6 +33,7 @@ interface NodeData {
 	vis?: boolean
 	inp?: boolean
 	focus?: boolean
+	kind?: number
 }
 
 interface Stat {

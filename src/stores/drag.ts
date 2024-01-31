@@ -6,6 +6,8 @@ export const useDrag = defineStore({
 		dragNode: null as NodeData | null,
 		treeKey: null as string | null,
 		flag: false,
+		focus: false,
+		kind: 0,
 	}),
 	getters: {},
 	actions: {
@@ -17,6 +19,12 @@ export const useDrag = defineStore({
 		},
 		toggleFlag() {
 			this.flag = !this.flag
+		},
+		toggleFocus() {
+			this.focus = !this.focus
+		},
+		setKind(e: number) {
+			this.kind = e
 		},
 	},
 })

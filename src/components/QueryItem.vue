@@ -4,6 +4,7 @@ import { Draggable } from '@he-tree/vue'
 import ConditionItem from '@/components/ConditionItem.vue'
 import { useDrag } from '@/stores/drag'
 import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
+import { uid } from 'quasar'
 
 const props = defineProps({
 	preview: {
@@ -16,9 +17,6 @@ const props = defineProps({
 const drag = useDrag()
 let treeData = reactive([
 	{
-		// text1: '',
-		// text2: '',
-		// text3: '',
 		type: 10,
 		typ: false,
 		drop: false,
@@ -52,6 +50,7 @@ const duble = (e: Stat) => {
 const externalDataHandler = () => {
 	if (!!drag.dragNode) {
 		return {
+			id: uid(),
 			text: drag.dragNode.text,
 			text1: '',
 			text2: 'Равно',
@@ -66,6 +65,7 @@ const externalDataHandler = () => {
 			date: drag.dragNode.date,
 			inp: '',
 			ruk: drag.dragNode.ruk,
+			kind: drag.dragNode.kind,
 			vis: true,
 			children: [],
 		}
@@ -102,14 +102,27 @@ watch(
 	() => {
 		if (drag.flag == true) {
 			all[0].children = tree.value.getData()
-			// let temp = tree.value.getData()
 		}
 	}
 )
 
 const focus = (e: Stat) => {
+	let other = tree.value.statsFlat.filter((item: Stat) => item !== e)
 	e.data.focus = !e.data.focus
-	console.log(e.data)
+	if (e.data.focus == true) {
+		other.map((item: Stat) => (item.data.focus = false))
+		drag.focus = true
+		drag.setKind(e.data.kind)
+	} else {
+		other.map((item: Stat) => (item.data.focus = false))
+		drag.focus = false
+	}
+}
+const calcClass = (e: Stat) => {
+	if (drag.focus && e.data.focus) {
+		return 'focus'
+	} else if (drag.focus && !e.data.focus) return 'dis'
+	return ''
 }
 const check = (e: Stat) => {
 	console.log(e)
@@ -139,11 +152,12 @@ const hideFirst = computed(() => {
 		template(#default="{ stat }")
 			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
 			ConditionItem(
+				:class="calcClass(stat)"
 				:stat="stat"
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
 				@click.exact="check(stat)"
-				@click.shift="focus(stat)"
+				@click.alt="focus(stat)"
 				@kill="remove(stat)")
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
@@ -151,7 +165,7 @@ const hideFirst = computed(() => {
 
 <style scoped lang="scss">
 .con {
-	margin: 1rem;
+	margin: 1rem 2rem;
 }
 .zero {
 	display: flex;
@@ -207,5 +221,12 @@ const hideFirst = computed(() => {
 	padding: 1rem;
 	border-radius: 4px;
 	margin-left: -3rem;
+}
+.focus {
+	transform: scale(1.05);
+}
+.dis {
+	opacity: 0.5;
+	transform: scale(0.9);
 }
 </style>
