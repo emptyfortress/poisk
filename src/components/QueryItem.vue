@@ -48,7 +48,11 @@ const duble = (e: Stat) => {
 }
 
 const externalDataHandler = () => {
-	if (!!drag.dragNode) {
+	if (!!drag.dragNode && drag.focus == true) {
+		let active = tree.value.statsFlat.find((item: Stat) => item.data.focus == true)
+		active.data.text = 'Fuck'
+	}
+	if (!!drag.dragNode && drag.focus == false) {
 		return {
 			id: uid(),
 			text: drag.dragNode.text,
@@ -226,7 +230,8 @@ const hideFirst = computed(() => {
 	transform: scale(1.05);
 }
 .dis {
-	opacity: 0.5;
-	transform: scale(0.9);
+	// opacity: 0.5;
+	transform: scale(0.95);
+	filter: blur(5px);
 }
 </style>

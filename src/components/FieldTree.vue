@@ -73,7 +73,7 @@ watch(
 	() => {
 		setTimeout(() => {
 			tree.value.expandAll()
-		}, 100)
+		}, 50)
 	}
 )
 
