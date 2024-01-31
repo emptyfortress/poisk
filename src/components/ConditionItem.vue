@@ -86,11 +86,16 @@ const par = computed(() => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
 	q-form.one(v-if="props.stat.data.type === 1" ref="myform" no-error-focus)
-		div
+		div(style="font-size: .9rem;")
 			template(v-for="item in par" :key="item")
 				span.text-weight-bold {{ item }}
 				span.q-mx-sm >
 			span.text-weight-bold {{ props.stat.data.text}}
+			div(v-if="props.stat.data.syn.length")
+				template(v-for="item in props.stat.data.synparents" :key="item")
+					span.text-weight-bold {{ item }}
+					span.q-mx-sm >
+				span.text-weight-bold {{props.stat.data.syn[0]}}
 
 		template(v-if="props.stat.data.ruk")
 			.row

@@ -34,6 +34,8 @@ interface NodeData {
 	inp?: boolean
 	focus?: boolean
 	kind?: number
+	synparents: string[]
+	syn: string[]
 }
 
 interface Stat {

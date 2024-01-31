@@ -50,7 +50,8 @@ const duble = (e: Stat) => {
 const externalDataHandler = () => {
 	if (!!drag.dragNode && drag.focus == true) {
 		let active = tree.value.statsFlat.find((item: Stat) => item.data.focus == true)
-		active.data.text = 'Fuck'
+		active.data.synparents = drag.dragNode.parents
+		active.data.syn.push(drag.dragNode.text)
 	}
 	if (!!drag.dragNode && drag.focus == false) {
 		return {
@@ -72,6 +73,8 @@ const externalDataHandler = () => {
 			kind: drag.dragNode.kind,
 			vis: true,
 			children: [],
+			synparents: [],
+			syn: [],
 		}
 	}
 }
@@ -116,7 +119,7 @@ const focus = (e: Stat) => {
 	if (e.data.focus == true) {
 		other.map((item: Stat) => (item.data.focus = false))
 		drag.focus = true
-		drag.setKind(e.data.kind)
+		drag.setKind(e.data.kind!)
 	} else {
 		other.map((item: Stat) => (item.data.focus = false))
 		drag.focus = false

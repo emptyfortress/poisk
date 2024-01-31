@@ -75,6 +75,7 @@ const tmp = {
 	style: '',
 	class: '',
 	data: {
+		id: 'id',
 		text: 'Задания на контроле',
 		text1: 'Описание поиска',
 		text2: '',
@@ -118,6 +119,8 @@ const tmp = {
 				notset: false,
 			},
 		],
+		synparents: [],
+		syn: [],
 	},
 }
 const dialog = ref(false)
