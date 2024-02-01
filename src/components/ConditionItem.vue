@@ -65,7 +65,8 @@ const showLast = computed(() => {
 	return true
 })
 const par = computed(() => {
-	return props.stat.data.parents?.filter((el) => el !== '')
+	// return props.stat.data.parents?.filter((el) => el !== '')
+	return props.stat.data.parents
 })
 // const calcClass = computed(() => {
 // 	if (props.stat.data.focus == drag.focus) {
