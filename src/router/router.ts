@@ -67,6 +67,12 @@ export const router = createRouter({
 			component: () => import('@/pages/Layout5.vue'),
 			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
+		{
+			path: '/tree',
+			name: 'tree',
+			component: () => import('@/pages/Tree.vue'),
+			// meta: { title: 'Admin console', bread: [{ label: 'Dashboard', to: '/' }] },
+		},
 	],
 })
 
