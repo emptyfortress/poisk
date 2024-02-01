@@ -183,6 +183,8 @@ div
 					q-icon(name="mdi-magnify")
 	Draggable(v-model="props.treeData"
 		ref="tree"
+		treeLine
+		:treeLineOffset="18"
 		:indent="30"
 		:eachDroppable="isDrop"
 		:statHandler="initial"
