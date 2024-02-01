@@ -172,7 +172,7 @@ const par = computed(() => {
 	margin-bottom: 4px;
 	// background: var(--bg-node);
 	// border-radius: 4px;
-	height: 58px;
+	height: 54px;
 	// width: 300px;
 	position: relative;
 }

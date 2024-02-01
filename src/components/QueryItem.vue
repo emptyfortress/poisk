@@ -180,7 +180,7 @@ const hideFirst = computed(() => {
 	background: transparent;
 	padding: 0.5rem;
 	margin-bottom: 4px;
-	height: 58px;
+	height: 54px;
 	&.tran {
 		opacity: 0;
 	}
