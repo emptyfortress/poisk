@@ -135,6 +135,9 @@ const check = (e: Stat) => {
 	console.log(e)
 }
 const hideFirst = computed(() => {
+	if (drag.focus) {
+		return 'dis'
+	}
 	let len = tree.value?.statsFlat.length
 	return len < 3 ? 'tran' : ''
 })
