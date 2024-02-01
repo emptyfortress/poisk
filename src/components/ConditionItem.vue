@@ -168,18 +168,14 @@ const par = computed(() => {
 	display: flex;
 	align-items: center;
 	background: transparent;
-	// padding: 0.5rem;
 	margin-bottom: 4px;
-	// background: var(--bg-node);
-	// border-radius: 4px;
 	height: 54px;
-	// width: 300px;
 	position: relative;
 }
 
 .one {
 	display: grid;
-	grid-template-columns: 2fr 1fr 1fr 25px;
+	grid-template-columns: 2fr 0.85fr 0.8fr 25px;
 	align-items: center;
 	background: var(--bg-node);
 	padding: 0.5rem;
