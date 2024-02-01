@@ -147,9 +147,9 @@ const hideFirst = computed(() => {
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
 
-	Draggable.pad(
+	Draggable.pad(ref="tree"
+		treeLine
 		v-model="treeData"
-		ref="tree"
 		:indent="40"
 		:eachDroppable="isDrop"
 		:eachDraggable="isDrag"
@@ -165,7 +165,7 @@ const hideFirst = computed(() => {
 				@toggleVis="toggle(stat)"
 				@click.exact="check(stat)"
 				@click.alt="focus(stat)"
-				@kill="remove(stat)")
+				@kill="remove(stat)" )
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>
