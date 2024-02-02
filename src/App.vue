@@ -13,8 +13,9 @@ const toggleLeftDrawer = () => {
 q-layout(view='hHh LpR fFf')
 	q-header.head
 		q-toolbar
-			q-btn(dense flat round icon='mdi-menu' @click='toggleLeftDrawer')
-			q-toolbar-title Сервис поисков и представлений
+			img.logo(src="@/assets/img/logo.svg")
+			// q-btn(dense flat round icon='mdi-menu' @click='toggleLeftDrawer')
+			q-toolbar-title Карточка настроек уведомления
 			q-space
 			q-btn(dense flat round icon="mdi-magnify")
 			q-btn.q-ml-md(dense round unelevated color="blue-3")
@@ -51,5 +52,11 @@ q-layout(view='hHh LpR fFf')
 	bottom: -2px;
 	background: green;
 	border: 1px solid #fff;
+}
+.logo {
+	height: 40px;
+}
+.ellipsis {
+	text-align: center;
 }
 </style>
