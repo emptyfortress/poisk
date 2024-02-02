@@ -12,10 +12,14 @@ const dayweek = ref('Понедельник')
 const options1 = ['Первый', 'Второй ', 'Третий', 'Четвертый']
 const options2 = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
 const am = ref('11:00 am')
+const pm = ref('12:00 pm')
 const time = ref('')
 const startdate = ref('2023-01-01')
 const enddate = ref('2024-01-01')
+const hour = ['минут', 'часов']
+const min = ref('минут')
 const inf = ref(true)
+const minnum = ref(10)
 </script>
 
 <template lang="pug">
@@ -83,12 +87,12 @@ q-page(padding)
 						q-input(v-model="am" dense filled )
 					q-card-section.row.items-center.q-gutter-x-md
 						q-radio(v-model="time" val="two" label="Каждые" checked-icon="mdi-checkbox-outline" unchecked-icon="mdi-checkbox-blank-outline")
-						q-input(v-model="am" dense filled )
-						q-select(v-model="dayweek" dense filled :options="options2")
+						q-input(v-model="minnum" dense filled type="number" style="width: 80px;")
+						q-select(v-model="min" dense filled :options="hour")
 						label Время начала:
 						q-input(v-model="am" dense filled )
 						label Время завершения:
-						q-input(v-model="am" dense filled )
+						q-input(v-model="pm" dense filled )
 			q-expansion-item(icon="mdi-flag-checkered" label="Продолжительность")
 				q-card.test1
 					q-card-section.row.items-center.q-gutter-x-md
