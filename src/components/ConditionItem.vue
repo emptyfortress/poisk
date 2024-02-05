@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import { conditions, values } from '@/stores/select'
 import { useDrag } from '@/stores/drag'
+import SynModal from '@/components/SynModal.vue'
 
 const props = defineProps<{
 	stat: Stat
@@ -74,6 +75,10 @@ const par = computed(() => {
 // 	}
 // 	return ''
 // })
+const modal = ref(false)
+const showModal = () => {
+	modal.value = !modal.value
+}
 </script>
 
 <template lang="pug">
@@ -87,11 +92,13 @@ const par = computed(() => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
 	q-form.one(v-if="props.stat.data.type === 1" ref="myform" no-error-focus)
-		div(style="font-size: .9rem;")
+		.txt(style="font-size: .9rem;")
 			template(v-for="item in par" :key="item")
-				span.text-weight-bold {{ item }}
-				span.q-mx-sm >
-			span.text-weight-bold {{ props.stat.data.text}}
+				.text-weight-bold {{ item }}
+				.q-mx-sm >
+			.text-weight-bold {{ props.stat.data.text}}
+			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
+				q-tooltip Добавить в условие поля
 			div(v-if="props.stat.data.syn.length")
 				template(v-for="item in props.stat.data.synparents" :key="item")
 					span.text-weight-bold {{ item }}
@@ -118,6 +125,8 @@ const par = computed(() => {
 	.but
 		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
 		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")
+
+	SynModal(v-model="modal")
 </template>
 
 <style scoped lang="scss">
@@ -217,5 +226,19 @@ const par = computed(() => {
 }
 :deep(.q-field--error .q-field__bottom) {
 	display: none;
+}
+.txt {
+	display: flex;
+	align-items: center;
+	.syn {
+		margin-left: 1rem;
+		visibility: hidden;
+		// height: 32px;
+	}
+	&:hover {
+		.syn {
+			visibility: visible;
+		}
+	}
 }
 </style>
