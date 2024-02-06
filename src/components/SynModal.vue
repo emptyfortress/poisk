@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { fields } from '@/stores/fields'
 import { getMembers } from '@/utils/utils'
@@ -8,6 +8,14 @@ const props = defineProps<{
 	stat: Stat
 }>()
 
+const chips = reactive([
+	{ id: 0, selected: true, label: 'Все' },
+	{ id: 1, selected: false, label: 'Входящий' },
+	{ id: 2, selected: false, label: 'Исходящий' },
+	{ id: 3, selected: false, label: 'На исполнение' },
+	{ id: 4, selected: false, label: 'На ознакомление' },
+	{ id: 5, selected: false, label: 'На согласовние' },
+])
 const modelValue = defineModel()
 const cols: QTableColumn[] = [
 	{
@@ -60,6 +68,9 @@ q-dialog(v-model="modelValue")
 			q-input(dense v-model="filter" debounce="300" color="primary" clearable)
 				template(v-slot:prepend)
 					q-icon(name="mdi-magnify")
+
+		.q-mt-sm.q-mx-md
+			q-chip(v-for="chip in chips" :key="chip.id" v-model:selected="chip.selected" size="12px") {{ chip.label }}
 
 		q-card-section
 			q-table(flat
