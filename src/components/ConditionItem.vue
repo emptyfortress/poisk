@@ -126,7 +126,7 @@ const showModal = () => {
 		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
 		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")
 
-	SynModal(v-model="modal")
+	SynModal(v-model="modal" :stat="props.stat")
 </template>
 
 <style scoped lang="scss">

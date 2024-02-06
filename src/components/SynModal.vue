@@ -1,41 +1,54 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import type { QTableColumn } from 'quasar'
+import { fields } from '@/stores/fields'
+import { getMembers } from '@/utils/utils'
+
+const props = defineProps<{
+	stat: Stat
+}>()
+
 const modelValue = defineModel()
 const cols: QTableColumn[] = [
 	{
-		name: 'field',
+		name: 'text',
 		required: true,
 		label: 'Поле',
 		align: 'left',
-		field: 'field',
+		field: 'text',
 		sortable: true,
 	},
 	{
-		name: 'type',
+		name: 'parents',
 		required: true,
 		label: 'Карточка',
 		align: 'left',
-		field: 'type',
+		field: 'parents',
 		sortable: true,
 	},
 ]
-const selected = ref([{ id: 0, field: 'Тема', type: 'Задание' }])
-const rows = [
-	{ id: 0, field: 'Тема', type: 'Задание' },
-	{ id: 1, field: 'Тема', type: 'Группа заданий' },
-	{ id: 2, field: 'Содержание', type: 'Документ - Входящий' },
-	{ id: 3, field: 'Содержание', type: 'Документ - Исходящий' },
-]
+const selected = ref<NodeData[]>([])
+selected.value.push(props.stat.data)
+
+const flat = getMembers(fields)
+
+const rows = computed(() => {
+	return flat.filter((el: any) => el.kind == props.stat.data.kind)
+})
 const select = (_: Event, row: any, index: number) => {
 	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
-	if (sel) {
+	if (sel == true) {
 		const ind = selected.value.indexOf(row)
 		selected.value.splice(ind, 1)
 	} else selected.value.push(row)
+	console.log(selected.value)
 }
 const filter = ref('')
 const common = ref('')
+
+const pagination = {
+	rowsPerPage: 8,
+}
 </script>
 
 <template lang="pug">
@@ -57,18 +70,18 @@ q-dialog(v-model="modelValue")
 				:filter="filter"
 				v-model:selected="selected"
 				@rowClick="select"
+				:pagination="pagination"
 				row-key="id" )
 				template(v-slot:header-selection="scope")
 					q-checkbox(dense v-model="scope.selected" color="primary" size="sm")
 
 				template(v-slot:body-selection="scope")
 					q-checkbox(dense v-model="scope.selected" color="primary" size="sm")
-
-				template(v-slot:bottom)
-					.bottom
-						div
-							span(v-if="selected.length") Выбрано: {{selected.length}}
-						div Всего: {{rows.length}}
+				template(v-slot:body-cell-parents="props")
+					q-td(:props="props")
+						template(v-for="(par, index) in props.row.parents" :key="par")
+							span {{par}}
+							span.q-mx-sm(v-if="index + 1 < props.row.parents.length") >
 
 		.info Введите общую метку для выбранных полей, для показа в форме поиска.
 		.row.justify-center.items-center.q-gutter-x-md
@@ -83,7 +96,7 @@ q-dialog(v-model="modelValue")
 
 <style scoped lang="scss">
 .q-card {
-	min-width: 600px;
+	min-width: 700px;
 }
 :deep(.q-checkbox) {
 	width: 24px;

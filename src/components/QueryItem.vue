@@ -55,7 +55,7 @@ const externalDataHandler = () => {
 	}
 	if (!!drag.dragNode && drag.focus == false) {
 		return {
-			id: uid(),
+			id: drag.dragNode.id,
 			text: drag.dragNode.text,
 			text1: '',
 			text2: 'Равно',
@@ -132,7 +132,7 @@ const calcClass = (e: Stat) => {
 	return ''
 }
 const check = (e: Stat) => {
-	console.log(e)
+	// console.log(e)
 }
 const hideFirst = computed(() => {
 	if (drag.focus) {

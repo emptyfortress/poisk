@@ -1,3 +1,15 @@
+enum Kind {
+	Text,
+	Date,
+	Org,
+	Num,
+	Man,
+	Status,
+	Link,
+	Phone,
+	Email,
+	Bool,
+}
 type ColNode = {
 	id?: string
 	parents?: String[]

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed, nextTick } from 'vue'
+import { ref, watch, computed } from 'vue'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
@@ -51,6 +51,7 @@ const clearFilter = () => {
 
 const dragstart = (e: NodeData) => {
 	drag.setCurrentDrag(e)
+	// console.log(tree.value)
 }
 const dragend = () => {
 	if (!!drag.dragNode && !!drag.dragNode.parents && drag.treeKey !== drag.dragNode.parents[1]) {
@@ -104,7 +105,7 @@ div
 		v-model:expanded="expanded"
 		icon="mdi-chevron-right" )
 		template(v-slot:default-header="prop")
-			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}")
+			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}" )
 				WordHighlighter(:query="query") {{ prop.node.text }}
 
 </template>
