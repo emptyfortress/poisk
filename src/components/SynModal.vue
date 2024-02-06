@@ -49,10 +49,9 @@ const select = (_: Event, row: any, index: number) => {
 		const ind = selected.value.indexOf(row)
 		selected.value.splice(ind, 1)
 	} else selected.value.push(row)
-	console.log(selected.value)
 }
 const filter = ref('')
-const common = ref('')
+const common = ref(props.stat.data.text)
 
 const pagination = {
 	rowsPerPage: 8,
