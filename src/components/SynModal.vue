@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import type { QTableColumn } from 'quasar'
 const modelValue = defineModel()
 const cols: QTableColumn[] = [
@@ -14,14 +14,13 @@ const cols: QTableColumn[] = [
 	{
 		name: 'type',
 		required: true,
-		label: 'Тип карточки',
+		label: 'Карточка',
 		align: 'left',
 		field: 'type',
 		sortable: true,
 	},
 ]
 const selected = ref([{ id: 0, field: 'Тема', type: 'Задание' }])
-const getSelectedString = ref('fuck')
 const rows = [
 	{ id: 0, field: 'Тема', type: 'Задание' },
 	{ id: 1, field: 'Тема', type: 'Группа заданий' },
@@ -29,15 +28,14 @@ const rows = [
 	{ id: 3, field: 'Содержание', type: 'Документ - Исходящий' },
 ]
 const select = (_: Event, row: any, index: number) => {
-	selected.value.push(row)
+	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
+	if (sel) {
+		const ind = selected.value.indexOf(row)
+		selected.value.splice(ind, 1)
+	} else selected.value.push(row)
 }
-const getString = () => {
-	return selected.value.length === 0
-		? ''
-		: `Выбрано ${selected.value.length} поле${selected.value.length > 1 ? 'й' : ''} из ${
-				rows.length
-		  } доступных`
-}
+const filter = ref('')
+const common = ref('')
 </script>
 
 <template lang="pug">
@@ -46,7 +44,9 @@ q-dialog(v-model="modelValue")
 		q-card-section.row.items-center.q-pb-none
 			.text-h6 Добавить поля
 			q-space
-			q-btn(icon="mdi-close" flat round dense v-close-popup)
+			q-input(dense v-model="filter" debounce="300" color="primary" clearable)
+				template(v-slot:prepend)
+					q-icon(name="mdi-magnify")
 
 		q-card-section
 			q-table(flat
@@ -54,17 +54,26 @@ q-dialog(v-model="modelValue")
 				:rows="rows"
 				color="primary"
 				selection="multiple"
+				:filter="filter"
 				v-model:selected="selected"
 				@rowClick="select"
-				:selected-rows-label="getString"
-				hide-pagination
 				row-key="id" )
 				template(v-slot:header-selection="scope")
-					q-checkbox(dense v-model="scope.selected" color="primary")
+					q-checkbox(dense v-model="scope.selected" color="primary" size="sm")
 
 				template(v-slot:body-selection="scope")
-					q-checkbox(dense v-model="scope.selected" color="primary")
+					q-checkbox(dense v-model="scope.selected" color="primary" size="sm")
 
+				template(v-slot:bottom)
+					.bottom
+						div
+							span(v-if="selected.length") Выбрано: {{selected.length}}
+						div Всего: {{rows.length}}
+
+		.info Введите общую метку для выбранных полей, для показа в форме поиска.
+		.row.justify-center.items-center.q-gutter-x-md
+			label Общая метка:
+			q-input.lab(v-model="common" dense filled)
 		q-card-section
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup) 
@@ -78,5 +87,23 @@ q-dialog(v-model="modelValue")
 }
 :deep(.q-checkbox) {
 	width: 24px;
+}
+.q-input {
+	width: 200px;
+}
+.bottom {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.info {
+	font-size: 0.9rem;
+	margin: 0 2rem;
+	margin-bottom: 1rem;
+	// background: pink;
+}
+.lab {
+	width: 320px;
 }
 </style>
