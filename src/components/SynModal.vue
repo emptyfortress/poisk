@@ -145,4 +145,7 @@ q-dialog(v-model="modelValue")
 .lab {
 	width: 320px;
 }
+.q-chip:first-child {
+	margin-right: 2rem;
+}
 </style>
