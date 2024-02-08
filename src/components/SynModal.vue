@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, watch } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { fields } from '@/stores/fields'
 import { getMembers } from '@/utils/utils'
@@ -16,6 +16,9 @@ const chips = reactive([
 	{ id: 4, selected: false, label: 'На ознакомление' },
 	{ id: 5, selected: false, label: 'На согласовние' },
 ])
+const chiplength = computed(() => {
+	return chips.filter((el) => el.selected).length
+})
 const modelValue = defineModel()
 const cols: QTableColumn[] = [
 	{
@@ -56,6 +59,19 @@ const common = ref(props.stat.data.text)
 const pagination = {
 	rowsPerPage: 8,
 }
+const selChip = (id: number) => {
+	if (id !== 0) {
+		chips[0].selected = false
+	} else {
+		chips.map((el) => (el.selected = false))
+		chips[0].selected = true
+	}
+}
+watch(chiplength, (val) => {
+	if (val == 0) {
+		chips[0].selected = true
+	}
+})
 </script>
 
 <template lang="pug">
@@ -69,7 +85,7 @@ q-dialog(v-model="modelValue")
 					q-icon(name="mdi-magnify")
 
 		.q-mt-sm.q-mx-md
-			q-chip(v-for="chip in chips" :key="chip.id" v-model:selected="chip.selected" size="12px") {{ chip.label }}
+			q-chip(v-for="chip in chips" :key="chip.id" v-model:selected="chip.selected" size="12px" @click="selChip(chip.id)") {{ chip.label }}
 
 		q-card-section
 			q-table(flat
