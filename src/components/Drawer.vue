@@ -14,6 +14,12 @@ const pages = [
 		url: '/',
 	},
 	{
+		id: 9,
+		title: 'Текст',
+		icon: 'mdi-format-size',
+		url: '/text',
+	},
+	{
 		id: 1,
 		title: 'Запросы',
 		icon: 'mdi-puzzle-outline',
