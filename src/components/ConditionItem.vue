@@ -91,7 +91,7 @@ const showModal = () => {
 		.q-ml-md Оператор
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
-	q-form.one(v-if="props.stat.data.type === 1" ref="myform" no-error-focus)
+	q-form.one(v-if="props.stat.data.type === 1 || props.stat.data.type === 2" ref="myform" no-error-focus)
 		.txt(style="font-size: .9rem;")
 			template(v-for="item in par" :key="item")
 				.text-weight-bold {{ item }}

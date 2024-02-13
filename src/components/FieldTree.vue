@@ -87,7 +87,7 @@ const myfields = computed(() => {
 	}
 	return data.value
 })
-const expanded = ref(['oper', 'type', 'task'])
+const expanded = ref(['oper', 'type', 'doc'])
 </script>
 
 <template lang="pug">
