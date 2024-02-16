@@ -36,6 +36,18 @@ const filterByKind = (array: any, searchTerm: number) => {
 			: prev
 	}, [])
 }
+const filterByCommon = (array: any, searchTerm: boolean) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByCommon(curr.children, searchTerm) : undefined
+		// const even = (elem: any) => {
+		// 	elem == searchTerm ? false : false
+		// }
+
+		return curr.common !== searchTerm || children?.length > 0
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
 
 const data = computed(() => {
 	return props.layout ? fields.filter((el) => el.type !== 0) : fields
@@ -84,9 +96,21 @@ const myfields = computed(() => {
 	if (!!drag.treeKey && drag.focus == true) {
 		return filterByKind(data.value, drag.kind)
 	}
-	return data.value
+	return filterByCommon(data.value, !common.value)
 })
 const expanded = ref(['type'])
+const common = ref(false)
+const calcCommon = (e: any) => {
+	if (e.common == true && common.value == false) {
+		return false
+	}
+	if (e.common == true && common.value == true) {
+		return true
+	}
+	if (e.common == undefined) {
+		return true
+	}
+}
 </script>
 
 <template lang="pug">
@@ -99,6 +123,7 @@ div
 			q-icon(:name="item.icon" )
 			span Оператор {{ item.text}}
 
+	q-checkbox.q-mb-md(v-model="common" dense label="Показать общие свойства")
 	q-tree(ref="tree"
 		:nodes="myfields"
 		dense
