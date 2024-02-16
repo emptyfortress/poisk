@@ -90,9 +90,9 @@ watch(
 )
 
 const myfields = computed(() => {
-	if (!!drag.treeKey && drag.focus == false) {
-		return filterByLabel(data.value, drag.treeKey)
-	}
+	// if (!!drag.treeKey && drag.focus == false) {
+	// 	return filterByLabel(data.value, drag.treeKey)
+	// }
 	if (!!drag.treeKey && drag.focus == true) {
 		return filterByKind(data.value, drag.kind)
 	}
