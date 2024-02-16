@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import WordHighlighter from 'vue-word-highlighter'
-import { fields } from '@/stores/fields'
+import { fields, operators } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
 
 const props = defineProps({
@@ -51,7 +51,6 @@ const clearFilter = () => {
 
 const dragstart = (e: NodeData) => {
 	drag.setCurrentDrag(e)
-	// console.log(tree.value)
 }
 const dragend = () => {
 	if (!!drag.dragNode && !!drag.dragNode.parents && drag.treeKey !== drag.dragNode.parents[1]) {
@@ -87,7 +86,7 @@ const myfields = computed(() => {
 	}
 	return data.value
 })
-const expanded = ref(['oper', 'type', 'doc'])
+const expanded = ref(['type'])
 </script>
 
 <template lang="pug">
@@ -95,6 +94,10 @@ div
 	q-input.q-mx-md.q-mb-md( ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter")
 		template(v-slot:prepend)
 			q-icon(name="mdi-magnify")
+	.oper
+		div(v-for="item in operators" :key="item.id" draggable="true" @dragstart="dragstart(item)" @dragend="dragend")
+			q-icon(:name="item.icon" )
+			span Оператор {{ item.text}}
 
 	q-tree(ref="tree"
 		:nodes="myfields"
@@ -105,8 +108,10 @@ div
 		v-model:expanded="expanded"
 		icon="mdi-chevron-right" )
 		template(v-slot:default-header="prop")
+			// q-icon(v-if="!prop.node.drag" name="mdi-square-medium")
+			q-icon(v-if="!prop.node.drag" name="mdi-folder-outline" color="dark")
 			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}" )
-				WordHighlighter(:query="query") {{ prop.node.text }}
+				WordHighlighter(:query="query" ) {{ prop.node.text }}
 
 </template>
 
@@ -130,5 +135,18 @@ div
 }
 .grey {
 	color: $secondary;
+}
+.oper {
+	font-size: 0.9rem;
+	margin-bottom: 1rem;
+	color: $primary;
+	cursor: pointer;
+	div {
+		padding: 2px 6px;
+		background: var(--bg-main);
+	}
+	span {
+		margin-left: 0.5rem;
+	}
 }
 </style>

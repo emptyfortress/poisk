@@ -1,4 +1,5 @@
 enum Kind {
+	String,
 	Text,
 	Date,
 	Org,
