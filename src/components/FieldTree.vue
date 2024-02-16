@@ -108,8 +108,7 @@ div
 		v-model:expanded="expanded"
 		icon="mdi-chevron-right" )
 		template(v-slot:default-header="prop")
-			// q-icon(v-if="!prop.node.drag" name="mdi-square-medium")
-			q-icon(v-if="!prop.node.drag" name="mdi-folder-outline" color="dark")
+			q-icon(v-if="!prop.node.drag" name="mdi-folder-outline")
 			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}" )
 				WordHighlighter(:query="query" ) {{ prop.node.text }}
 
