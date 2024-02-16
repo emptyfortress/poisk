@@ -16,16 +16,23 @@ const operators = [
 	{
 		id: '1',
 		text: 'И',
+		text1: '',
+		text2: '',
 		hidden: false,
 		type: 0,
 		selected: false,
 		drag: true,
 		drop: true,
 		icon: 'mdi-gate-and',
+		fields: [],
+		synparents: [],
+		syn: [],
 	},
 	{
 		id: '2',
 		text: 'ИЛИ',
+		text1: '',
+		text2: '',
 		hidden: false,
 		type: 0,
 		typ: true,
@@ -33,6 +40,9 @@ const operators = [
 		drag: true,
 		drop: true,
 		icon: 'mdi-gate-or',
+		fields: [],
+		synparents: [],
+		syn: [],
 	},
 ]
 const fields = [
@@ -728,7 +738,7 @@ const fields = [
 				children: [
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Название',
 						kind: Kind.String,
 						hidden: false,
@@ -739,7 +749,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Срок исполнения',
 						kind: Kind.Date,
 						hidden: false,
@@ -750,7 +760,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Дата контроля',
 						kind: Kind.Date,
 						date: true,
@@ -761,7 +771,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Дата отправки',
 						kind: Kind.Date,
 						date: true,
@@ -772,7 +782,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Важность',
 						hidden: false,
 						type: 1,
@@ -781,7 +791,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Автор',
 						kind: Kind.Man,
 						hidden: false,
@@ -980,7 +990,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Содержание',
 						kind: Kind.Text,
 						hidden: false,
@@ -991,7 +1001,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Докумeнт',
 						kind: Kind.Link,
 						hidden: false,
@@ -1001,7 +1011,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Исполнители',
 						kind: Kind.Man,
 						hidden: false,
@@ -1012,7 +1022,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Состояние ',
 						kind: Kind.Status,
 						hidden: false,
@@ -1022,7 +1032,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Подчиненные группы заданий',
 						kind: Kind.Link,
 						hidden: false,
@@ -1032,7 +1042,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Подчиненные задания',
 						kind: Kind.Link,
 						hidden: false,
@@ -1042,7 +1052,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Контролер',
 						kind: Kind.Man,
 						man: true,
@@ -1157,7 +1167,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Длительность фактическая',
 						hidden: false,
 						type: 1,
@@ -1166,7 +1176,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Завершено позже срока',
 						kind: Kind.Bool,
 						hidden: false,
@@ -1177,7 +1187,7 @@ const fields = [
 					},
 					{
 						id: uid(),
-						parents: ['Задание', ],
+						parents: ['Задание'],
 						text: 'Задание ответственного исполнителя',
 						kind: Kind.Bool,
 						hidden: false,
