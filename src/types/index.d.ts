@@ -11,6 +11,15 @@ enum Kind {
 	Email,
 	Bool,
 }
+interface Option {
+	id: string
+	text: string
+	value: string
+	selected: boolean
+	level: number
+	parent: string[]
+	children: Option[]
+}
 type ColNode = {
 	id?: string
 	parents?: String[]

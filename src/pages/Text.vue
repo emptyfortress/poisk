@@ -2,89 +2,78 @@
 import { ref, computed, watchEffect } from 'vue'
 import { zero } from '@/stores/options'
 
-const zero1 = ref(zero)
-const lev0 = computed(() => {
-	return zero1.value.filter((e) => e.level == 0)
-})
-const lev1 = computed(() => {
-	return zero1.value.filter((e) => e.level == 1)
-})
+const options = ref(zero)
 
-const options = computed(() => {
-	return zero1.value
-	// if (keys.value.length == 0) return zero1.value.filter((e) => e.level == 0)
-	// if (keys.value.length == 1) return zero1.value.filter((e) => e.level > 0)
+// const filterFn = (val: string, update: Function) => {
+// 	update(() => {
+// 		if (val === '') {
+// 			zero1.value = zero
+// 		} else {
+// 			const needle = val.toLowerCase()
+// 			zero1.value = zero.filter((v) => v.text.toLowerCase().indexOf(needle) > -1)
+// 		}
+// 	})
+// }
+const keys = ref<Option[]>([])
+
+const query = ref(null)
+
+const level1 = computed(() => {
+	let active = keys.value[0].children
+	if (!!query.value) {
+		return active.filter((el) => el.text.toLowerCase().includes(query.value.toLowerCase()))
+	} else return active
 })
-
-// const keys = computed(() => {
-// 	return zero1.value.filter((e) => e.selected == true)
-// })
-
-const filterFn = (val: string, update: Function) => {
-	update(() => {
-		if (val === '') {
-			zero1.value = zero
-		} else {
-			const needle = val.toLowerCase()
-			zero1.value = zero.filter((v) => v.text.toLowerCase().indexOf(needle) > -1)
-		}
-	})
-}
-const keys = ref([])
-const add = (e: any) => {
-	e.selected = !e.selected
+const add1 = (e: Option) => {
+	keys.value = []
+	options.value.map((el) => (el.selected = false))
+	e.selected = true
 	keys.value.push(e)
+	level1.value.map((el) => (el.selected = false))
 }
-const reset = () => {
-	// options.value.map((e: any) => (e.selected = false))
+const add2 = (e: Option) => {
+	level1.value.map((el) => (el.selected = false))
+	e.selected = !e.selected
+	if (e.selected == true) {
+		keys.value[1] = e
+	} else {
+		let idx = keys.value.findIndex((item) => item.id == e.id)
+		keys.value.splice(idx, 1)
+	}
+	query.value = null
 }
-const remove = (e: any) => {
-	e.opt.selected = false
+const remove = (el: Option) => {
+	if (el.level == 0) {
+		options.value.map((e: any) => (e.selected = false))
+		level1.value.map((e: any) => (e.selected = false))
+		keys.value = []
+	}
+	if (el.level == 1) {
+		level1.value.map((e: any) => (e.selected = false))
+		let idx = keys.value.findIndex((item) => item.id == el.id)
+		keys.value.splice(idx, 1)
+	}
 }
-const name = computed(() => {
-	return
-})
-const mod = ref('')
 </script>
 
 <template lang="pug">
 q-page(padding)
 	.container
 		.zag.q-mb-lg Простой поиск
-		q-input(v-model="mod" clearable dense)
+		q-input(v-model="query" clearable dense @clear="query = null")
 			template(v-slot:prepend)
-				q-icon(name="mdi-close" color="primary")
-				q-icon(name="mdi-close" color="primary")
+				q-chip( dense v-for="key in keys" :key="key.id" removable @remove="remove(key)" ) {{key.text}}
 			template(v-slot:append)
 				q-icon(name="mdi-close" color="primary")
 
-		// q-select(dense
-			v-model="keys"
-			use-input
-			use-chips
-			multiple
-			clearable
-			@clear="reset"
-			outlined
-			menu-shrink
-			hide-dropdown-icon
-			input-debounce="0"
-			:options="options"
-			@filter="filterFn"
-			bg-color="white").keys
-
-			template(v-slot:option="scope")
-			template(v-slot:no-option)
-			template(v-slot:selected-item="scope")
-				q-chip(v-model="scope.selected" dense removable @remove="remove(scope)") {{scope.opt.text}}
-		// .grid
+		.grid
 			q-list
-				q-item(v-for="item in lev0" :key="item.id" clickable @click="add(item)" :class="{selected: item.selected}")
+				q-item(v-for="item in options" :key="item.id" clickable @click="add1(item)" :class="{selected: item.selected}")
 					q-item-section
 						q-item-label {{item.text}}
-			transition(name="slide-right")
-				q-list(v-if="keys.length > 0")
-					q-item(v-for="item in lev1" :key="item.id" clickable @click="add(item)" :class="{selected: item.selected}")
+			transition(name="slide-right" mode="out-in")
+				q-list(v-if="keys.length > 0" )
+					q-item(v-for="item in level1" :key="item.id" clickable @click="add2(item)" :class="{selected: item.selected}")
 						q-item-section
 							q-item-label {{item.text}}
 			transition(name="slide-right")
@@ -109,8 +98,10 @@ q-page(padding)
 	margin-bottom: 1px;
 }
 .q-chip {
-	margin-bottom: 0;
-	margin-top: 0;
+	padding: 2px 8px;
+	background: #ccc;
+	// margin-bottom: 0;
+	// margin-top: 0;
 }
 .q-input {
 	font-size: 1.2rem;
