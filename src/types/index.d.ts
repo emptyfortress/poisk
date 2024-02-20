@@ -14,12 +14,16 @@ enum Kind {
 interface Option {
 	id: string
 	text: string
-	value: string
 	selected: boolean
+	type?: number
 	level: number
-	parent: string[]
+	parents: string[] | []
 	kind?: number
-	children: Option[]
+	inp?: boolean
+	drag?: boolean
+	man?: boolean
+	date?: boolean
+	children?: Option[] | []
 }
 type ColNode = {
 	id?: string

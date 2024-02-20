@@ -21,7 +21,7 @@ const query = ref('')
 const level1 = computed(() => {
 	let active = keys.value[0].children
 	if (!!query.value) {
-		return active.filter((el) => el.text.toLowerCase().includes(query.value?.toLowerCase()))
+		return active?.filter((el) => el.text.toLowerCase().includes(query.value?.toLowerCase()))
 	} else return active
 })
 const add1 = (e: Option) => {
@@ -29,10 +29,10 @@ const add1 = (e: Option) => {
 	options.value.map((el) => (el.selected = false))
 	e.selected = true
 	keys.value.push(e)
-	level1.value.map((el) => (el.selected = false))
+	level1.value?.map((el) => (el.selected = false))
 }
 const add2 = (e: Option) => {
-	level1.value.map((el) => (el.selected = false))
+	level1.value?.map((el) => (el.selected = false))
 	e.selected = !e.selected
 	if (e.selected == true) {
 		keys.value[1] = e
@@ -45,11 +45,11 @@ const add2 = (e: Option) => {
 const remove = (el: Option) => {
 	if (el.level == 0) {
 		options.value.map((e: any) => (e.selected = false))
-		level1.value.map((e: any) => (e.selected = false))
+		level1.value?.map((e: any) => (e.selected = false))
 		keys.value = []
 	}
 	if (el.level == 1) {
-		level1.value.map((e: any) => (e.selected = false))
+		level1.value?.map((e: any) => (e.selected = false))
 		let idx = keys.value.findIndex((item) => item.id == el.id)
 		keys.value.splice(idx, 1)
 	}
