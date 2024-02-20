@@ -1,6 +1,6 @@
 import { uid } from 'quasar'
 
-const options = [
+const zero = [
 	{
 		id: uid(),
 		text: 'Документы',
@@ -8,40 +8,6 @@ const options = [
 		selected: false,
 		level: 0,
 		parent: [],
-		children: [
-			{
-				id: uid(),
-				text: 'Исходящий',
-				value: 'Исходящий',
-				selected: false,
-				parent: ['Документы'],
-				children: [],
-			},
-			{
-				id: uid(),
-				text: 'Входящий',
-				value: 'Входящий',
-				selected: false,
-				parent: ['Документы'],
-				children: [],
-			},
-			{
-				id: uid(),
-				text: 'Договор',
-				value: 'Договор',
-				selected: false,
-				parent: ['Документы'],
-				children: [],
-			},
-			{
-				id: uid(),
-				text: 'Доп.соглашение',
-				value: 'Доп.соглашение',
-				selected: false,
-				parent: ['Документы'],
-				children: [],
-			},
-		],
 	},
 	{
 		id: uid(),
@@ -50,7 +16,6 @@ const options = [
 		selected: false,
 		level: 0,
 		parent: [],
-		children: [],
 	},
 	{
 		id: uid(),
@@ -59,7 +24,6 @@ const options = [
 		selected: false,
 		level: 0,
 		parent: [],
-		children: [],
 	},
 	{
 		id: uid(),
@@ -68,8 +32,39 @@ const options = [
 		selected: false,
 		level: 0,
 		parent: [],
-		children: [],
+	},
+	{
+		id: uid(),
+		text: 'Исходящий',
+		value: 'Исходящий',
+		selected: false,
+		parent: ['Документы'],
+		level: 1,
+	},
+	{
+		id: uid(),
+		text: 'Входящий',
+		value: 'Входящий',
+		selected: false,
+		parent: ['Документы'],
+		level: 1,
+	},
+	{
+		id: uid(),
+		text: 'Договор',
+		value: 'Договор',
+		selected: false,
+		parent: ['Документы'],
+		level: 1,
+	},
+	{
+		id: uid(),
+		text: 'Доп.соглашение',
+		value: 'Доп.соглашение',
+		selected: false,
+		parent: ['Документы'],
+		level: 1,
 	},
 ]
 
-export { options }
+export { zero }

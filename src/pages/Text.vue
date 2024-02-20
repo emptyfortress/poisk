@@ -1,51 +1,64 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { options as stringOptions } from '@/stores/options'
-import { getMembers } from '@/utils/utils'
+import { ref, computed, watchEffect } from 'vue'
+import { zero } from '@/stores/options'
 
-const options = ref(stringOptions)
-const flatList = computed(() => {
-	return getMembers(options.value)
+const zero1 = ref(zero)
+const lev0 = computed(() => {
+	return zero1.value.filter((e) => e.level == 0)
+})
+const lev1 = computed(() => {
+	return zero1.value.filter((e) => e.level == 1)
+})
+
+const options = computed(() => {
+	return zero1.value
+	// if (keys.value.length == 0) return zero1.value.filter((e) => e.level == 0)
+	// if (keys.value.length == 1) return zero1.value.filter((e) => e.level > 0)
 })
 
 // const keys = computed(() => {
-// 	return flatList.value.filter((e) => e.selected)
+// 	return zero1.value.filter((e) => e.selected == true)
 // })
-const keys = computed({
-	get() {
-		return flatList.value.filter((e) => e.selected)
-	},
-	set(newValue) {},
-})
 
 const filterFn = (val: string, update: Function) => {
 	update(() => {
 		if (val === '') {
-			options.value = stringOptions
+			zero1.value = zero
 		} else {
 			const needle = val.toLowerCase()
-			options.value = stringOptions.filter((v) => v.text.toLowerCase().indexOf(needle) > -1)
+			zero1.value = zero.filter((v) => v.text.toLowerCase().indexOf(needle) > -1)
 		}
 	})
 }
+const keys = ref([])
 const add = (e: any) => {
 	e.selected = !e.selected
+	keys.value.push(e)
 }
 const reset = () => {
-	options.value.map((e) => (e.selected = false))
+	// options.value.map((e: any) => (e.selected = false))
 }
 const remove = (e: any) => {
-	console.log(e.opt.id)
-	let idx = flatList.value.findIndex((item) => item.id == e.opt.id)
-	console.log(idx)
+	e.opt.selected = false
 }
+const name = computed(() => {
+	return
+})
+const mod = ref('')
 </script>
 
 <template lang="pug">
 q-page(padding)
 	.container
 		.zag.q-mb-lg Простой поиск
-		q-select(dense
+		q-input(v-model="mod" clearable dense)
+			template(v-slot:prepend)
+				q-icon(name="mdi-close" color="primary")
+				q-icon(name="mdi-close" color="primary")
+			template(v-slot:append)
+				q-icon(name="mdi-close" color="primary")
+
+		// q-select(dense
 			v-model="keys"
 			use-input
 			use-chips
@@ -54,7 +67,6 @@ q-page(padding)
 			@clear="reset"
 			outlined
 			menu-shrink
-			emit-value
 			hide-dropdown-icon
 			input-debounce="0"
 			:options="options"
@@ -65,14 +77,14 @@ q-page(padding)
 			template(v-slot:no-option)
 			template(v-slot:selected-item="scope")
 				q-chip(v-model="scope.selected" dense removable @remove="remove(scope)") {{scope.opt.text}}
-		.grid
+		// .grid
 			q-list
-				q-item(v-for="item in options" :key="item.id" clickable @click="add(item)" :class="{selected: item.selected}")
+				q-item(v-for="item in lev0" :key="item.id" clickable @click="add(item)" :class="{selected: item.selected}")
 					q-item-section
 						q-item-label {{item.text}}
 			transition(name="slide-right")
 				q-list(v-if="keys.length > 0")
-					q-item(v-for="item in options[0].children" :key="item.id" clickable @click="add(item)" :class="{selected: item.selected}")
+					q-item(v-for="item in lev1" :key="item.id" clickable @click="add(item)" :class="{selected: item.selected}")
 						q-item-section
 							q-item-label {{item.text}}
 			transition(name="slide-right")
@@ -99,5 +111,8 @@ q-page(padding)
 .q-chip {
 	margin-bottom: 0;
 	margin-top: 0;
+}
+.q-input {
+	font-size: 1.2rem;
 }
 </style>
