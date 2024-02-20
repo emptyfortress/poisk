@@ -16,12 +16,12 @@ const options = ref(zero)
 // }
 const keys = ref<Option[]>([])
 
-const query = ref(null)
+const query = ref('')
 
 const level1 = computed(() => {
 	let active = keys.value[0].children
 	if (!!query.value) {
-		return active.filter((el) => el.text.toLowerCase().includes(query.value.toLowerCase()))
+		return active.filter((el) => el.text.toLowerCase().includes(query.value?.toLowerCase()))
 	} else return active
 })
 const add1 = (e: Option) => {
@@ -40,7 +40,7 @@ const add2 = (e: Option) => {
 		let idx = keys.value.findIndex((item) => item.id == e.id)
 		keys.value.splice(idx, 1)
 	}
-	query.value = null
+	query.value = ''
 }
 const remove = (el: Option) => {
 	if (el.level == 0) {
@@ -60,7 +60,7 @@ const remove = (el: Option) => {
 q-page(padding)
 	.container
 		.zag.q-mb-lg Простой поиск
-		q-input(v-model="query" clearable dense @clear="query = null")
+		q-input(v-model="query" clearable dense @clear="query = ''")
 			template(v-slot:prepend)
 				q-chip( dense v-for="key in keys" :key="key.id" removable @remove="remove(key)" ) {{key.text}}
 			template(v-slot:append)

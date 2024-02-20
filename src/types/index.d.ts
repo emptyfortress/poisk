@@ -18,6 +18,7 @@ interface Option {
 	selected: boolean
 	level: number
 	parent: string[]
+	kind?: number
 	children: Option[]
 }
 type ColNode = {
