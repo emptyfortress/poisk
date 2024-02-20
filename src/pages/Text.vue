@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect } from 'vue'
 import { zero } from '@/stores/options'
-import { strConditions } from '@/stores/conditions'
+import { str, date, dWords } from '@/stores/conditions'
+import SimpleCondition from '@/components/SimpleCondition.vue'
 
 const options = ref(zero)
-const stringConditions = ref(strConditions)
+const stringConditions = ref(str)
+const dateConditions = ref(date)
+const dateWords = ref(dWords)
 
 const keys = ref<Option[]>([])
 const cond = ref<null | String>(null)
@@ -44,6 +47,13 @@ const addStrCondition = (el) => {
 		cond.value = el.text
 	}
 }
+const addDateCondition = (el) => {
+	dateConditions.value.map((item) => (item.selected = false))
+	el.selected = !el.selected
+	if (el.selected == true) {
+		cond.value = el.text
+	}
+}
 const remove = (el: Option) => {
 	if (el.level == 0) {
 		options.value.map((e: any) => (e.selected = false))
@@ -59,19 +69,39 @@ const remove = (el: Option) => {
 const removeCond = () => {
 	cond.value = null
 	stringConditions.value.map((el) => (el.selected = false))
+	dateConditions.value.map((el) => (el.selected = false))
 }
+const list = ref([])
+const reset = () => {
+	keys.value.splice(1)
+	cond.value = null
+	query.value = null
+	// options.value.msp((e: any) => (e.selected = false))
+	level1.value?.map((e: any) => (e.selected = false))
+	stringConditions.value.map((el) => (el.selected = false))
+}
+const addToList = () => {
+	list.value.push('fuck')
+	reset()
+}
+const days = ref(0)
+const datte = ref('2019/02/01')
 </script>
 
 <template lang="pug">
 q-page(padding)
 	.container
 		.zag.q-mb-lg Простой поиск
+		SimpleCondition(v-if="list.length > 0" :list="list")
 		q-input(v-model="query" clearable dense @clear="query = ''")
 			template(v-slot:prepend)
 				q-chip(dense v-for="key in keys" :key="key.id" removable @remove="remove(key)") {{key.text}}
 				q-chip(v-if="cond" dense  removable color="primary" text-color="white" @remove="removeCond") {{cond}}
 			template(v-slot:append)
-				q-icon(name="mdi-close" color="primary")
+				q-btn(v-if="cond && query.length" flat round dense color="primary" icon="mdi-magnify") 
+					q-tooltip Найти
+				q-btn( v-if="cond && query.length" flat round dense color="primary" icon="mdi-plus-circle" @click="addToList") 
+					q-tooltip Добавить условие
 
 		.grid
 			q-list()
@@ -88,6 +118,20 @@ q-page(padding)
 					q-item(v-for="item in stringConditions" :key="item.text" clickable @click="addStrCondition(item)" :class="{selected: item.selected}")
 						q-item-section
 							q-item-label {{item.text}}
+			transition(name="slide-right")
+				q-list(v-if="keys.at(-1)?.kind == 2")
+					q-item(v-for="item in dateConditions"  :key="item.text" clickable @click="addDateCondition(item)" :class="{selected: item.selected}")
+						q-item-section
+							q-item-label {{item.text}}
+			transition(name="slide-right")
+				div
+					q-date(v-if="keys.at(-1)?.kind == 2 && !!cond" v-model="datte" minimal)
+					q-list( v-if="keys.at(-1)?.kind == 2 && !!cond")
+						q-item(v-for="item in dateWords"  :key="item.text" clickable @click="" :class="{selected: item.selected}")
+							q-item-section
+								q-item-label {{item.text}}
+			// transition(name="slide-right")
+			// 	q-date(v-if="keys.at(-1)?.kind == 2 && !!cond" v-model="datte" minimal)
 </template>
 
 <style scoped lang="scss">
@@ -97,6 +141,8 @@ q-page(padding)
 .grid {
 	display: flex;
 	gap: 2rem;
+	justify-content: start;
+	align-items: start;
 }
 .selected {
 	background: $blue-2;
@@ -112,5 +158,9 @@ q-page(padding)
 }
 .q-input {
 	font-size: 1.2rem;
+}
+.sm {
+	font-size: 1rem;
+	width: 70px;
 }
 </style>
