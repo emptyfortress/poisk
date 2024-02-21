@@ -20,8 +20,8 @@ const date = [
 	{ text: 'не задано', selected: false },
 ]
 const dWords = [
-	{ text: 'Сегодня', selected: false, plus: true },
-	{ text: 'Сейчас', selected: false, plus: true },
+	{ text: 'сегодня', selected: false, plus: true, day: 'дн.' },
+	{ text: 'сейчас', selected: false, plus: true, day: 'ч.' },
 	{ text: 'текущая неделя', selected: false },
 	{ text: 'текущий месяц', selected: false },
 	{ text: 'текущий квартал', selected: false },
