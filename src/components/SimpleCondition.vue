@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-	list: Object[]
+	list: any
 }>()
 const emit = defineEmits(['remove'])
 

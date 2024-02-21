@@ -21,6 +21,13 @@ const level1 = computed(() => {
 		return active?.filter((el) => el.text.toLowerCase().includes(query.value?.toLowerCase()))
 	} else return active
 })
+const level2 = computed(() => {
+	let active = keys.value.at(1)!.children
+	if (!!query.value && cond.value == null) {
+		return active?.filter((el) => el.text.toLowerCase().includes(query.value?.toLowerCase()))
+	} else return active
+})
+
 const add1 = (e: Option) => {
 	keys.value = []
 	cond.value = null
@@ -36,6 +43,18 @@ const add2 = (e: Option) => {
 	e.selected = !e.selected
 	if (e.selected == true) {
 		keys.value[1] = e
+	} else {
+		let idx = keys.value.findIndex((item) => item.id == e.id)
+		keys.value.splice(idx, 1)
+	}
+	query.value = ''
+}
+const add3 = (e: Option) => {
+	level2.value?.map((el) => (el.selected = false))
+	stringConditions.value.map((el) => (el.selected = false))
+	e.selected = !e.selected
+	if (e.selected == true) {
+		keys.value.push(e)
 	} else {
 		let idx = keys.value.findIndex((item) => item.id == e.id)
 		keys.value.splice(idx, 1)
@@ -131,6 +150,13 @@ q-page(padding)
 					q-item(v-for="item in level1" :key="item.id" clickable @click="add2(item)" :class="{selected: item.selected}")
 						q-item-section
 							q-item-label {{item.text}}
+
+			transition(name="slide-right" mode="out-in")
+				q-list(v-if="keys.length > 1")
+					q-item(v-for="item in level2" :key="item.id" clickable @click="add3(item)" :class="{selected: item.selected}")
+						q-item-section
+							q-item-label {{item.text}}
+
 			transition(name="slide-right")
 				q-list(v-if="keys.at(-1)?.kind == 0")
 					q-item(v-for="item in stringConditions" :key="item.text" clickable @click="addStrCondition(item)" :class="{selected: item.selected}")
