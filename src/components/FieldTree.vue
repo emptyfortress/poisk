@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, reactive } from 'vue'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields, operators } from '@/stores/fields'
 import { useDrag } from '@/stores/drag'
+import ChipModal from '@/components/ChipModal.vue'
 
 const props = defineProps({
 	layout: {
@@ -111,6 +112,11 @@ const calcCommon = (e: any) => {
 		return true
 	}
 }
+const chip = true
+const chipsModal = ref(false)
+const selChip = () => {
+	chipsModal.value = !chipsModal.value
+}
 </script>
 
 <template lang="pug">
@@ -124,6 +130,9 @@ div
 			span Оператор {{ item.text}}
 
 	q-checkbox.q-mb-md(v-model="common" dense label="Показать общие свойства")
+	div
+		label Показать:
+		q-chip.q-ml-md(v-model:selected="chip" size="12px" @click="selChip") Все
 	q-tree(ref="tree"
 		:nodes="myfields"
 		dense
@@ -136,7 +145,7 @@ div
 			q-icon(v-if="!prop.node.drag" name="mdi-folder-outline")
 			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}" )
 				WordHighlighter(:query="query" ) {{ prop.node.text }}
-
+	ChipModal(v-model="chipsModal")
 </template>
 
 <style scoped lang="scss">
