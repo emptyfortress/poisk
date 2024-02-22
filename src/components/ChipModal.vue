@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, watch, watchEffect } from 'vue'
+import { ref, reactive, watch, watchEffect, computed } from 'vue'
 const modelValue = defineModel()
 
 const doc = reactive([
@@ -37,7 +37,6 @@ const chips = reactive({
 	goal: false,
 	trip: false,
 })
-const test = (el: any) => el == true
 
 watch(chips, (val) => {
 	if (val) {
@@ -56,8 +55,7 @@ watch(task, (val) => {
 })
 watchEffect(() => {
 	if (all.value == true) {
-		chips.group = false
-		chips.goal = false
+		;(chips.group = false), (chips.goal = false)
 		chips.trip = false
 		doc[0].ticked = false
 		task[0].ticked = false
@@ -75,6 +73,17 @@ watchEffect(() => {
 		task[0].children.map((el) => (el.ticked = false))
 	}
 })
+const selectedChips = computed(() => {
+	let temp = {
+		// all: all.value,
+		// doc: doc[0].ticked,
+		// task: task[0].ticked,
+	}
+	return temp
+})
+// const add = (e: string) => {
+// 	selectedChips.value.push()
+// }
 </script>
 
 <template lang="pug">
@@ -105,6 +114,10 @@ q-dialog(v-model="modelValue")
 						q-chip(v-model:selected="chips.goal") Цель
 					div
 						q-chip(v-model:selected="chips.trip") Командировка
+			pre {{ selectedChips }}
+		q-card-actions.q-ma-md(align="right")
+			q-btn(flat color="primary" label="Отмена" @click="") 
+			q-btn(unelevated color="primary" label="Применить" @click="") 
 </template>
 
 <style scoped lang="scss">
