@@ -2,88 +2,106 @@
 import { ref, reactive, watch, watchEffect, computed } from 'vue'
 const modelValue = defineModel()
 
-const doc = reactive([
+const chips = reactive([
+	{
+		id: 0,
+		label: 'Все',
+		ticked: false,
+	},
 	{
 		id: 1,
-		selected: false,
 		label: 'Документ',
 		ticked: false,
 		children: [
-			{ id: 6, ticked: false, label: 'Входящий' },
-			{ id: 7, ticked: false, label: 'Исходящий' },
-			{ id: 7, ticked: false, label: 'Договор' },
-			{ id: 7, ticked: false, label: 'Доп.соглашение' },
+			{ id: 2, ticked: false, label: 'Входящий' },
+			{ id: 3, ticked: false, label: 'Исходящий' },
+			{ id: 4, ticked: false, label: 'Договор' },
+			{ id: 5, ticked: false, label: 'Доп.соглашение' },
 		],
 	},
-])
-const task = reactive([
 	{
-		id: 1,
-		selected: false,
+		id: 6,
 		label: 'Задание',
 		ticked: false,
 		children: [
-			{ id: 8, ticked: false, label: 'На исполнение' },
-			{ id: 9, ticked: false, label: 'На ознакомление' },
-			{ id: 10, ticked: false, label: 'На согласовние' },
+			{ id: 7, ticked: false, label: 'На исполнение' },
+			{ id: 8, ticked: false, label: 'На ознакомление' },
+			{ id: 9, ticked: false, label: 'На согласовние' },
 		],
 	},
+	{
+		id: 10,
+		label: 'Группа заданий',
+		ticked: false,
+	},
+	{
+		id: 11,
+		label: 'Цель',
+		ticked: false,
+	},
+	{
+		id: 12,
+		label: 'Командировка',
+		ticked: false,
+	},
 ])
+const doc = computed(() => {
+	return chips.filter((el) => el.id == 1)
+})
+const task = computed(() => {
+	return chips.filter((el) => el.id == 6)
+})
 const selected = ref('Документ')
 const selected1 = ref('Задание')
-const all = ref(true)
-const chips = reactive({
-	group: false,
-	goal: false,
-	trip: false,
-})
 
-watch(chips, (val) => {
-	if (val) {
-		all.value = false
+const add = (e: any) => {
+	if (e.id == 0 && e.ticked == true) {
+		chips[1].ticked = false
+		chips[2].ticked = false
+		chips[1].children?.map((el) => (el.ticked = false))
+		chips[2].children?.map((el) => (el.ticked = false))
+		chips[3].ticked = false
+		chips[4].ticked = false
+		chips[5].ticked = false
 	}
-})
-watch(doc, (val) => {
-	if (val) {
-		all.value = false
+	if (e.id > 0 && e.ticked == true) {
+		chips[0].ticked = false
 	}
-})
-watch(task, (val) => {
-	if (val) {
-		all.value = false
+	if (e.id == 1 && e.ticked == true) {
+		chips[1].children?.map((el) => (el.ticked = true))
 	}
-})
-watchEffect(() => {
-	if (all.value == true) {
-		;(chips.group = false), (chips.goal = false)
-		chips.trip = false
-		doc[0].ticked = false
-		task[0].ticked = false
+	if (e.id == 1 && e.ticked == false) {
+		chips[1].children?.map((el) => (el.ticked = false))
 	}
-	if (doc[0].ticked) {
-		doc[0].children.map((el) => (el.ticked = true))
+	if (e.id == 6 && e.ticked == true) {
+		chips[2].children?.map((el) => (el.ticked = true))
 	}
-	if (doc[0].ticked == false) {
-		doc[0].children.map((el) => (el.ticked = false))
+	if (e.id == 6 && e.ticked == false) {
+		chips[2].children?.map((el) => (el.ticked = false))
 	}
-	if (task[0].ticked) {
-		task[0].children.map((el) => (el.ticked = true))
+	if (
+		e.id > 1 &&
+		e.id < 6 &&
+		chips[1].children?.filter((el) => el.ticked).length == 3 &&
+		e.ticked == false
+	) {
+		chips[1].ticked = false
 	}
-	if (task[0].ticked == false) {
-		task[0].children.map((el) => (el.ticked = false))
+	if (
+		e.id > 6 &&
+		e.id < 10 &&
+		chips[2].children?.filter((el) => el.ticked).length == 2 &&
+		e.ticked == false
+	) {
+		chips[2].ticked = false
 	}
-})
-const selectedChips = computed(() => {
-	let temp = {
-		// all: all.value,
-		// doc: doc[0].ticked,
-		// task: task[0].ticked,
+	if (chips[1].children?.filter((el) => el.ticked).length == 4) {
+		chips[1].ticked = true
 	}
-	return temp
-})
-// const add = (e: string) => {
-// 	selectedChips.value.push()
-// }
+	if (chips[2].children?.filter((el) => el.ticked).length == 3) {
+		chips[2].ticked = true
+	}
+}
 </script>
 
 <template lang="pug">
@@ -96,25 +114,24 @@ q-dialog(v-model="modelValue")
 
 		q-card-section
 			.grid
-				q-chip(v-model:selected="all") Все
+				q-chip(v-model:selected="chips[0].ticked" @click="add(chips[0])" ) Все
 				q-tree(:nodes="doc" default-expand-all
-					node-key="label"
+					node-key="id"
 					v-model:selected="selected"
 					)
 					template(v-slot:default-header="prop")
-						q-chip(v-model:selected="prop.node.ticked") {{prop.node.label}}
+						q-chip(v-model:selected="prop.node.ticked" @click="add(prop.node)") {{prop.node.label}}
 				q-tree(:nodes="task" node-key="label" default-expand-all
 					v-model:selected="selected1")
 					template(v-slot:default-header="prop")
-						q-chip(v-model:selected="prop.node.ticked") {{prop.node.label}}
+						q-chip(v-model:selected="prop.node.ticked" @click="add(prop.node)") {{prop.node.label}}
 				div
 					div
-						q-chip(v-model:selected="chips.group") Группа заданий
+						q-chip(v-model:selected="chips[3].ticked" @click="add(chips[3])") Группа заданий
 					div
-						q-chip(v-model:selected="chips.goal") Цель
+						q-chip(v-model:selected="chips[4].ticked" @click="add(chips[4])") Цель
 					div
-						q-chip(v-model:selected="chips.trip") Командировка
-			pre {{ selectedChips }}
+						q-chip(v-model:selected="chips[5].ticked" @click="add(chips[5])") Командировка
 		q-card-actions.q-ma-md(align="right")
 			q-btn(flat color="primary" label="Отмена" @click="") 
 			q-btn(unelevated color="primary" label="Применить" @click="") 
