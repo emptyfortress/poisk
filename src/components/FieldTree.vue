@@ -67,7 +67,7 @@ const filterByArray = (array: any, searchTerm: string[]) => {
 const vis = ref<Option[]>([])
 const visFlat = ref<string[]>(['Все'])
 const lab = computed(() => {
-	return visFlat.value.length == 1 ? 'Все' : 'Выбрать'
+	return visFlat.value[0] == 'Все' ? 'Все' : 'Выбрать'
 })
 
 const setTree = (e: any) => {
@@ -159,10 +159,10 @@ div
 			q-icon(:name="item.icon" )
 			span Оператор {{ item.text}}
 
-	q-checkbox.q-mb-md(v-model="common" dense label="Показать общие свойства")
+	q-checkbox.q-mb-md(v-model="common" dense label="Отображать общие свойства")
 	div
 		label Показать:
-		q-chip.q-ml-md(v-model:selected="chip" size="12px" @click="selChip") {{ lab }}
+		q-chip.q-ml-md(v-model:selected="chip" size="12px" @click="selChip" color="primary") {{ lab }}
 	q-tree(ref="tree"
 		:nodes="myfields"
 		dense
@@ -211,5 +211,8 @@ div
 	span {
 		margin-left: 0.5rem;
 	}
+}
+.q-checkbox {
+	font-size: 0.9rem;
 }
 </style>
