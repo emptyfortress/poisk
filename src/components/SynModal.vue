@@ -44,10 +44,15 @@ selected.value.push(props.stat.data)
 
 const flat = getMembers(fields)
 
+const selectedChips = computed(() => {
+	return chips.filter((el: any) => el.selected)
+})
 const rows = computed(() => {
-	return flat
-		.filter((el: any) => el.kind == props.stat.data.kind)
-		.filter((elem: any) => elem.parents[0] === 'Документ')
+	if (all.value) return flat.filter((el: any) => el.kind == props.stat.data.kind)
+	else
+		return flat
+			.filter((el: any) => el.kind == props.stat.data.kind)
+			.filter((elem: any) => selectedChips.value.some((item) => item.label == elem.parents[1]))
 })
 const select = (_: Event, row: any, index: number) => {
 	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
@@ -62,7 +67,7 @@ const common = ref(props.stat.data.text)
 const pagination = {
 	rowsPerPage: 8,
 }
-const selChip = (ind: number) => {
+const selChip = () => {
 	if (chips.filter((el) => el.selected).length == 0) {
 		all.value = true
 	} else all.value = false
@@ -88,7 +93,7 @@ q-dialog(v-model="modelValue")
 		.q-mt-sm.q-mx-md
 			q-chip(v-model:selected="all" size="12px" @click="setAll") Все
 			br
-			q-chip(v-for="(chip, index) in chips" :key="chip.id" v-model:selected="chip.selected" size="12px" @click="selChip(index)") {{ chip.label }}
+			q-chip(v-for="(chip) in chips" :key="chip.id" v-model:selected="chip.selected" size="12px" @click="selChip") {{ chip.label }}
 
 		q-card-section
 			q-table(flat
@@ -117,6 +122,7 @@ q-dialog(v-model="modelValue")
 			label Общая метка:
 			q-input.lab(v-model="common" dense filled)
 		q-card-section
+			// pre {{ selected }}
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup) 
 				q-btn(unelevated color="primary" label="Добавить" v-close-popup) 
@@ -149,5 +155,8 @@ q-dialog(v-model="modelValue")
 }
 .q-chip {
 	margin-right: 0;
+	&.foo {
+		margin-right: 3rem;
+	}
 }
 </style>
