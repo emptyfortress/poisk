@@ -6,7 +6,7 @@ const chips = reactive([
 	{
 		id: 0,
 		label: 'Все',
-		ticked: false,
+		ticked: true,
 	},
 	{
 		id: 1,
@@ -102,6 +102,11 @@ const add = (e: any) => {
 		chips[2].ticked = true
 	}
 }
+const emit = defineEmits(['tree'])
+const setTree = () => {
+	emit('tree', chips)
+	modelValue.value = false
+}
 </script>
 
 <template lang="pug">
@@ -133,8 +138,8 @@ q-dialog(v-model="modelValue")
 					div
 						q-chip(v-model:selected="chips[5].ticked" @click="add(chips[5])") Командировка
 		q-card-actions.q-ma-md(align="right")
-			q-btn(flat color="primary" label="Отмена" @click="") 
-			q-btn(unelevated color="primary" label="Применить" @click="") 
+			q-btn(flat color="primary" label="Отмена" v-close-popup)
+			q-btn(unelevated color="primary" label="Применить" @click="setTree") 
 </template>
 
 <style scoped lang="scss">
