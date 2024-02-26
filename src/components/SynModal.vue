@@ -9,12 +9,13 @@ const props = defineProps<{
 }>()
 
 const chips = reactive([
-	{ id: 0, selected: true, label: 'Все' },
+	// { id: 0, selected: true, label: 'Все' },
 	{ id: 1, selected: false, label: 'Входящий' },
 	{ id: 2, selected: false, label: 'Исходящий' },
+	{ id: 2, selected: false, label: 'Договор' },
 	{ id: 3, selected: false, label: 'На исполнение' },
 	{ id: 4, selected: false, label: 'На ознакомление' },
-	{ id: 5, selected: false, label: 'На согласовние' },
+	{ id: 5, selected: false, label: 'На согласование' },
 ])
 const chiplength = computed(() => {
 	return chips.filter((el) => el.selected).length
@@ -44,7 +45,9 @@ selected.value.push(props.stat.data)
 const flat = getMembers(fields)
 
 const rows = computed(() => {
-	return flat.filter((el: any) => el.kind == props.stat.data.kind)
+	return flat
+		.filter((el: any) => el.kind == props.stat.data.kind)
+		.filter((elem: any) => elem.parents[0] === 'Документ')
 })
 const select = (_: Event, row: any, index: number) => {
 	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
@@ -59,19 +62,17 @@ const common = ref(props.stat.data.text)
 const pagination = {
 	rowsPerPage: 8,
 }
-const selChip = (id: number) => {
-	if (id !== 0) {
-		chips[0].selected = false
-	} else {
+const selChip = (ind: number) => {
+	if (chips.filter((el) => el.selected).length == 0) {
+		all.value = true
+	} else all.value = false
+}
+const all = ref(true)
+const setAll = () => {
+	if (all.value) {
 		chips.map((el) => (el.selected = false))
-		chips[0].selected = true
 	}
 }
-watch(chiplength, (val) => {
-	if (val == 0) {
-		chips[0].selected = true
-	}
-})
 </script>
 
 <template lang="pug">
@@ -85,7 +86,9 @@ q-dialog(v-model="modelValue")
 					q-icon(name="mdi-magnify")
 
 		.q-mt-sm.q-mx-md
-			q-chip(v-for="chip in chips" :key="chip.id" v-model:selected="chip.selected" size="12px" @click="selChip(chip.id)") {{ chip.label }}
+			q-chip(v-model:selected="all" size="12px" @click="setAll") Все
+			br
+			q-chip(v-for="(chip, index) in chips" :key="chip.id" v-model:selected="chip.selected" size="12px" @click="selChip(index)") {{ chip.label }}
 
 		q-card-section
 			q-table(flat
@@ -122,7 +125,7 @@ q-dialog(v-model="modelValue")
 
 <style scoped lang="scss">
 .q-card {
-	min-width: 700px;
+	min-width: 760px;
 }
 :deep(.q-checkbox) {
 	width: 24px;
@@ -140,12 +143,11 @@ q-dialog(v-model="modelValue")
 	font-size: 0.9rem;
 	margin: 0 2rem;
 	margin-bottom: 1rem;
-	// background: pink;
 }
 .lab {
 	width: 320px;
 }
-.q-chip:first-child {
-	margin-right: 2rem;
+.q-chip {
+	margin-right: 0;
 }
 </style>
