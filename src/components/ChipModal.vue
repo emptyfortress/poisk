@@ -31,7 +31,7 @@ const chips = reactive([
 	},
 	{
 		id: 10,
-		label: 'Группа заданий',
+		label: 'ГЗ',
 		ticked: false,
 	},
 	{

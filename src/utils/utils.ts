@@ -28,5 +28,63 @@ const getMembers = (members: any[]): any[] => {
 		})
 		.concat(children.length ? getMembers(children) : children)
 }
+const filterByLabel = (array: any, searchTerm: string) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByLabel(curr.children, searchTerm) : undefined
+		const even = (elem: any) => elem.toLowerCase().includes(searchTerm.toLowerCase())
 
-export { req, reqnum, reqtrue, randomNumber, randomArray, getMembers }
+		return curr.text?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			children?.length > 0 ||
+			curr.parents?.some(even) ||
+			curr.type == 0
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
+const filterByKind = (array: any, searchTerm: number) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByKind(curr.children, searchTerm) : undefined
+		const even = (elem: any) => {
+			elem == searchTerm ? true : false
+		}
+
+		return curr.kind == searchTerm || children?.length > 0 || curr.parents?.some(even)
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
+const filterByCommon = (array: any, searchTerm: boolean) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByCommon(curr.children, searchTerm) : undefined
+
+		return curr.common !== searchTerm || children?.length > 0
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
+const filterByArray = (array: any, searchTerm: string[]) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByArray(curr.children, searchTerm) : undefined
+		const odd = (elem: string) => (elem == curr.text ? true : false)
+
+		const even = (elem: string) =>
+			curr.parents?.some((item: string) => item == elem) ? true : false
+
+		return searchTerm.some(odd) || searchTerm.some(even) || children?.length > 0
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
+
+export {
+	req,
+	reqnum,
+	reqtrue,
+	randomNumber,
+	randomArray,
+	getMembers,
+	filterByLabel,
+	filterByKind,
+	filterByCommon,
+	filterByArray,
+}
