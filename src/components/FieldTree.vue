@@ -2,6 +2,7 @@
 import { ref, watch, computed, reactive } from 'vue'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields, operators } from '@/stores/fields'
+import { getMembers } from '@/utils/utils'
 import { useDrag } from '@/stores/drag'
 import ChipModal from '@/components/ChipModal.vue'
 
@@ -49,16 +50,38 @@ const filterByCommon = (array: any, searchTerm: boolean) => {
 			: prev
 	}, [])
 }
+const filterByArray = (array: any, searchTerm: string[]) => {
+	return array.reduce((prev: any, curr: any) => {
+		const children = curr.children ? filterByArray(curr.children, searchTerm) : undefined
+		const odd = (elem: string) => (elem == curr.text ? true : false)
 
-const vis = ref([])
+		const even = (elem: string) =>
+			curr.parents?.some((item: string) => item == elem) ? true : false
+
+		return searchTerm.some(odd) || searchTerm.some(even) || children?.length > 0
+			? [...prev, { ...curr, children }]
+			: prev
+	}, [])
+}
+
+const vis = ref<Option[]>([])
+const visFlat = ref<string[]>(['Все'])
+const lab = computed(() => {
+	return visFlat.value.length == 1 ? 'Все' : 'Выбрать'
+})
 
 const setTree = (e: any) => {
 	vis.value = [...e]
-	// console.log(vis.value)
+	visFlat.value = getMembers(vis.value)
+		.filter((el) => el.ticked == true)
+		.map((item) => item.label)
 }
 const data = computed(() => {
-	// return props.layout ? fields.filter((el) => el.type !== 0) : fields
-	return fields
+	let temp = []
+	temp = filterByArray(fields, visFlat.value)
+	if (visFlat.value[0] == 'Все') {
+		return fields
+	} else return temp
 })
 
 const drag = useDrag()
@@ -139,7 +162,7 @@ div
 	q-checkbox.q-mb-md(v-model="common" dense label="Показать общие свойства")
 	div
 		label Показать:
-		q-chip.q-ml-md(v-model:selected="chip" size="12px" @click="selChip") Все
+		q-chip.q-ml-md(v-model:selected="chip" size="12px" @click="selChip") {{ lab }}
 	q-tree(ref="tree"
 		:nodes="myfields"
 		dense

@@ -16,7 +16,7 @@ const chips = reactive([
 			{ id: 2, ticked: false, label: 'Входящий' },
 			{ id: 3, ticked: false, label: 'Исходящий' },
 			{ id: 4, ticked: false, label: 'Договор' },
-			{ id: 5, ticked: false, label: 'Доп.соглашение' },
+			// { id: 5, ticked: false, label: 'Доп.соглашение' },
 		],
 	},
 	{
@@ -26,7 +26,7 @@ const chips = reactive([
 		children: [
 			{ id: 7, ticked: false, label: 'На исполнение' },
 			{ id: 8, ticked: false, label: 'На ознакомление' },
-			{ id: 9, ticked: false, label: 'На согласовние' },
+			{ id: 9, ticked: false, label: 'На согласование' },
 		],
 	},
 	{
