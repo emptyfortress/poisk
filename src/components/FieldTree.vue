@@ -50,8 +50,15 @@ const filterByCommon = (array: any, searchTerm: boolean) => {
 	}, [])
 }
 
+const vis = ref([])
+
+const setTree = (e: any) => {
+	vis.value = [...e]
+	// console.log(vis.value)
+}
 const data = computed(() => {
-	return props.layout ? fields.filter((el) => el.type !== 0) : fields
+	// return props.layout ? fields.filter((el) => el.type !== 0) : fields
+	return fields
 })
 
 const drag = useDrag()
@@ -124,7 +131,7 @@ div
 	q-input.q-mx-md.q-mb-md( ref="input" dense v-model="query" clearable hide-bottom-space @clear="clearFilter")
 		template(v-slot:prepend)
 			q-icon(name="mdi-magnify")
-	.oper
+	.oper(v-if="!props.layout")
 		div(v-for="item in operators" :key="item.id" draggable="true" @dragstart="dragstart(item)" @dragend="dragend")
 			q-icon(:name="item.icon" )
 			span Оператор {{ item.text}}
@@ -145,7 +152,7 @@ div
 			q-icon(v-if="!prop.node.drag" name="mdi-folder-outline")
 			.node(:draggable="prop.node.drag" @dragstart="dragstart(prop.node)" @dragend="dragend" :class="{grey : prop.node.drag}" )
 				WordHighlighter(:query="query" ) {{ prop.node.text }}
-	ChipModal(v-model="chipsModal")
+	ChipModal(v-model="chipsModal" @tree="setTree" )
 </template>
 
 <style scoped lang="scss">
