@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive, watch, watchEffect, computed } from 'vue'
+import { useChips } from '@/stores/chips'
 const modelValue = defineModel()
 
+const mychips = useChips()
 const chips = reactive([
 	{
 		id: 0,
@@ -16,7 +18,6 @@ const chips = reactive([
 			{ id: 2, ticked: false, label: 'Входящий' },
 			{ id: 3, ticked: false, label: 'Исходящий' },
 			{ id: 4, ticked: false, label: 'Договор' },
-			// { id: 5, ticked: false, label: 'Доп.соглашение' },
 		],
 	},
 	{
@@ -82,7 +83,7 @@ const add = (e: any) => {
 	if (
 		e.id > 1 &&
 		e.id < 6 &&
-		chips[1].children?.filter((el) => el.ticked).length == 3 &&
+		chips[1].children?.filter((el) => el.ticked).length == 2 &&
 		e.ticked == false
 	) {
 		chips[1].ticked = false
@@ -95,7 +96,7 @@ const add = (e: any) => {
 	) {
 		chips[2].ticked = false
 	}
-	if (chips[1].children?.filter((el) => el.ticked).length == 4) {
+	if (chips[1].children?.filter((el) => el.ticked).length == 3) {
 		chips[1].ticked = true
 	}
 	if (chips[2].children?.filter((el) => el.ticked).length == 3) {
@@ -106,6 +107,8 @@ const emit = defineEmits(['tree'])
 const setTree = () => {
 	emit('tree', chips)
 	modelValue.value = false
+	mychips.setChips(chips)
+	// console.log(chips)
 }
 </script>
 
