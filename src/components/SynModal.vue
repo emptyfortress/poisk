@@ -132,6 +132,7 @@ q-dialog(v-model="modelValue")
 <style scoped lang="scss">
 .q-card {
 	min-width: 760px;
+	min-height: 90vh;
 }
 :deep(.q-checkbox) {
 	width: 24px;
