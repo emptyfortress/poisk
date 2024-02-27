@@ -4,7 +4,7 @@ import WordHighlighter from 'vue-word-highlighter'
 import { fields, operators } from '@/stores/fields'
 import {
 	getMembers,
-	filterByLabel,
+	// filterByLabel,
 	filterByKind,
 	filterByCommon,
 	filterByArray,
@@ -20,7 +20,6 @@ const props = defineProps({
 		default: false,
 	},
 })
-
 const visFlat = ref<string[]>(['Все'])
 const lab = computed(() => {
 	return visFlat.value[0] == 'Все' ? 'Все' : 'Выбрать'
@@ -33,8 +32,8 @@ const setTree = () => {
 		.map((item) => item.label)
 }
 const data = computed(() => {
-	let temp = []
-	temp = filterByArray(fields, visFlat.value)
+	let temp1 = filterByCommon(fields, !common.value)
+	let temp = filterByArray(temp1, visFlat.value)
 	if (visFlat.value[0] == 'Все') {
 		mychips.setRows(fields)
 		return fields
@@ -81,9 +80,6 @@ watch(
 )
 
 const myfields = computed(() => {
-	// if (!!drag.treeKey && drag.focus == false) {
-	// 	return filterByLabel(data.value, drag.treeKey)
-	// }
 	if (!!drag.treeKey && drag.focus == true) {
 		return filterByKind(data.value, drag.kind)
 	}
@@ -91,17 +87,6 @@ const myfields = computed(() => {
 })
 const expanded = ref(['type'])
 const common = ref(false)
-// const calcCommon = (e: any) => {
-// 	if (e.common == true && common.value == false) {
-// 		return false
-// 	}
-// 	if (e.common == true && common.value == true) {
-// 		return true
-// 	}
-// 	if (e.common == undefined) {
-// 		return true
-// 	}
-// }
 const chip = true
 const chipsModal = ref(false)
 const selChip = () => {
