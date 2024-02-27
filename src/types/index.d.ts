@@ -22,8 +22,8 @@ interface Option {
 	text: string
 	selected: boolean
 	type?: number
-	level: number
-	parents: string[] | []
+	level?: number
+	parents?: string[] | []
 	kind?: number
 	inp?: boolean
 	drag?: boolean

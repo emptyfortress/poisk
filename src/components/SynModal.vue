@@ -2,7 +2,7 @@
 import { ref, computed, reactive, watch } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { fields } from '@/stores/fields'
-import { getMembers } from '@/utils/utils'
+import { getMembers, filterByArray } from '@/utils/utils'
 import { useChips } from '@/stores/chips'
 
 const props = defineProps<{
@@ -45,14 +45,20 @@ const selectedChips = computed(() => {
 			ticked: false,
 		}))
 })
-const fuck = reactive([...selectedChips.value])
+const fuck = ref([...selectedChips.value])
+const flatFuck = computed(() => {
+	return getMembers(fuck.value)
+		.filter((el) => el.ticked == true)
+		.map((item) => item.label)
+})
 const rows = computed(() => {
-	return []
-	// if (all.value) return flat.filter((el: any) => el.kind == props.stat.data.kind)
-	// else
-	// 	return flat
-	// 		.filter((el: any) => el.kind == props.stat.data.kind)
-	// 		.filter((elem: any) => selectedChips.value.some((item) => item.label == elem.parents[1]))
+	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
+	if (all.value) {
+		return kinded
+	} else {
+		let temp = filterByArray(kinded, flatFuck.value)
+		return temp
+	}
 })
 const select = (_: Event, row: any, index: number) => {
 	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
@@ -68,17 +74,17 @@ const pagination = {
 	rowsPerPage: 8,
 }
 const selChip = () => {
-	if (fuck.filter((el) => el.ticked).length == 0) {
+	if (fuck.value.filter((el) => el.ticked).length == 0) {
 		all.value = true
 	} else all.value = false
 }
 const all = ref(true)
 const setAll = () => {
-	if (fuck.filter((el) => el.ticked.length == 0)) {
+	if (fuck.value.filter((el) => el.ticked.length == 0)) {
 		all.value = true
 	}
 	if (all.value) {
-		fuck.map((el) => (el.ticked = false))
+		fuck.value.map((el) => (el.ticked = false))
 	}
 }
 </script>
@@ -124,7 +130,6 @@ q-dialog(v-model="modelValue")
 			label Общая метка:
 			q-input.lab(v-model="common" dense filled)
 		q-card-section
-			// pre {{ selected }}
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup) 
 				q-btn(unelevated color="primary" label="Добавить" v-close-popup) 

@@ -10,6 +10,8 @@ import {
 	filterByArray,
 } from '@/utils/utils'
 import { useDrag } from '@/stores/drag'
+import { useChips } from '@/stores/chips'
+
 import ChipModal from '@/components/ChipModal.vue'
 
 const props = defineProps({
@@ -19,15 +21,14 @@ const props = defineProps({
 	},
 })
 
-const vis = ref<Option[]>([])
 const visFlat = ref<string[]>(['Все'])
 const lab = computed(() => {
 	return visFlat.value[0] == 'Все' ? 'Все' : 'Выбрать'
 })
+const mychips = useChips()
 
-const setTree = (e: any) => {
-	vis.value = [...e]
-	visFlat.value = getMembers(vis.value)
+const setTree = () => {
+	visFlat.value = getMembers(mychips.chips)
 		.filter((el) => el.ticked == true)
 		.map((item) => item.label)
 }
@@ -35,8 +36,12 @@ const data = computed(() => {
 	let temp = []
 	temp = filterByArray(fields, visFlat.value)
 	if (visFlat.value[0] == 'Все') {
+		mychips.setRows(fields)
 		return fields
-	} else return temp
+	} else {
+		mychips.setRows(temp)
+		return temp
+	}
 })
 
 const drag = useDrag()
