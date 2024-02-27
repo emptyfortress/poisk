@@ -3,23 +3,13 @@ import { ref, computed, reactive, watch } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { fields } from '@/stores/fields'
 import { getMembers } from '@/utils/utils'
+import { useChips } from '@/stores/chips'
 
 const props = defineProps<{
 	stat: Stat
 }>()
 
-const chips = reactive([
-	// { id: 0, selected: true, label: 'Все' },
-	{ id: 1, selected: false, label: 'Входящий' },
-	{ id: 2, selected: false, label: 'Исходящий' },
-	{ id: 2, selected: false, label: 'Договор' },
-	{ id: 3, selected: false, label: 'На исполнение' },
-	{ id: 4, selected: false, label: 'На ознакомление' },
-	{ id: 5, selected: false, label: 'На согласование' },
-])
-const chiplength = computed(() => {
-	return chips.filter((el) => el.selected).length
-})
+const mychips = useChips()
 const modelValue = defineModel()
 const cols: QTableColumn[] = [
 	{
@@ -45,14 +35,24 @@ selected.value.push(props.stat.data)
 const flat = getMembers(fields)
 
 const selectedChips = computed(() => {
-	return chips.filter((el: any) => el.selected)
+	return getMembers(mychips.chips)
+		.filter((el) => el.ticked)
+		.filter((el) => el.label !== 'Документ')
+		.filter((el) => el.label !== 'Задание')
+		.map((item) => ({
+			id: item.id,
+			label: item.label,
+			ticked: false,
+		}))
 })
+const fuck = reactive([...selectedChips.value])
 const rows = computed(() => {
-	if (all.value) return flat.filter((el: any) => el.kind == props.stat.data.kind)
-	else
-		return flat
-			.filter((el: any) => el.kind == props.stat.data.kind)
-			.filter((elem: any) => selectedChips.value.some((item) => item.label == elem.parents[1]))
+	return []
+	// if (all.value) return flat.filter((el: any) => el.kind == props.stat.data.kind)
+	// else
+	// 	return flat
+	// 		.filter((el: any) => el.kind == props.stat.data.kind)
+	// 		.filter((elem: any) => selectedChips.value.some((item) => item.label == elem.parents[1]))
 })
 const select = (_: Event, row: any, index: number) => {
 	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
@@ -68,14 +68,17 @@ const pagination = {
 	rowsPerPage: 8,
 }
 const selChip = () => {
-	if (chips.filter((el) => el.selected).length == 0) {
+	if (fuck.filter((el) => el.ticked).length == 0) {
 		all.value = true
 	} else all.value = false
 }
 const all = ref(true)
 const setAll = () => {
+	if (fuck.filter((el) => el.ticked.length == 0)) {
+		all.value = true
+	}
 	if (all.value) {
-		chips.map((el) => (el.selected = false))
+		fuck.map((el) => (el.ticked = false))
 	}
 }
 </script>
@@ -91,9 +94,8 @@ q-dialog(v-model="modelValue")
 					q-icon(name="mdi-magnify")
 
 		.q-mt-sm.q-mx-md
-			q-chip(v-model:selected="all" size="12px" @click="setAll") Все
-			br
-			q-chip(v-for="(chip) in chips" :key="chip.id" v-model:selected="chip.selected" size="12px" @click="selChip") {{ chip.label }}
+			q-chip(size="12px" v-model:selected="all" @click="setAll") Все
+			q-chip(v-for="(chip) in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
 
 		q-card-section
 			q-table(flat

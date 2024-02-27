@@ -86,17 +86,17 @@ const myfields = computed(() => {
 })
 const expanded = ref(['type'])
 const common = ref(false)
-const calcCommon = (e: any) => {
-	if (e.common == true && common.value == false) {
-		return false
-	}
-	if (e.common == true && common.value == true) {
-		return true
-	}
-	if (e.common == undefined) {
-		return true
-	}
-}
+// const calcCommon = (e: any) => {
+// 	if (e.common == true && common.value == false) {
+// 		return false
+// 	}
+// 	if (e.common == true && common.value == true) {
+// 		return true
+// 	}
+// 	if (e.common == undefined) {
+// 		return true
+// 	}
+// }
 const chip = true
 const chipsModal = ref(false)
 const selChip = () => {

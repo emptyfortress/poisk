@@ -11,6 +11,12 @@ enum Kind {
 	Email,
 	Bool,
 }
+interface Chip {
+	id: number
+	label: string
+	ticked: boolean
+	children: Chip[]
+}
 interface Option {
 	id: string
 	text: string
