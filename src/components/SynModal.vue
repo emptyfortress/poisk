@@ -80,7 +80,7 @@ const selChip = () => {
 }
 const all = ref(true)
 const setAll = () => {
-	if (fuck.value.filter((el) => el.ticked.length == 0)) {
+	if (fuck.value.filter((el) => el.ticked).length == 0) {
 		all.value = true
 	}
 	if (all.value) {
@@ -101,7 +101,7 @@ q-dialog(v-model="modelValue")
 
 		.q-mt-sm.q-mx-md
 			q-chip(size="12px" v-model:selected="all" @click="setAll") Все
-			q-chip(v-for="(chip) in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
+			q-chip(v-for="chip in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
 
 		q-card-section
 			q-table(flat
