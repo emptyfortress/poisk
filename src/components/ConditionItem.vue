@@ -83,6 +83,7 @@ const setName = (e: string) => {
 
 <template lang="pug">
 .node
+	q-tooltip Даблклик для добавления общего поля поиска
 	.zero(v-if="props.stat.data.type === 0")
 		q-icon.trig(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 		q-icon.trig(name="mdi-alert-outline" color="negative" v-else size="xs")
