@@ -46,18 +46,23 @@ export const useChips = defineStore({
 			},
 		],
 		rows: [] as Option[],
+		updateTree: false,
+		newSearchItem: '',
+		count: 0,
 	}),
-	getters: {
-		// flatChips: (state) => {
-		//
-		// }
-	},
+	getters: {},
 	actions: {
 		setChips(e: Chip[]) {
 			this.chips = e
 		},
 		setRows(data: Option[]) {
 			this.rows = data
+		},
+		toggleUpdateTree() {
+			this.updateTree = !this.updateTree
+		},
+		setNewItem(e: string) {
+			this.newSearchItem = e
 		},
 	},
 })

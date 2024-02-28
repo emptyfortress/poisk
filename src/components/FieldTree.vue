@@ -26,6 +26,13 @@ const lab = computed(() => {
 })
 const mychips = useChips()
 
+watch(
+	() => mychips.updateTree,
+	() => {
+		setTree()
+	}
+)
+
 const setTree = () => {
 	visFlat.value = getMembers(mychips.chips)
 		.filter((el) => el.ticked == true)

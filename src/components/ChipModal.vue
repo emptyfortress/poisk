@@ -1,51 +1,16 @@
 <script setup lang="ts">
 import { ref, reactive, watch, watchEffect, computed } from 'vue'
 import { useChips } from '@/stores/chips'
+
+const props = defineProps({
+	create: {
+		type: Boolean,
+		default: false,
+	},
+})
 const modelValue = defineModel()
 
 const mychips = useChips()
-// const chips = reactive([
-// 	{
-// 		id: 0,
-// 		label: 'Все',
-// 		ticked: true,
-// 	},
-// 	{
-// 		id: 1,
-// 		label: 'Документ',
-// 		ticked: false,
-// 		children: [
-// 			{ id: 2, ticked: false, label: 'Входящий' },
-// 			{ id: 3, ticked: false, label: 'Исходящий' },
-// 			{ id: 4, ticked: false, label: 'Договор' },
-// 		],
-// 	},
-// 	{
-// 		id: 6,
-// 		label: 'Задание',
-// 		ticked: false,
-// 		children: [
-// 			{ id: 7, ticked: false, label: 'На исполнение' },
-// 			{ id: 8, ticked: false, label: 'На ознакомление' },
-// 			{ id: 9, ticked: false, label: 'На согласование' },
-// 		],
-// 	},
-// 	{
-// 		id: 10,
-// 		label: 'ГЗ',
-// 		ticked: false,
-// 	},
-// 	{
-// 		id: 11,
-// 		label: 'Цель',
-// 		ticked: false,
-// 	},
-// 	{
-// 		id: 12,
-// 		label: 'Командировка',
-// 		ticked: false,
-// 	},
-// ])
 const doc = computed(() => {
 	return mychips.chips.filter((el) => el.id == 1)
 })
@@ -103,15 +68,24 @@ const add = (e: any) => {
 		mychips.chips[2].ticked = true
 	}
 }
-const emit = defineEmits(['tree'])
 const setTree = () => {
-	emit('tree')
+	mychips.toggleUpdateTree()
 	modelValue.value = false
+	setTimeout(() => {
+		mychips.toggleUpdateTree()
+		mychips.setNewItem('')
+	}, 200)
+}
+const searchName = ref('')
+const createSearch = () => {
+	mychips.setNewItem(searchName.value)
+	mychips.count = mychips.count + 1
+	setTree()
 }
 </script>
 
 <template lang="pug">
-q-dialog(v-model="modelValue")
+q-dialog(v-model="modelValue" )
 	q-card
 		q-card-section.row.items-center.q-pb-none
 			.text-h6 Выберите вид карточек для поиска
@@ -138,9 +112,15 @@ q-dialog(v-model="modelValue")
 						q-chip(v-model:selected="mychips.chips[4].ticked" @click="add(mychips.chips[4])") Цель
 					div
 						q-chip(v-model:selected="mychips.chips[5].ticked" @click="add(mychips.chips[5])") Командировка
+		q-card-section(v-if="props.create")
+			.inp
+				label Название поиска:
+				q-input(dense filled v-model="searchName" clearable autofocus)
+
 		q-card-actions.q-ma-md(align="right")
 			q-btn(flat color="primary" label="Отмена" v-close-popup)
-			q-btn(unelevated color="primary" label="Применить" @click="setTree") 
+			q-btn(v-if="props.create" unelevated color="primary" label="Создать" @click="createSearch" :disable="searchName.length < 2") 
+			q-btn(v-else unelevated color="primary" label="Применить" @click="setTree") 
 </template>
 
 <style scoped lang="scss">
@@ -158,5 +138,17 @@ q-dialog(v-model="modelValue")
 }
 .q-tree {
 	font-size: 0.9rem;
+}
+.inp {
+	width: 80%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+	.q-input {
+		width: 100%;
+	}
 }
 </style>

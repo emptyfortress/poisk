@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, watchEffect, onMounted } from 'vue'
+import { ref, reactive, computed, watch, watchEffect, onMounted } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useStore } from '@/stores/store'
 import WordHighlighter from 'vue-word-highlighter'
 import DirMenu from '@/components/DirMenu.vue'
+import { useChips } from '@/stores/chips'
 
 const props = defineProps<{
 	treeData: TreeNode[]
@@ -58,6 +59,7 @@ const select = (n: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	n.data.selected = true
 	store.setCurrentNode(n)
+	console.log(n)
 }
 
 const toggle = (stat: any) => {
@@ -166,6 +168,24 @@ onMounted(() => {
 		select(tree.value.getStat(adding))
 	}
 })
+
+const mychips = useChips()
+
+watch(
+	() => mychips.count,
+	() => {
+		let temp = {
+			text: mychips.newSearchItem,
+			text1: 'Описание поиска',
+			hidden: false,
+			selected: true,
+			type: 1,
+		}
+		tree.value.add(temp, tree.value.rootChildren[0])
+		select(tree.value.getStat(temp))
+		store.setCurrentNode(tree.value.getStat(temp))
+	}
+)
 </script>
 
 <template lang="pug">

@@ -22,7 +22,7 @@ q-page(padding)
 			template(v-slot:before)
 				.blo
 					q-scroll-area.list
-						BaseTree(:treeData="searches")
+						BaseTree(:treeData="searches" reset)
 			template(v-slot:after)
 				q-splitter(v-model="splitterModel1" :limits="[0, 100]" :style="hei" )
 					template(v-slot:before)

@@ -5,7 +5,7 @@ import QueryItem from '@/components/QueryItem.vue'
 import { useEditor } from '@/stores/editor'
 import { useDrag } from '@/stores/drag'
 import PreviewDialog from '@/components/PreviewDialog.vue'
-// import PreviewFormDialog from '@/components/PreviewFormDialog.vue'
+import ChipModal from '@/components/ChipModal.vue'
 
 const props = defineProps({
 	splitter: Number,
@@ -50,12 +50,16 @@ watch(
 		editor.resetVid()
 	}
 )
+const dialogCreate = ref(false)
+const toggleCreate = () => {
+	dialogCreate.value = !dialogCreate.value
+}
 </script>
 
 <template lang="pug">
 .layout
 	div
-		.row.items-center.justify-between
+		.row.items-start.justify-between
 			q-btn(flat round dense @click="switchSidebar" )
 				q-icon(name="mdi-forwardburger" v-if="props.splitter === 0")
 				q-icon(name="mdi-backburger" v-else)
@@ -63,10 +67,12 @@ watch(
 				.zg {{ store.currentNode.data.text }}
 					q-popup-edit( v-model="store.currentNode.data.text" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-			div(v-else) Выберите запрос или создайте новый.
+			div(v-else)
+				div Выберите запрос слева или создайте новый.
+				br
+				q-btn(unelevated color="primary"  @click="toggleCreate") Создать новый запрос
 			.btngroup
 				q-btn(v-if="store.currentNode?.data.type == 1" outline size="10px" color="primary" :disable="!store.currentNode" @click="double") Дублировать
-				q-btn(v-else outline size="10px" color="primary"  @click="double") Создать
 		template(v-if="store.currentNode?.data.type == 1" )
 			.descr {{ store.currentNode.data.text1 }}
 				q-popup-edit( v-model="store.currentNode.data.text1" auto-save v-slot="scope")
@@ -87,7 +93,7 @@ watch(
 				// q-btn(flat color="primary" label="Применить" icon="mdi-check-bold" @click="showPreview") 
 
 	PreviewDialog(v-model="preview" :loading="loading" )
-	// PreviewFormDialog(v-model="previewForm" :tree="")
+	ChipModal(v-model="dialogCreate" create)
 </template>
 
 <style scoped lang="scss">
