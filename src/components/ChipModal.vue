@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch, watchEffect, computed } from 'vue'
 import { useChips } from '@/stores/chips'
+// import { date } from 'quasar'
 
 const props = defineProps({
 	create: {
@@ -76,7 +77,8 @@ const setTree = () => {
 		mychips.setNewItem('')
 	}, 200)
 }
-const searchName = ref('')
+// const date = new Date()
+const searchName = ref('Новый поиск')
 const createSearch = () => {
 	mychips.setNewItem(searchName.value)
 	mychips.count = mychips.count + 1

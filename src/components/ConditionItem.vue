@@ -69,15 +69,15 @@ const par = computed(() => {
 	// return props.stat.data.parents?.filter((el) => el !== '')
 	return props.stat.data.parents
 })
-// const calcClass = computed(() => {
-// 	if (props.stat.data.focus == drag.focus) {
-// 		return 'focus'
-// 	}
-// 	return ''
-// })
 const modal = ref(false)
 const showModal = () => {
 	modal.value = !modal.value
+}
+const common = ref(false)
+const commonName = ref('')
+const setName = (e: string) => {
+	common.value = true
+	commonName.value = e
 }
 </script>
 
@@ -92,7 +92,7 @@ const showModal = () => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
 	q-form.one(v-if="props.stat.data.type === 1 || props.stat.data.type === 2" ref="myform" no-error-focus)
-		.txt(style="font-size: .9rem;")
+		.txt(v-if="!common")
 			template(v-for="item in par" :key="item")
 				.text-weight-bold {{ item }}
 				.q-mx-sm >
@@ -104,6 +104,10 @@ const showModal = () => {
 					span.text-weight-bold {{ item }}
 					span.q-mx-sm >
 				span.text-weight-bold {{props.stat.data.syn[0]}}
+		.txt(v-else)
+			.text-weight-bold {{ commonName }}
+			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
+				q-tooltip Добавить в условие поля
 
 		template(v-if="props.stat.data.ruk")
 			.row
@@ -126,7 +130,7 @@ const showModal = () => {
 		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
 		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")
 
-	SynModal(v-model="modal" :stat="props.stat")
+	SynModal(v-model="modal" :stat="props.stat" @setname="setName")
 </template>
 
 <style scoped lang="scss">
@@ -230,6 +234,7 @@ const showModal = () => {
 .txt {
 	display: flex;
 	align-items: center;
+	font-size: 0.9rem;
 	.syn {
 		margin-left: 1rem;
 		visibility: hidden;

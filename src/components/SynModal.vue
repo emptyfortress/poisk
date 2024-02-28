@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, reactive, watch } from 'vue'
 import type { QTableColumn } from 'quasar'
-import { fields } from '@/stores/fields'
 import { getMembers, filterByArray } from '@/utils/utils'
 import { useChips } from '@/stores/chips'
 
@@ -31,8 +30,6 @@ const cols: QTableColumn[] = [
 ]
 const selected = ref<NodeData[]>([])
 selected.value.push(props.stat.data)
-
-const flat = getMembers(fields)
 
 const selectedChips = computed(() => {
 	return getMembers(mychips.chips)
@@ -87,6 +84,11 @@ const setAll = () => {
 		fuck.value.map((el) => (el.ticked = false))
 	}
 }
+const emit = defineEmits(['setname'])
+const add = () => {
+	emit('setname', common.value)
+	modelValue.value = false
+}
 </script>
 
 <template lang="pug">
@@ -125,14 +127,14 @@ q-dialog(v-model="modelValue")
 							span {{par}}
 							span.q-mx-sm(v-if="index + 1 < props.row.parents.length") >
 
-		.info Введите общую метку для выбранных полей, для показа в форме поиска.
+		.info(:class="{disable: selected.length <= 1}" ) Введите общую метку для выбранных полей, для показа в форме поиска.
 		.row.justify-center.items-center.q-gutter-x-md
-			label Общая метка:
-			q-input.lab(v-model="common" dense filled)
+			label(:class="{disable: selected.length <= 1}") Общая метка:
+			q-input.lab(v-model="common" dense filled :disable="selected.length <= 1")
 		q-card-section
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup) 
-				q-btn(unelevated color="primary" label="Добавить" v-close-popup) 
+				q-btn(unelevated color="primary" label="Добавить" @click="add") 
 
 </template>
 
@@ -166,5 +168,8 @@ q-dialog(v-model="modelValue")
 	&.foo {
 		margin-right: 3rem;
 	}
+}
+.disable {
+	opacity: 0.4;
 }
 </style>
