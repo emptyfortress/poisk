@@ -97,13 +97,13 @@ const setName = (e: string) => {
 				.text-weight-bold {{ item }}
 				.q-mx-sm >
 			.text-weight-bold {{ props.stat.data.text}}
-			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
-				q-tooltip Добавить в условие поля
-			div(v-if="props.stat.data.syn.length")
+			.syno(v-if="props.stat.data.syn.length")
 				template(v-for="item in props.stat.data.synparents" :key="item")
 					span.text-weight-bold {{ item }}
 					span.q-mx-sm >
 				span.text-weight-bold {{props.stat.data.syn[0]}}
+			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
+				q-tooltip Добавить в условие поля
 		.txt(v-else)
 			.text-weight-bold {{ commonName }}
 			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
@@ -122,9 +122,10 @@ const setName = (e: string) => {
 						q-icon(name="mdi-calendar")
 					template(v-slot:prepend v-if="props.stat.data.man")
 						q-icon(name="mdi-book-open-page-variant-outline")
-		q-btn.eye(flat round @click="toggleVis" size="md")
+		q-btn.eye(flat round @click.stop="toggleVis" size="md")
 			q-icon(name="mdi-eye" v-if="props.stat.data.vis") 
 			q-icon(name="mdi-eye-off" v-else) 
+			q-tooltip Скрывать условие при поиске
 
 	.but
 		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
@@ -234,11 +235,15 @@ const setName = (e: string) => {
 .txt {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	font-size: 0.9rem;
 	.syn {
 		margin-left: 1rem;
 		visibility: hidden;
 		// height: 32px;
+	}
+	.syno {
+		flex-grow: 1;
 	}
 	&:hover {
 		.syn {
