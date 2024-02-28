@@ -166,7 +166,7 @@ const hideFirst = computed(() => {
 				:stat="stat"
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
-				@click.exact="focus(stat)"
+				@dblclick="focus(stat)"
 				@kill="remove(stat)" )
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")

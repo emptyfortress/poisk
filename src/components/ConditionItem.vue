@@ -92,21 +92,27 @@ const setName = (e: string) => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
 	q-form.one(v-if="props.stat.data.type === 1 || props.stat.data.type === 2" ref="myform" no-error-focus)
-		.txt(v-if="!common")
-			template(v-for="item in par" :key="item")
-				.text-weight-bold {{ item }}
-				.q-mx-sm >
-			.text-weight-bold {{ props.stat.data.text}}
-			.syno(v-if="props.stat.data.syn.length")
-				template(v-for="item in props.stat.data.synparents" :key="item")
-					span.text-weight-bold {{ item }}
-					span.q-mx-sm >
-				span.text-weight-bold {{props.stat.data.syn[0]}}
-			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
+		.mai(v-if="!common")
+			div
+				.txt
+					template(v-for="item in par" :key="item")
+						.text-weight-bold {{ item }}
+						.q-mx-sm >
+					.text-weight-bold {{ props.stat.data.text}}
+				.syno(v-if="props.stat.data.syn.length")
+					template(v-for="item in props.stat.data.synparents" :key="item")
+						span.text-weight-bold {{ item }}
+						span.q-mx-sm >
+					span.text-weight-bold {{props.stat.data.syn[0]}}
+			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click.stop="showModal" )
 				q-tooltip Добавить в условие поля
+
 		.txt(v-else)
-			.text-weight-bold {{ commonName }}
-			q-btn.syn(dense flat round icon="mdi-playlist-plus" @click="showModal") 
+			.text-weight-bold
+				span {{ commonName }}
+				span.q-ml-sm *
+				q-tooltip Общая метка
+			q-btn.syn( dense flat round icon="mdi-playlist-plus" @click="showModal") 
 				q-tooltip Добавить в условие поля
 
 		template(v-if="props.stat.data.ruk")
@@ -232,6 +238,20 @@ const setName = (e: string) => {
 :deep(.q-field--error .q-field__bottom) {
 	display: none;
 }
+.mai {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	.syn {
+		margin-left: 1rem;
+		visibility: hidden;
+	}
+	&:hover {
+		.syn {
+			visibility: visible;
+		}
+	}
+}
 .txt {
 	display: flex;
 	align-items: center;
@@ -240,15 +260,14 @@ const setName = (e: string) => {
 	.syn {
 		margin-left: 1rem;
 		visibility: hidden;
-		// height: 32px;
-	}
-	.syno {
-		flex-grow: 1;
 	}
 	&:hover {
 		.syn {
 			visibility: visible;
 		}
 	}
+}
+.syno {
+	font-size: 0.9rem;
 }
 </style>
