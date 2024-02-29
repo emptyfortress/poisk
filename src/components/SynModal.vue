@@ -42,10 +42,19 @@ const selectedChips = computed(() => {
 			ticked: false,
 		}))
 })
+
 const fuck = ref([...selectedChips.value])
+
+watch(
+	() => mychips.count,
+	() => {
+		fuck.value = [...selectedChips.value]
+	}
+)
+
 const flatFuck = computed(() => {
 	return getMembers(fuck.value)
-		.filter((el) => el.ticked == true)
+		.filter((el) => el.ticked)
 		.map((item) => item.label)
 })
 const rows = computed(() => {
@@ -105,6 +114,7 @@ q-dialog(v-model="modelValue")
 			q-chip(size="12px" v-model:selected="all" @click="setAll") Все
 			q-chip(v-for="chip in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
 
+		// pre {{ mychips.chips}}
 		q-card-section
 			q-table(flat
 				:columns="cols"

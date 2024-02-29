@@ -72,16 +72,15 @@ const add = (e: any) => {
 const setTree = () => {
 	mychips.toggleUpdateTree()
 	modelValue.value = false
+	mychips.count = mychips.count + 1
 	setTimeout(() => {
 		mychips.toggleUpdateTree()
 		mychips.setNewItem('')
 	}, 200)
 }
-// const date = new Date()
 const searchName = ref('Новый поиск')
 const createSearch = () => {
 	mychips.setNewItem(searchName.value)
-	mychips.count = mychips.count + 1
 	setTree()
 }
 </script>
