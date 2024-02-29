@@ -71,10 +71,17 @@ const parents = computed(() => {
 		return curr.parents && curr.parents.length ? [...prev, ...curr.parents] : prev
 	}, [])
 	let uniq = [...new Set(temp)]
-		.filter((item) => item !== 'Документ')
-		.filter((item) => item !== 'Задание')
-		.filter((item) => item !== 'Автор')
-		.filter((item) => item !== 'Контролер')
+		.filter(
+			(item) =>
+				item == 'Входящий' ||
+				item == 'Исходящий' ||
+				item == 'Договор' ||
+				item == 'На ознакомление' ||
+				item == 'На исполнение' ||
+				item == 'На согласование' ||
+				item == 'Цель' ||
+				item == 'Командировка'
+		)
 		.map((el) => ({
 			id: uid(),
 			label: el,
@@ -84,11 +91,12 @@ const parents = computed(() => {
 })
 const fuck = ref([...parents.value])
 
-watch(rows, (val) => {
-	if (val) {
+watch(
+	() => mychips.rows,
+	() => {
 		fuck.value = [...parents.value]
 	}
-})
+)
 
 const flatFuck = computed(() => {
 	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
