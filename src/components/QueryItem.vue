@@ -131,9 +131,6 @@ const calcClass = (e: Stat) => {
 	} else if (drag.focus && !e.data.focus) return 'dis'
 	return ''
 }
-const check = (e: Stat) => {
-	// console.log(e)
-}
 const hideFirst = computed(() => {
 	if (drag.focus) {
 		return 'dis'
@@ -168,6 +165,7 @@ const hideFirst = computed(() => {
 				@toggleVis="toggle(stat)"
 				@dblclick="focus(stat)"
 				@kill="remove(stat)" )
+			.here(v-if="drag.focus && stat.data.focus && stat.data.syn.length == 0" ) Перетащите сюда оператор И/ИЛИ  или поле для поиска
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>
@@ -186,16 +184,11 @@ const hideFirst = computed(() => {
 	&.tran {
 		opacity: 0;
 	}
-	// background: var(--bg-head);
-	// border: 1px solid #ccc;
-	// border-radius: 4px;
-
-	// &:hover {
-	// 	border-color: $primary;
-	// }
 }
 .pad {
 	margin-left: 40px;
+	position: relative;
+	margin-bottom: 2rem;
 }
 
 :deep(.drag-placeholder) {
@@ -235,8 +228,16 @@ const hideFirst = computed(() => {
 	transform: scale(1.05);
 }
 .dis {
-	// opacity: 0.5;
 	transform: scale(0.95);
 	filter: blur(5px);
+}
+.here {
+	font-size: 0.9rem;
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 4rem;
+	padding: 0.2rem 1rem;
+	border: 1px solid #ccc;
 }
 </style>

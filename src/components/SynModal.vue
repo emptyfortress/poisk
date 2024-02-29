@@ -114,7 +114,6 @@ q-dialog(v-model="modelValue")
 			q-chip(size="12px" v-model:selected="all" @click="setAll") Все
 			q-chip(v-for="chip in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
 
-		// pre {{ mychips.chips}}
 		q-card-section
 			q-table(flat
 				:columns="cols"
@@ -137,10 +136,10 @@ q-dialog(v-model="modelValue")
 							span {{par}}
 							span.q-mx-sm(v-if="index + 1 < props.row.parents.length") >
 
-		.info(:class="{disable: selected.length <= 1}" ) Введите общую метку для выбранных полей, для показа в форме поиска.
+		.info Введите общую метку для выбранных полей, для показа в форме поиска.
 		.row.justify-center.items-center.q-gutter-x-md
-			label(:class="{disable: selected.length <= 1}") Общая метка:
-			q-input.lab(v-model="common" dense filled :disable="selected.length <= 1")
+			label Общая метка:
+			q-input.lab(v-model="common" dense filled)
 		q-card-section
 			q-card-actions(align="right")
 				q-btn(flat color="primary" label="Отмена" v-close-popup) 

@@ -83,7 +83,6 @@ const setName = (e: string) => {
 
 <template lang="pug">
 .node
-	q-tooltip Даблклик для добавления общего поля поиска
 	.zero(v-if="props.stat.data.type === 0")
 		q-icon.trig(name="mdi-chevron-down" v-if="stat.children.length" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 		q-icon.trig(name="mdi-alert-outline" color="negative" v-else size="xs")
@@ -93,6 +92,7 @@ const setName = (e: string) => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
 	q-form.one(v-if="props.stat.data.type === 1 || props.stat.data.type === 2" ref="myform" no-error-focus)
+		q-tooltip Даблклик для добавления общего поля поиска
 		.mai(v-if="!common")
 			div
 				.txt
@@ -134,6 +134,7 @@ const setName = (e: string) => {
 			q-icon(name="mdi-eye-off" v-else) 
 			q-tooltip Скрывать условие при поиске
 
+	// div(v-if="props.stat.data.type == 1 && ) fuck
 	.but
 		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
 		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")
