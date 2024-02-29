@@ -55,14 +55,14 @@ const selectedChips = computed(() => {
 				}))
 })
 
-const fuck = ref([...selectedChips.value])
+const fuck = ref([...parents.value])
 
-watch(
-	() => mychips.count,
-	() => {
-		fuck.value = [...selectedChips.value]
-	}
-)
+// watch(
+// 	() => mychips.count,
+// 	() => {
+// 		fuck.value = [...selectedChips.value]
+// 	}
+// )
 
 const flatFuck = computed(() => {
 	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
@@ -141,7 +141,7 @@ q-dialog(v-model="modelValue")
 
 		.q-mt-sm.q-mx-md
 			q-chip(size="12px" v-model:selected="all" @click="setAll") Все
-			q-chip(v-for="chip in parents" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
+			q-chip(v-for="chip in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
 
 		q-card-section
 			// pre {{ parents }}
