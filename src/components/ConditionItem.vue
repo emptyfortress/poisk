@@ -93,7 +93,6 @@ const setName = (e: string) => {
 		.text-weight-bold.q-ml-sm {{ props.stat.data.typ == true ? 'ИЛИ' : 'И' }}
 
 	q-form.one(v-if="props.stat.data.type === 1 || props.stat.data.type === 2" ref="myform" no-error-focus)
-		q-tooltip Даблклик для добавления общего поля поиска
 		.mai(v-if="!common")
 			div
 				.txt
