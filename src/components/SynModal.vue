@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { getMembers, filterByArray } from '@/utils/utils'
 import { useChips } from '@/stores/chips'
@@ -12,19 +12,19 @@ const mychips = useChips()
 const modelValue = defineModel()
 const cols: QTableColumn[] = [
 	{
-		name: 'text',
-		required: true,
-		label: 'Поле',
-		align: 'left',
-		field: 'text',
-		sortable: true,
-	},
-	{
 		name: 'parents',
 		required: true,
 		label: 'Карточка',
 		align: 'left',
 		field: 'parents',
+		sortable: true,
+	},
+	{
+		name: 'text',
+		required: true,
+		label: 'Поле',
+		align: 'left',
+		field: 'text',
 		sortable: true,
 	},
 ]
@@ -106,6 +106,9 @@ const add = () => {
 	emit('setname', common.value)
 	modelValue.value = false
 }
+onMounted(() => {
+	console.log(rows.value)
+})
 </script>
 
 <template lang="pug">
