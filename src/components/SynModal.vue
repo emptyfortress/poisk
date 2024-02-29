@@ -67,7 +67,7 @@ const rows = computed(() => {
 })
 const parents = computed(() => {
 	let kinded = rows.value.filter((el: Option) => el.kind == props.stat.data.kind)
-	let temp = kinded.reduce((prev, curr) => {
+	let temp = kinded.reduce((prev: any, curr: any) => {
 		return curr.parents && curr.parents.length ? [...prev, ...curr.parents] : prev
 	}, [])
 	let uniq = [...new Set(temp)]
@@ -98,7 +98,7 @@ watch(
 	}
 )
 
-const flatFuck = computed(() => {
+const flatFuck: any = computed(() => {
 	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
 })
 const select = (_: Event, row: any, index: number) => {
