@@ -62,6 +62,7 @@ interface NodeData {
 	fields: Select[]
 	man?: boolean
 	date?: boolean
+	state?: boolean
 	ruk?: boolean
 	vis?: boolean
 	inp?: boolean

@@ -74,10 +74,15 @@ const fields = [
 const cols = ['Название', 'Тип', 'Вид карточки', 'Статус', 'Автор', 'Изменено']
 
 const conditions = [
-	{ type: 0, kind: ['man', 'all'], value: 'Равно', label: 'Равно' },
-	{ type: 0, kind: ['man', 'all'], value: 'Не равно', label: 'Не равно' },
-	{ type: 0, kind: ['man', 'all'], value: 'Значение задано', label: 'Значение задано' },
-	{ type: 0, kind: ['man', 'all'], value: 'Значение не задано', label: 'Значение не задано' },
+	{ type: 0, kind: ['man', 'all', 'state'], value: 'Равно', label: 'Равно' },
+	{ type: 0, kind: ['man', 'all', 'state'], value: 'Не равно', label: 'Не равно' },
+	{ type: 0, kind: ['man', 'all', 'state'], value: 'Значение задано', label: 'Значение задано' },
+	{
+		type: 0,
+		kind: ['man', 'all', 'state'],
+		value: 'Значение не задано',
+		label: 'Значение не задано',
+	},
 	{ type: 0, kind: ['date'], value: 'Равно', label: 'Равно' },
 	{ type: 0, kind: ['date'], value: 'Не равно', label: 'Не равно' },
 	{ type: 0, kind: ['date'], value: 'Позже, чем', label: 'Позже, чем' },
@@ -96,6 +101,12 @@ const conditions = [
 	{ type: 0, kind: ['all'], value: 'Не содержит', label: 'Не содержит' },
 	{ type: 0, kind: ['all'], value: 'Начинается с', label: 'Начинается с' },
 	{ type: 0, kind: ['all'], value: 'Оканчивается на', label: 'Оканчивается на' },
+	{ type: 0, kind: ['man'], value: 'Я', label: 'Я' },
+	{ type: 0, kind: ['man'], value: 'Мои подчиненные', label: 'Мои подчиненные' },
+	{ type: 0, kind: ['man'], value: 'Мой руководитель', label: 'Мой руководитель' },
+	{ type: 0, kind: ['state'], value: 'State 1', label: 'State 1' },
+	{ type: 0, kind: ['state'], value: 'State 2', label: 'State 2' },
+	{ type: 0, kind: ['state'], value: 'State 3', label: 'State 3' },
 ]
 
 const values = [

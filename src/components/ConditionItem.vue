@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { conditions, values } from '@/stores/select'
-// import { useDrag } from '@/stores/drag'
 import SynModal from '@/components/SynModal.vue'
 
 const props = defineProps<{
 	stat: Stat
 }>()
 
-// const drag = useDrag()
 const isMan = (el: string) => el == 'man'
 const isDate = (el: string) => el == 'date'
+const isState = (el: string) => el == 'state'
 const isAll = (el: string) => el == 'all'
 
 const calcSecond = computed(() => {
 	if (props.stat.data.man) {
 		return conditions.filter((e: any) => e.kind.some(isMan))
+	}
+	if (props.stat.data.state) {
+		return conditions.filter((e: any) => e.kind.some(isState))
 	}
 	if (props.stat.data.date) {
 		return conditions.filter((e: any) => e.kind.some(isDate))

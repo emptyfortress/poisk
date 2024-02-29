@@ -347,6 +347,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								drag: true,
+								state: true,
 							},
 							{
 								id: uid(),
@@ -534,6 +535,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								drag: true,
+								state: true,
 							},
 							{
 								id: uid(),
@@ -709,6 +711,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								drag: true,
+								state: true,
 							},
 							{
 								id: uid(),
@@ -1062,7 +1065,7 @@ const fields = [
 						type: 1,
 						selected: false,
 						drag: true,
-						common: true,
+						state: true,
 					},
 					{
 						id: uid(),
@@ -1547,6 +1550,7 @@ const fields = [
 								type: 1,
 								selected: false,
 								drag: true,
+								common: true,
 							},
 							{
 								id: uid(),
@@ -2017,6 +2021,7 @@ const fields = [
 								type: 1,
 								selected: false,
 								drag: true,
+								common: true,
 							},
 							{
 								id: uid(),
@@ -2477,6 +2482,7 @@ const fields = [
 								type: 1,
 								selected: false,
 								drag: true,
+								common: true,
 							},
 							{
 								id: uid(),
@@ -2958,6 +2964,7 @@ const fields = [
 						hidden: false,
 						selected: false,
 						drag: true,
+						common: true,
 					},
 					{
 						id: uid(),
