@@ -1066,6 +1066,7 @@ const fields = [
 						selected: false,
 						drag: true,
 						state: true,
+						common: true,
 					},
 					{
 						id: uid(),

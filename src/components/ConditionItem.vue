@@ -36,7 +36,6 @@ const toggle = (stat: any) => {
 
 const emit = defineEmits(['kill', 'duble', 'toggleVis'])
 
-const inp = ref('')
 const rukovoditel = ref('yes')
 const vis = ref(true)
 

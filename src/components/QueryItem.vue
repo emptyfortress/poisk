@@ -164,9 +164,7 @@ const hideFirst = computed(() => {
 				:stat="stat"
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
-				@dblclick="focus(stat)"
 				@kill="remove(stat)")
-			// .here(v-if="drag.focus && stat.data.focus && stat.data.syn.length == 0" ) Перетащите сюда оператор И/ИЛИ  или поле для поиска
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>
