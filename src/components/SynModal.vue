@@ -32,15 +32,25 @@ const selected = ref<NodeData[]>([])
 selected.value.push(props.stat.data)
 
 const selectedChips = computed(() => {
-	return getMembers(mychips.chips)
-		.filter((el) => el.ticked)
-		.filter((el) => el.label !== 'Документ')
-		.filter((el) => el.label !== 'Задание')
-		.map((item) => ({
-			id: item.id,
-			label: item.label,
-			ticked: false,
-		}))
+	return mychips.chips[0].ticked
+		? getMembers(mychips.chips)
+				.filter((el) => el.label !== 'Все')
+				.filter((el) => el.label !== 'Документ')
+				.filter((el) => el.label !== 'Задание')
+				.map((item) => ({
+					id: item.id,
+					label: item.label,
+					ticked: false,
+				}))
+		: getMembers(mychips.chips)
+				.filter((el) => el.ticked)
+				.filter((el) => el.label !== 'Документ')
+				.filter((el) => el.label !== 'Задание')
+				.map((item) => ({
+					id: item.id,
+					label: item.label,
+					ticked: false,
+				}))
 })
 
 const fuck = ref([...selectedChips.value])
