@@ -63,9 +63,7 @@ watch(
 )
 
 const flatFuck = computed(() => {
-	return getMembers(fuck.value)
-		.filter((el) => el.ticked)
-		.map((item) => item.label)
+	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
 })
 const rows = computed(() => {
 	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
