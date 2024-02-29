@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { conditions, values } from '@/stores/select'
-import { useDrag } from '@/stores/drag'
+// import { useDrag } from '@/stores/drag'
 import SynModal from '@/components/SynModal.vue'
 
 const props = defineProps<{
 	stat: Stat
 }>()
 
-const drag = useDrag()
+// const drag = useDrag()
 const isMan = (el: string) => el == 'man'
 const isDate = (el: string) => el == 'date'
 const isAll = (el: string) => el == 'all'
@@ -134,7 +134,6 @@ const setName = (e: string) => {
 			q-icon(name="mdi-eye-off" v-else) 
 			q-tooltip Скрывать условие при поиске
 
-	// div(v-if="props.stat.data.type == 1 && ) fuck
 	.but
 		q-btn.close(flat round icon="mdi-close" @click="kill" size="sm")
 		q-btn.dub(flat round icon="mdi-plus-circle-multiple-outline" @click="$emit('duble')" size="sm")

@@ -164,8 +164,8 @@ const hideFirst = computed(() => {
 				@duble="duble(stat)"
 				@toggleVis="toggle(stat)"
 				@dblclick="focus(stat)"
-				@kill="remove(stat)" )
-			.here(v-if="drag.focus && stat.data.focus && stat.data.syn.length == 0" ) Перетащите сюда оператор И/ИЛИ  или поле для поиска
+				@kill="remove(stat)")
+			// .here(v-if="drag.focus && stat.data.focus && stat.data.syn.length == 0" ) Перетащите сюда оператор И/ИЛИ  или поле для поиска
 
 	PreviewFormDialog(v-model="props.preview" :tree="all" @close="emit('closePreview')" @find="emit('find')")
 </template>
@@ -231,13 +231,15 @@ const hideFirst = computed(() => {
 	transform: scale(0.95);
 	filter: blur(5px);
 }
-.here {
-	font-size: 0.9rem;
-	width: 100%;
-	text-align: center;
-	position: absolute;
-	top: 4rem;
-	padding: 0.2rem 1rem;
-	border: 1px solid #ccc;
-}
+// .here {
+// 	font-size: 0.9rem;
+// 	width: 100%;
+// 	text-align: center;
+// 	position: absolute;
+// 	top: 4rem;
+// 	padding: 0.2rem 1rem;
+// 	border: 1px solid #ccc;
+// 	background: var(--bg-main);
+// 	z-index: 2;
+// }
 </style>
