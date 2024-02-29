@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { getMembers, filterByArray } from '@/utils/utils'
 import { useChips } from '@/stores/chips'
+import { flatten } from 'xstate/lib/utils'
+import { uid } from 'quasar'
 
 const props = defineProps<{
 	stat: Stat
@@ -65,6 +67,25 @@ watch(
 const flatFuck = computed(() => {
 	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
 })
+const kinded = computed(() => {
+	return getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
+})
+const parents = computed(() => {
+	let temp = kinded.value.reduce((prev, curr) => {
+		return curr.parents.length ? [...prev, ...curr.parents] : prev
+	}, [])
+	let uniq = [...new Set(temp)]
+		.filter((item) => item !== 'Документ')
+		.filter((item) => item !== 'Задание')
+		.filter((item) => item !== 'Автор')
+		.filter((item) => item !== 'Контролер')
+		.map((el) => ({
+			id: uid(),
+			label: el,
+			ticked: false,
+		}))
+	return uniq
+})
 const rows = computed(() => {
 	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
 	if (all.value) {
@@ -106,9 +127,6 @@ const add = () => {
 	emit('setname', common.value)
 	modelValue.value = false
 }
-onMounted(() => {
-	console.log(rows.value)
-})
 </script>
 
 <template lang="pug">
@@ -123,9 +141,11 @@ q-dialog(v-model="modelValue")
 
 		.q-mt-sm.q-mx-md
 			q-chip(size="12px" v-model:selected="all" @click="setAll") Все
-			q-chip(v-for="chip in fuck" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
+			q-chip(v-for="chip in parents" :key="chip.id" v-model:selected="chip.ticked" size="12px" @click="selChip") {{ chip.label }}
 
 		q-card-section
+			// pre {{ parents }}
+			// pre {{ rows }}
 			q-table(flat
 				:columns="cols"
 				:rows="rows"

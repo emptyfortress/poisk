@@ -42,7 +42,7 @@ const data = computed(() => {
 	let temp1 = filterByCommon(fields, !common.value)
 	let temp = filterByArray(temp1, visFlat.value)
 	if (visFlat.value[0] == 'Все') {
-		mychips.setRows(fields)
+		mychips.setRows(temp1)
 		return fields
 	} else {
 		mychips.setRows(temp)
