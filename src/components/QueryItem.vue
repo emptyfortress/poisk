@@ -160,7 +160,7 @@ const hideFirst = computed(() => {
 		:externalDataHandler="externalDataHandler"
 		:watermark="false" )
 		template(#default="{ stat }")
-			.empty(v-if="calcLength") Перетащите сюда узел из дерева видов справа
+			.empty(v-if="calcLength") Перетащите сюда оператор И/ИЛИ  или поле для поиска
 			ConditionItem(
 				:class="calcClass(stat)"
 				:stat="stat"
