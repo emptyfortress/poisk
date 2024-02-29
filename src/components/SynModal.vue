@@ -55,8 +55,18 @@ const selectedChips = computed(() => {
 				}))
 })
 
-const parents = computed(() => {
+const all = ref(true)
+const rows = computed(() => {
 	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
+	if (all.value) {
+		return kinded
+	} else {
+		let temp = filterByArray(kinded, flatFuck.value)
+		return temp
+	}
+})
+const parents = computed(() => {
+	let kinded = rows.value.filter((el: Option) => el.kind == props.stat.data.kind)
 	let temp = kinded.reduce((prev, curr) => {
 		return curr.parents && curr.parents.length ? [...prev, ...curr.parents] : prev
 	}, [])
@@ -74,25 +84,14 @@ const parents = computed(() => {
 })
 const fuck = ref([...parents.value])
 
-watch(
-	() => mychips.count,
-	() => {
-		console.log('jjjj')
+watch(rows, (val) => {
+	if (val) {
 		fuck.value = [...parents.value]
 	}
-)
+})
 
 const flatFuck = computed(() => {
 	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
-})
-const rows = computed(() => {
-	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
-	if (all.value) {
-		return kinded
-	} else {
-		let temp = filterByArray(kinded, flatFuck.value)
-		return temp
-	}
 })
 const select = (_: Event, row: any, index: number) => {
 	let sel = selected.value.filter((el: any) => el.id == row.id).length == 0 ? false : true
@@ -112,7 +111,6 @@ const selChip = () => {
 		all.value = true
 	} else all.value = false
 }
-const all = ref(true)
 const setAll = () => {
 	if (fuck.value.filter((el) => el.ticked).length == 0) {
 		all.value = true
