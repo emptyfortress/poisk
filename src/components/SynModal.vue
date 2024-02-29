@@ -55,24 +55,10 @@ const selectedChips = computed(() => {
 				}))
 })
 
-const fuck = ref([...parents.value])
-
-// watch(
-// 	() => mychips.count,
-// 	() => {
-// 		fuck.value = [...selectedChips.value]
-// 	}
-// )
-
-const flatFuck = computed(() => {
-	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
-})
-const kinded = computed(() => {
-	return getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
-})
 const parents = computed(() => {
-	let temp = kinded.value.reduce((prev, curr) => {
-		return curr.parents.length ? [...prev, ...curr.parents] : prev
+	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
+	let temp = kinded.reduce((prev, curr) => {
+		return curr.parents && curr.parents.length ? [...prev, ...curr.parents] : prev
 	}, [])
 	let uniq = [...new Set(temp)]
 		.filter((item) => item !== 'Документ')
@@ -85,6 +71,19 @@ const parents = computed(() => {
 			ticked: false,
 		}))
 	return uniq
+})
+const fuck = ref([...parents.value])
+
+watch(
+	() => mychips.count,
+	() => {
+		console.log('jjjj')
+		fuck.value = [...parents.value]
+	}
+)
+
+const flatFuck = computed(() => {
+	return fuck.value.filter((el) => el.ticked).map((item) => item.label)
 })
 const rows = computed(() => {
 	let kinded = getMembers(mychips.rows).filter((el: Option) => el.kind == props.stat.data.kind)
