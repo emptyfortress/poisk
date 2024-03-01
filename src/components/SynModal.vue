@@ -66,8 +66,7 @@ const rows = computed(() => {
 	}
 })
 const parents = computed(() => {
-	let kinded = rows.value.filter((el: Option) => el.kind == props.stat.data.kind)
-	let temp = kinded.reduce((prev: any, curr: any) => {
+	let temp = rows.value.reduce((prev: any, curr: any) => {
 		return curr.parents && curr.parents.length ? [...prev, ...curr.parents] : prev
 	}, [])
 	let uniq = [...new Set(temp)]

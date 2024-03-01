@@ -208,7 +208,7 @@ const fields = [
 								id: uid(),
 								parents: ['Документ', 'Договор'],
 								text: 'Организация',
-								kind: Kind.Man,
+								kind: Kind.Org,
 								type: 1,
 								hidden: false,
 								selected: false,
@@ -472,7 +472,7 @@ const fields = [
 							{
 								id: uid(),
 								parents: ['Документ', 'Исходящий'],
-								text: 'Получатели',
+								text: 'Организация получатель',
 								kind: Kind.Org,
 								type: 1,
 								hidden: false,
@@ -482,7 +482,7 @@ const fields = [
 								children: [
 									{
 										id: uid(),
-										parents: ['Документ', 'Исходящий', 'Получатели'],
+										parents: ['Документ', 'Исходящий', 'Организация получатель'],
 										text: 'Контактное лицо',
 										kind: Kind.Man,
 										type: 1,
@@ -493,7 +493,7 @@ const fields = [
 									},
 									{
 										id: uid(),
-										parents: ['Документ', 'Исходящий', 'Получатели'],
+										parents: ['Документ', 'Исходящий', 'Организация получатель'],
 										text: 'Организация',
 										kind: Kind.Org,
 										type: 1,
@@ -504,7 +504,7 @@ const fields = [
 									},
 									{
 										id: uid(),
-										parents: ['Документ', 'Исходящий', 'Получатели'],
+										parents: ['Документ', 'Исходящий', 'Организация получатель'],
 										text: 'Телефон',
 										kind: Kind.Phone,
 										type: 1,
@@ -515,7 +515,7 @@ const fields = [
 									},
 									{
 										id: uid(),
-										parents: ['Документ', 'Исходящий', 'Получатели'],
+										parents: ['Документ', 'Исходящий', 'Организация получатель'],
 										text: 'Email',
 										kind: Kind.Email,
 										type: 1,
@@ -648,7 +648,7 @@ const fields = [
 							{
 								id: uid(),
 								parents: ['Документ', 'Входящий'],
-								text: 'Отправитель',
+								text: 'Организация отправитель',
 								kind: Kind.Org,
 								type: 1,
 								hidden: false,
@@ -658,7 +658,7 @@ const fields = [
 								children: [
 									{
 										id: uid(),
-										parents: ['Документ', 'Входящий', 'Отправитель'],
+										parents: ['Документ', 'Входящий', 'Организация отправитель'],
 										text: 'Контактное лицо',
 										kind: Kind.Man,
 										type: 1,
@@ -669,7 +669,7 @@ const fields = [
 									},
 									{
 										id: uid(),
-										parents: ['Документ', 'Входящий', 'Отправитель'],
+										parents: ['Документ', 'Входящий', 'Организация отправитель'],
 										text: 'Организация',
 										kind: Kind.Org,
 										type: 1,
@@ -680,7 +680,7 @@ const fields = [
 									},
 									{
 										id: uid(),
-										parents: ['Документ', 'Входящий', 'Отправитель'],
+										parents: ['Документ', 'Входящий', 'Организация отправитель'],
 										text: 'Телефон',
 										kind: Kind.Phone,
 										type: 1,
@@ -691,7 +691,7 @@ const fields = [
 									},
 									{
 										id: uid(),
-										parents: ['Документ', 'Входящий', 'Отправитель'],
+										parents: ['Документ', 'Входящий', 'Организация отправитель'],
 										text: 'Email',
 										kind: Kind.Email,
 										type: 1,
@@ -879,7 +879,7 @@ const fields = [
 								id: uid(),
 								parents: ['Задание', 'Автор'],
 								text: 'Руководитель',
-								kind: Kind.Bool,
+								kind: Kind.Man,
 								drag: true,
 								common: true,
 								man: true,
@@ -1381,7 +1381,7 @@ const fields = [
 										id: uid(),
 										parents: ['Задание', 'На исполнение', 'Автор'],
 										text: 'Руководитель',
-										kind: Kind.Bool,
+										kind: Kind.Man,
 										drag: true,
 										man: true,
 									},
@@ -1852,7 +1852,7 @@ const fields = [
 										id: uid(),
 										parents: ['Задание', 'На ознакомление', 'Автор'],
 										text: 'Руководитель',
-										kind: Kind.Bool,
+										kind: Kind.Man,
 										drag: true,
 										man: true,
 									},
@@ -1943,7 +1943,7 @@ const fields = [
 										hidden: false,
 										selected: false,
 										id: uid(),
-										parents: ['Задание', 'На ознакомление', 'Автор'],
+										parents: ['Задание', 'На ознакомление', 'Авто��'],
 										text: 'Значимость',
 										drag: true,
 									},
@@ -2313,7 +2313,7 @@ const fields = [
 										id: uid(),
 										parents: ['Задание', 'На согласование', 'Автор'],
 										text: 'Руководитель',
-										kind: Kind.Bool,
+										kind: Kind.Man,
 										drag: true,
 										man: true,
 									},
