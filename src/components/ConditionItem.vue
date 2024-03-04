@@ -257,13 +257,13 @@ const setName = (e: string) => {
 	align-items: center;
 	.syn {
 		margin-left: 1rem;
-		visibility: hidden;
+		// visibility: hidden;
 	}
-	&:hover {
-		.syn {
-			visibility: visible;
-		}
-	}
+	// &:hover {
+	// 	.syn {
+	// 		visibility: visible;
+	// 	}
+	// }
 }
 .txt {
 	display: flex;
