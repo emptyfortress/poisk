@@ -1124,6 +1124,7 @@ const fields = [
 						kind: Kind.Man,
 						drag: true,
 						common: true,
+						man: true,
 					},
 					{
 						type: 1,
@@ -1284,6 +1285,7 @@ const fields = [
 						kind: Kind.Man,
 						drag: true,
 						common: true,
+						man: true,
 					},
 					{
 						type: 1,
@@ -1718,6 +1720,7 @@ const fields = [
 								text: 'Руководитель',
 								kind: Kind.Man,
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -1864,6 +1867,7 @@ const fields = [
 								text: 'Руководитель',
 								kind: Kind.Man,
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -2171,7 +2175,7 @@ const fields = [
 								hidden: false,
 								selected: false,
 								id: uid(),
-								parents: ['Задание', 'На ознакомление', 'Автор'],
+								parents: ['Задание', 'На ознакомлен��е', 'Автор'],
 								text: 'Email',
 								kind: Kind.Email,
 								drag: true,
@@ -2293,6 +2297,7 @@ const fields = [
 								text: 'Руководитель',
 								kind: Kind.Man,
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -2439,6 +2444,7 @@ const fields = [
 								text: 'Руководитель',
 								kind: Kind.Man,
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -2858,6 +2864,7 @@ const fields = [
 								text: 'Руководитель',
 								kind: Kind.Man,
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -3004,6 +3011,7 @@ const fields = [
 								text: 'Руководитель',
 								kind: Kind.Man,
 								drag: true,
+								man: true,
 							},
 							{
 								type: 1,
@@ -3226,6 +3234,7 @@ const fields = [
 						text: 'Руководитель',
 						kind: Kind.Man,
 						drag: true,
+						man: true,
 					},
 					{
 						type: 1,
@@ -3476,6 +3485,7 @@ const fields = [
 						text: 'Руководитель',
 						kind: Kind.Man,
 						drag: true,
+						man: true,
 					},
 					{
 						type: 1,
