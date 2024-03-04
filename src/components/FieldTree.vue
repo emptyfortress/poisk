@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed, reactive } from 'vue'
+import { ref, watch, computed } from 'vue'
 import WordHighlighter from 'vue-word-highlighter'
 import { fields, operators } from '@/stores/fields'
 import {
