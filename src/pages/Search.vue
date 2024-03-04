@@ -5,7 +5,7 @@ import ZaprosMain from '@/components/ZaprosMain.vue'
 import FieldTree from '@/components/FieldTree.vue'
 import { searches } from '@/stores/tree'
 
-const splitterModel = ref(18)
+const splitterModel = ref(0)
 const splitterModel1 = ref(80)
 
 const hei = computed(() => {
