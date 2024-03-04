@@ -146,7 +146,7 @@ const hideFirst = computed(() => {
 	.zero.q-pl-lg(:class="hideFirst" )
 		.icon(:class="{ or: all[0].typ === true }" @click.stop="next")
 		.q-ml-md Оператор
-		.text-weight-bold.q-ml-sm {{ typ == true ? 'ИЛИ' : 'И' }}
+		.text-weight-bold.q-ml-sm {{ all[0].typ == true ? 'ИЛИ' : 'И' }}
 
 	Draggable.pad(ref="tree"
 		treeLine
