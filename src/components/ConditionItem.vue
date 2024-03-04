@@ -61,7 +61,19 @@ const kill = () => {
 	emit('kill')
 }
 const showLast = computed(() => {
-	if (props.stat.data.text2 == 'Значение задано' || props.stat.data.text2 == 'Значение не задано') {
+	if (
+		props.stat.data.text2 == 'Значение задано' ||
+		props.stat.data.text2 == 'Значение не задано' ||
+		props.stat.data.text2 == 'Я' ||
+		props.stat.data.text2 == 'Мои подчиненные' ||
+		props.stat.data.text2 == 'Мой руководитель' ||
+		props.stat.data.text2 == 'Сегодня' ||
+		props.stat.data.text2 == 'Сейчас' ||
+		props.stat.data.text2 == 'Текущая неделя' ||
+		props.stat.data.text2 == 'Текущий месяц' ||
+		props.stat.data.text2 == 'Текущий квартал' ||
+		props.stat.data.text2 == 'Текущий год'
+	) {
 		return false
 	}
 	return true
