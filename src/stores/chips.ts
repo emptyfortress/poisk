@@ -36,7 +36,7 @@ export const useChips = defineStore({
 			},
 			{
 				id: 11,
-				label: 'Цель',
+				label: 'Квартальная цель',
 				ticked: false,
 			},
 			{

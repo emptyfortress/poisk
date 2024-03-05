@@ -110,7 +110,7 @@ q-dialog(v-model="modelValue" )
 					div
 						q-chip(v-model:selected="mychips.chips[3].ticked" @click="add(mychips.chips[3])") Группа заданий
 					div
-						q-chip(v-model:selected="mychips.chips[4].ticked" @click="add(mychips.chips[4])") Цель
+						q-chip(v-model:selected="mychips.chips[4].ticked" @click="add(mychips.chips[4])") Квартальная цель
 					div
 						q-chip(v-model:selected="mychips.chips[5].ticked" @click="add(mychips.chips[5])") Командировка
 		q-card-section(v-if="props.create")
